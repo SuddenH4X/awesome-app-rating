@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="RatingTitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/margin_extra_big</item>
+        <item name="android:layout_marginLeft">@dimen/margin_extra_big</item>
+        <item name="android:layout_marginEnd">@dimen/margin_extra_big</item>
+        <item name="android:layout_marginRight">@dimen/margin_extra_big</item>
+        <item name="android:layout_marginTop">@dimen/margin_normal</item>
+        <item name="android:layout_marginBottom">@dimen/margin_normal</item>
+    </style>
+
+    <style name="RatingMessageText" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginStart">@dimen/margin_big</item>
+        <item name="android:layout_marginLeft">@dimen/margin_big</item>
+        <item name="android:layout_marginEnd">@dimen/margin_big</item>
+        <item name="android:layout_marginRight">@dimen/margin_big</item>
+        <item name="android:layout_marginBottom">@dimen/margin_normal</item>
+    </style>
+
+</resources>

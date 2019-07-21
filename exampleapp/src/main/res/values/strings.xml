@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Example App</string>
+    <string name="app_name">awesome-app-rate Example App</string>
+    <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart.</string>
+    <string name="text_default_example">This example has no customizations. Debug is enabled.</string>
+    <string name="button_default_example">Default</string>
+    <string name="button_custom_icon">Custom Icon</string>
+    <string name="text_custom_icon">In this example the default icon (app icon) has been replaced with a cusom icon. Debug is enabled.</string>
+    <string name="text_custom_feedback">This example uses the custom feedback dialog instead of the mail feedback dialog. Debug is enabled.</string>
+    <string name="button_custom_feedback">Custom feedback</string>
+    <string name="text_show_never">In this example the show never button is displayed. Debug is enabled.</string>
+    <string name="button_show_never">Show \"Never\" button</string>
+    <string name="text_show_on_third_click">In this example debug is disabled. The dialog will show on the third click. If the \"Later\" button is clicked,
+        the dialog will show again after 5 more clicks. You can also use the \"Never\" button.
+    \nAttention: If you have already clicked the never button of another example, this dialog will not show until you restart the app.
+    </string>
+    <string name="button_show_on_third_click">Show on third click</string>
+    <string name="text_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you need to rate at least 4.5 stars
+        to see the store rating dialog. Debug is enabled.</string>
+    <string name="button_rating_threshold_4_and_a_half">Rating threshold 4.5</string>
 </resources>

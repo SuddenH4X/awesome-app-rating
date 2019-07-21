@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">awesome-app-rate</string>
+    <string name="rating_dialog_button_rate_later">Later</string>
+    <string name="rating_dialog_button_rate_never">Never</string>
+
+    // rating dialog overview
+    <string name="rating_dialog_overview_image_content_description">App Icon</string>
+    <string name="rating_dialog_overview_title">How was your experience with this app?</string>
+    <string name="rating_dialog_overview_button_confirm">Confirm</string>
+
+    // rating dialog store
+    <string name="rating_dialog_store_title">Store Rating</string>
+    <string name="rating_dialog_store_message">If you enjoy using this app, would you mind taking a moment to rate it? Thanks for your support!</string>
+    <string name="rating_dialog_store_button_rate_now">Rate</string>
+
+    // rating dialog feedback
+    <string name="rating_dialog_feedback_title">Give Feedback</string>
+    <string name="rating_dialog_feedback_button_no">No</string>
+
+    // rating dialog mail feedback
+    <string name="rating_dialog_feedback_mail_message">We want to improve the App with your help. Do you want to send an email with your suggestions?</string>
+    <string name="rating_dialog_feedback_mail_button_mail">Mail</string>
+
+    // rating dialog custom feedback
+    <string name="rating_dialog_feedback_custom_message">Suggest us what went wrong and we\'ll work on it.</string>
+    <string name="rating_dialog_feedback_custom_button_submit">Submit</string>
 </resources>
