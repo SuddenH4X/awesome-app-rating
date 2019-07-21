@@ -18,8 +18,10 @@ class MainActivity : AppCompatActivity() {
     fun onDefaultExampleButtonClicked(view: View) {
         AppRating.Builder(this)
                 .setDebug(true)
-                // needed to unset the icon drawable from the method below
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
                 .setIconDrawable(null)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
                 .showIfMeetsConditions()
     }
 
@@ -28,6 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         AppRating.Builder(this)
                 .setDebug(true)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
                 .setIconDrawable(iconDrawable)
                 .showIfMeetsConditions()
     }
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     fun onCustomFeedbackButtonClicked(view: View) {
         AppRating.Builder(this)
                 .setDebug(true)
-                // needed to unset the icon drawable from the method below
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
                 .setIconDrawable(null)
                 .setUseCustomFeedback(true)
                 .showIfMeetsConditions()
@@ -44,8 +48,10 @@ class MainActivity : AppCompatActivity() {
     fun onShowNeverButtonClicked(view: View) {
         AppRating.Builder(this)
                 .setDebug(true)
-                // needed to unset the icon drawable from the method below
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
                 .setIconDrawable(null)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
                 .setRateLaterButton()
                 .showRateNeverButton()
                 .showIfMeetsConditions()
@@ -53,8 +59,10 @@ class MainActivity : AppCompatActivity() {
 
     fun onShowOnThirdClickButtonClicked(view: View) {
         AppRating.Builder(this)
-                // needed to unset the icon drawable from the method below
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
                 .setIconDrawable(null)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
                 .setRateLaterButton()
                 .showRateNeverButton()
                 .setMinimumLaunchTimes(3)
@@ -67,8 +75,10 @@ class MainActivity : AppCompatActivity() {
     fun onRatingThresholdButtonClicked(view: View) {
         AppRating.Builder(this)
                 .setDebug(true)
-                // needed to unset the icon drawable from the method below
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
                 .setIconDrawable(null)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
                 .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
                 .showIfMeetsConditions()
     }
