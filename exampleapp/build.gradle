@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "suddenh4x.com.exampleapp"
+        applicationId "com.suddenh4x.ratingdialog.exampleapp"
         minSdkVersion 14
         targetSdkVersion 28
         versionCode 1

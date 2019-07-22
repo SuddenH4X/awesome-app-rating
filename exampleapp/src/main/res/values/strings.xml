@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">awesome-app-rate Example App</string>
+    <string name="app_name">awesome-app-rating Example App</string>
     <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart.</string>
     <string name="text_default_example">This example has no customizations. Debug is enabled.</string>
     <string name="button_default_example">Default</string>
