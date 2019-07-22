@@ -60,6 +60,7 @@ internal object DialogManager {
         return builder.create().also { dialog -> initRatingBar(ratingOverviewDialogView, dialog) }
     }
 
+    @SuppressLint("ResourceType")
     private fun showOverviewMessage(dialogOptions: DialogOptions, messageTextView: TextView) {
         dialogOptions.messageTextId?.let { messageTextId ->
             messageTextView.apply {
