@@ -1,6 +1,8 @@
 # WIP: Awesome App Rate
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
+![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/feature/update_readme/preview/showcase.png)
+
 # Features
 - Auto fetches the app icon to use it in the dialog
 - Let the dialog show up on a defined app session or after n days of usage
