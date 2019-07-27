@@ -89,6 +89,7 @@ internal object DialogManager {
 
         builder.apply {
             setView(ratingStoreDialogView)
+            setCancelable(dialogOptions.cancelable)
 
             dialogOptions.rateNowButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
@@ -112,6 +113,7 @@ internal object DialogManager {
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
             setMessage(dialogOptions.feedbackMailMessageTextId)
+            setCancelable(dialogOptions.cancelable)
 
             dialogOptions.mailFeedbackButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
@@ -140,6 +142,7 @@ internal object DialogManager {
 
         builder.apply {
             setView(ratingCustomFeedbackDialogView)
+            setCancelable(dialogOptions.cancelable)
 
             dialogOptions.customFeedbackButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
