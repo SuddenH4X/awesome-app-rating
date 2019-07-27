@@ -37,14 +37,122 @@ dependencies {
 This library provides a builder to configure its behavior. 
 ```kotlin
  AppRating.Builder(this)
-            .setMinimumLaunchTimes(10)
+            .setMinimumLaunchTimes(5)
             .setMinimumDays(7)
+			.setMinimumLaunchTimesToShowAgain(5)
+			.setMinimumDaysToShowAgain(10)
             .setRatingThreshold(RatingThreshold.FOUR)
-            .showIfMeetsConditions()
+			.showIfMeetsConditions()
 ```
-You should call the builder only in the `onCreate()` method of your main Activity class.
+You should call the builder only in the `onCreate()` method of your main Activity class, because every call of the method `showIfMeetsConditions` will increase the launch times.
 
-If you want the dialog to appear on the Nth session, just add `setMinimumLaunchTimes(N)` to the dialog builder method and call it in the `onCreate()` method of your main Activity class. The dialog will appear when the app is opened for the Nth time.
+With the settings above the dialog will show up if the following conditions are met:
+
+- The app is installed for a minimum of 7 days and 
+- the app is launched for a minimum of 5 times
+
+Furthermore the dialog will show up again if the user has clicked the `later` button of the dialog and
+
+- The button click happened at least 10 days ago and 
+- the app is launched again for a minimum of 5 times.
+
+If the rate, feedback or never button is clicked once, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but this is not recommended.
+
+If you have adjusted the dialog to suit your preferences, you have multiple possibilities to show it. Usually you want to show the dialog if the configured conditions are met:
+
+```kotlin
+ratingBuilder.showIfMeetsConditions()
+```
+
+But you can also just create the dialog to show it later
+
+```kotlin
+ratingBuilder.create()
+```
+
+or you can show it immediately:
+
+```kotlin
+ratingBuilder.showNow()
+```
+
+### Configuration
+
+Between the constructor and the show or create method you can adjust the dialog to suit your preferences. You have the following options:
+
+- Change the number of days the app has to be installed
+
+```kotlin
+.setMinimumDays(minimumDays: Int) // default is 3
+```
+
+- Change the minimum number of app launches
+
+```kotlin
+setMinimumLaunchTimes(launchTimes: Int) // default is 5
+```
+
+- Change the number of days that must have passed away after the last `later` button click
+
+```kotlin
+setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) // default is 14
+```
+
+- Change the minimum number of app launches after the last `later` button click
+
+```kotlin
+setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) // default is 5
+```
+
+- Change the icon of the dialog
+
+```kotlin
+setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
+```
+
+- Change the rate later button text and add a click listener
+
+```kotlin
+setRateLaterButton(rateLaterButtonTextId: Int, onRateLaterButtonClickListener: RateDialogClickListener)
+```
+
+- Show the rate never button, change the button text and add a click listener
+
+```kotlin
+showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+```
+
+- Change the title of the rating dialog
+
+```kotlin
+setTitleTextId(titleTextId: Int)
+```
+
+- Add a message to the rating dialog
+
+```kotlin
+setMessageTextId(messageTextId: Int) // by default no message is shown
+```
+
+- Change the confirm button text
+
+```kotlin
+setConfirmButtonTextId(confirmButtonTextId: Int)
+```
+
+- Change the title of the store rating dialog
+
+```kotlin
+setStoreRatingTitleTextId(storeRatingTitleTextId: Int)
+```
+
+- Change the message of the store rating dialog
+
+```kotlin
+setStoreRatingMessageTextId(storeRatingMessageTextId: Int)
+```
+
+
 
 ## Note
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
