@@ -119,6 +119,8 @@ object AppRating {
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
 
+        fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply { RatingLogger.isLoggingEnabled = isLoggingEnabled }
+
         fun create(): DialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply { putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, dialogOptions) }
