@@ -2,7 +2,7 @@
     <string name="app_name">awesome-app-rating Example App</string>
 
     <!-- Example Buttons and Descriptions -->
-    <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart.</string>
+    <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart. Maybe you also have to kill the app.</string>
     <string name="text_default_example">This example has no customizations. Debug is enabled.</string>
     <string name="button_default_example">Default</string>
     <string name="button_custom_icon">Custom Icon</string>
