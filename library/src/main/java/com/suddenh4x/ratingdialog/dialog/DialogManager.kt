@@ -92,7 +92,7 @@ internal object DialogManager {
             setView(ratingStoreDialogView)
             setCancelable(dialogOptions.cancelable)
 
-            dialogOptions.rateButton.let { button ->
+            dialogOptions.rateNowButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
                     RatingLogger.info("Rate button clicked.")
                     PreferenceUtil.setDialogAgreed(context)

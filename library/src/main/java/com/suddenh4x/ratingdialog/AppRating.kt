@@ -65,9 +65,9 @@ object AppRating {
 
         fun setStoreRatingMessageTextId(@StringRes storeRatingMessageTextId: Int) = apply { dialogOptions.storeRatingMessageTextId = storeRatingMessageTextId }
 
-        fun setRateNowButton(@StringRes rateNowButtonTextId: Int = R.string.rating_dialog_store_button_rate_now, rateNowButtonClickListener: RateDialogClickListener? = null) =
-                apply { dialogOptions.rateButton = RateButton(rateNowButtonTextId, rateNowButtonClickListener) }
+        fun setRateNowButtonTextId(@StringRes rateNowButtonTextId: Int) = apply { dialogOptions.rateNowButton.textId = rateNowButtonTextId }
 
+        fun setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) = apply { dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener }
 
         // rating dialog feedback
         fun setFeedbackTitleTextId(@StringRes feedbackTitleTextId: Int) = apply { dialogOptions.feedbackTitleTextId = feedbackTitleTextId }
@@ -144,7 +144,8 @@ object AppRating {
         }
 
         private fun initializeRateNowButton() {
-            val onRateNowClickListener = object : RateDialogClickListener {
+            setRateNowButtonTextId(R.string.rating_dialog_store_button_rate_now)
+            setRateNowButtonClickListener(object : RateDialogClickListener {
                 override fun onClick() {
                     RatingLogger.info("Default rate now button click listener was called.")
                     val url = Uri.parse(GOOGLE_PLAY_URL + context.packageName)
@@ -152,8 +153,7 @@ object AppRating {
                     val googlePlayIntent = Intent(Intent.ACTION_VIEW, url)
                     context.startActivity(googlePlayIntent)
                 }
-            }
-            setRateNowButton(R.string.rating_dialog_store_button_rate_now, onRateNowClickListener)
+            })
             RatingLogger.debug("Default rate now button initialized.")
         }
 
