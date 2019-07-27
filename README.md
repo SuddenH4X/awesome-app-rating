@@ -3,7 +3,7 @@ A highly customizable Android library providing a dialog, which asks the user to
 
 ![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/feature/update_readme/preview/showcase.png)
 
-# Features
+## Features
 - Auto fetches the app icon to use it in the dialog
 - Let the dialog show up on a defined app session or after n days of usage
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
@@ -20,14 +20,37 @@ This library is:
 - Android Q (API 29) ready __(in progress)__
 - Easy to use
 
-# How to use
+## How to use
+### Gradle
+You can simply include the library via Gradle:
+
+```groovy
+dependencies {
+    ...
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:1.0.0'
+}
+```
+
+
+
+### Builder usage
+This library provides a builder to configure its behavior. 
+```kotlin
+ AppRating.Builder(this)
+            .setMinimumLaunchTimes(10)
+            .setMinimumDays(7)
+            .setRatingThreshold(RatingThreshold.FOUR)
+            .showIfMeetsConditions()
+```
+You should call the builder only in the `onCreate()` method of your main Activity class.
+
 If you want the dialog to appear on the Nth session, just add `setMinimumLaunchTimes(N)` to the dialog builder method and call it in the `onCreate()` method of your main Activity class. The dialog will appear when the app is opened for the Nth time.
 
-# Note
+## Note
+* Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
 
-# Recommendations
-
-# License
+## Recommendations
+## License
 ```
 Copyright (C) 2019 SuddenH4X
 
