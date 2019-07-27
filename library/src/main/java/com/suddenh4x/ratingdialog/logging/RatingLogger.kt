@@ -2,36 +2,36 @@ package com.suddenh4x.ratingdialog.logging
 
 import android.util.Log
 
-object RatingLogger {
+internal object RatingLogger {
     private const val TAG = "awesome_app_rate"
-    var loggingEnabled = true
+    var isLoggingEnabled = true
 
-    internal fun verbose(logMessage: String) {
-        if (loggingEnabled) {
+    fun verbose(logMessage: String) {
+        if (isLoggingEnabled) {
             Log.v(TAG, logMessage)
         }
     }
 
-    internal fun debug(logMessage: String) {
-        if (loggingEnabled) {
+    fun debug(logMessage: String) {
+        if (isLoggingEnabled) {
             Log.d(TAG, logMessage)
         }
     }
 
-    internal fun info(logMessage: String) {
-        if (loggingEnabled) {
+    fun info(logMessage: String) {
+        if (isLoggingEnabled) {
             Log.i(TAG, logMessage)
         }
     }
 
-    internal fun warn(logMessage: String) {
-        if (loggingEnabled) {
+    fun warn(logMessage: String) {
+        if (isLoggingEnabled) {
             Log.w(TAG, logMessage)
         }
     }
 
-    internal fun error(logMessage: String) {
-        if (loggingEnabled) {
+    fun error(logMessage: String) {
+        if (isLoggingEnabled) {
             Log.e(TAG, logMessage)
         }
     }

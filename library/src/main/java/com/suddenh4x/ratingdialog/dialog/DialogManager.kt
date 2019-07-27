@@ -92,16 +92,13 @@ internal object DialogManager {
             setView(ratingStoreDialogView)
             setCancelable(dialogOptions.cancelable)
 
-            dialogOptions.rateButton.let { button ->
+            dialogOptions.rateNowButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
                     RatingLogger.info("Rate button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    if (button.rateDialogClickListener != null) {
-                        button.rateDialogClickListener.onClick()
-                    } else {
-                        RatingLogger.error("Rate button has no click listener. Nothing happens.")
-                    }
+                    button.rateDialogClickListener?.onClick()
+                            ?: RatingLogger.error("Rate button has no click listener. Nothing happens.")
                 }
             }
             initializeRateLaterButton(context, dialogOptions.rateLaterButton, this)
@@ -124,11 +121,9 @@ internal object DialogManager {
                     RatingLogger.info("Mail feedback button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    if (button.rateDialogClickListener != null) {
-                        button.rateDialogClickListener.onClick()
-                    } else {
-                        RatingLogger.error("Mail feedback button has no click listener. Nothing happens.")
-                    }
+                    button.rateDialogClickListener?.onClick()
+                            ?: RatingLogger.error("Mail feedback button has no click listener. Nothing happens.")
+
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
@@ -203,11 +198,8 @@ internal object DialogManager {
             dialogBuilder.setNeutralButton(button.textId) { _, _ ->
                 RatingLogger.info("Rate later button clicked.")
                 PreferenceUtil.updateRemindTimestamp(context)
-                if (button.rateDialogClickListener != null) {
-                    button.rateDialogClickListener.onClick()
-                } else {
-                    RatingLogger.info("Rate later button has no click listener.")
-                }
+                button.rateDialogClickListener?.onClick()
+                        ?: RatingLogger.info("Rate later button has no click listener.")
             }
         }
     }
@@ -217,11 +209,8 @@ internal object DialogManager {
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("Rate never button clicked.")
                 PreferenceUtil.setDoNotShowAgain(context)
-                if (button.rateDialogClickListener != null) {
-                    button.rateDialogClickListener.onClick()
-                } else {
-                    RatingLogger.info("Rate never button has no click listener.")
-                }
+                button.rateDialogClickListener?.onClick()
+                        ?: RatingLogger.info("Rate never button has no click listener.")
             }
         }
     }
@@ -231,11 +220,8 @@ internal object DialogManager {
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("No feedback button clicked.")
                 PreferenceUtil.setDialogAgreed(context)
-                if (button.rateDialogClickListener != null) {
-                    button.rateDialogClickListener.onClick()
-                } else {
-                    RatingLogger.info("No feedback button has no click listener.")
-                }
+                button.rateDialogClickListener?.onClick()
+                        ?: RatingLogger.info("No feedback button has no click listener.")
             }
         }
     }
