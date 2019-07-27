@@ -57,7 +57,7 @@ Furthermore the dialog will show up again if the user has clicked the `later` bu
 - The button click happened at least 10 days ago and 
 - the app is launched again for a minimum of 5 times.
 
-If the rate, feedback or never button is clicked once, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but this is not recommended.
+If the rate or never button is clicked once or if the user rates below the defined minimum threshold, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but this is not recommended.
 
 If you have adjusted the dialog to suit your preferences, you have multiple possibilities to show it. Usually you want to show the dialog if the configured conditions are met:
 
@@ -238,12 +238,22 @@ Between the constructor and the show or create method you can adjust the dialog 
 ```
 
 ## Note
+* Don't forget to set up you mail address, if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
 * If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
-* If you have any problems, check out the logs in Logcat first (You can filter by "awesome_app_rating")
+* If the user rates below the defined minimum threshold, the dialog will not show up again
+* If you don't want to customize anything, you can just use `AppRating.Builder(this).showIfMeetsConditions()` without any settings
+* If you have any problems, check out the logs in Logcat first (You can filter by `awesome_app_rating`)
+* Just look at the example app to get a first impression
 
 ## Recommendations
+- Don't show the dialog immediately after install
+- Don't set the rating threshold to 5
+- Show the `Never` button so the user can decide whether or not to rate your app
+- Don't use `AppRating.reset(this)` 
+
 ## License
+
 ```
 Copyright (C) 2019 SuddenH4X
 
