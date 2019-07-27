@@ -12,13 +12,14 @@ A highly customizable Android library providing a dialog, which asks the user to
 - The dialog handles orientation changes correctly
 - Extracts the accent color of your app's theme
 
-This library is:
-- Completely written in Kotlin
-- Unit and UI tested __(in progress)__
-- AndroidX ready
-- Easy debuggable
-- Android Q (API 29) ready __(in progress)__
-- Easy to use
+This library:
+- is completely written in Kotlin
+- is Unit and UI tested __(in progress)__
+- uses AndroidX
+- uses no third party dependencies
+- is easy debuggable
+- is Android Q (API 29) ready __(in progress)__
+- is easy to use
 
 ## How to use
 ### Gradle
@@ -238,6 +239,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 
 ## Note
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
+* If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
+* If you have any problems, check out the logs in Logcat first (You can filter by "awesome_app_rating")
 
 ## Recommendations
 ## License
