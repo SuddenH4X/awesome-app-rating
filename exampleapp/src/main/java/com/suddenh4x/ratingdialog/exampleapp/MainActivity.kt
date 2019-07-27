@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.suddenh4x.ratingdialog.AppRating
+import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
 class MainActivity : AppCompatActivity() {
@@ -80,6 +81,30 @@ class MainActivity : AppCompatActivity() {
                 // This is needed to unset the custom feedback. You don't need to use this in your app.
                 .setUseCustomFeedback(false)
                 .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
+                .showIfMeetsConditions()
+    }
+
+    fun onCustomTextsButtonClicked(view: View) {
+        AppRating.Builder(this)
+                .setDebug(true)
+                // This is needed to unset the icon drawable. You don't need to use this in your app.
+                .setIconDrawable(null)
+                // This is needed to unset the custom feedback. You don't need to use this in your app.
+                .setUseCustomFeedback(false)
+                .setRateNowButtonTextId(R.string.button_rate_now)
+                .setRateLaterButton(R.string.button_rate_later)
+                .showRateNeverButton(R.string.button_rate_never)
+                .setTitleTextId(R.string.title_overview)
+                .setMessageTextId(R.string.message_overview)
+                .setConfirmButtonTextId(R.string.button_confirm)
+                .setStoreRatingTitleTextId(R.string.title_store)
+                .setStoreRatingMessageTextId(R.string.message_store)
+                .setFeedbackTitleTextId(R.string.title_feedback)
+                .setMailFeedbackMessageTextId(R.string.message_feedback)
+                .setMailFeedbackButton(R.string.button_mail_feedback, object : RateDialogClickListener {
+                    override fun onClick() {}
+                })
+                .setNoFeedbackButton(R.string.button_no_feedback)
                 .showIfMeetsConditions()
     }
 }
