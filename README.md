@@ -80,6 +80,8 @@ ratingBuilder.showNow()
 
 Between the constructor and the show or create method you can adjust the dialog to suit your preferences. You have the following options:
 
+#### When to show up
+
 - Change the number of days the app has to be installed
 
 ```kotlin
@@ -89,70 +91,150 @@ Between the constructor and the show or create method you can adjust the dialog 
 - Change the minimum number of app launches
 
 ```kotlin
-setMinimumLaunchTimes(launchTimes: Int) // default is 5
+.setMinimumLaunchTimes(launchTimes: Int) // default is 5
 ```
 
 - Change the number of days that must have passed away after the last `later` button click
 
 ```kotlin
-setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) // default is 14
+.setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) // default is 14
 ```
 
 - Change the minimum number of app launches after the last `later` button click
 
 ```kotlin
-setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) // default is 5
+.setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) // default is 5
 ```
+
+#### Design
 
 - Change the icon of the dialog
 
 ```kotlin
-setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
+.setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
 ```
 
 - Change the rate later button text and add a click listener
 
 ```kotlin
-setRateLaterButton(rateLaterButtonTextId: Int, onRateLaterButtonClickListener: RateDialogClickListener)
+.setRateLaterButton(rateLaterButtonTextId: Int, onRateLaterButtonClickListener: RateDialogClickListener)
 ```
 
 - Show the rate never button, change the button text and add a click listener
 
 ```kotlin
-showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+.showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
 ```
 
 - Change the title of the rating dialog
 
 ```kotlin
-setTitleTextId(titleTextId: Int)
+.setTitleTextId(titleTextId: Int)
 ```
 
 - Add a message to the rating dialog
 
 ```kotlin
-setMessageTextId(messageTextId: Int) // by default no message is shown
+.setMessageTextId(messageTextId: Int) // by default no message is shown
 ```
 
 - Change the confirm button text
 
 ```kotlin
-setConfirmButtonTextId(confirmButtonTextId: Int)
+.setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
 
 - Change the title of the store rating dialog
 
 ```kotlin
-setStoreRatingTitleTextId(storeRatingTitleTextId: Int)
+.setStoreRatingTitleTextId(storeRatingTitleTextId: Int)
 ```
 
 - Change the message of the store rating dialog
 
 ```kotlin
-setStoreRatingMessageTextId(storeRatingMessageTextId: Int)
+.setStoreRatingMessageTextId(storeRatingMessageTextId: Int)
 ```
 
+- Change the rate now button text
 
+```kotlin
+.setRateNowButtonTextId(rateNowButtonTextId: Int)
+```
+
+- Override the rate now button click listener
+
+````kotlin
+.setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+````
+
+- Change the title of the feedback dialog
+
+```kotlin
+.setFeedbackTitleTextId(feedbackTitleTextId: Int)
+```
+
+- Change the no feedback button text and add a click listener
+
+```kotlin
+.setNoFeedbackButton(noFeedbackButtonTextId: Int, noFeedbackButtonClickListener: RateDialogClickListener)
+```
+
+- Change the message of the mail feedback dialog (not visible if custom feedback is enabled)
+
+```kotlin
+.setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
+```
+
+- Change the mail feedback button text and add a click listener (not visible if custom feedback is enabled)
+
+```kotlin
+.setMailFeedbackButton(mailFeedbackButtonTextId: Int, mailFeedbackButtonClickListener: RateDialogClickListener)
+```
+
+- Use the custom feedback dialog instead of the mail feedback dialog
+
+```kotlin
+.setUseCustomFeedback(useCustomFeedback: Boolean) // default is false
+```
+
+- Change the message of the custom feedback dialog (only visible if custom feedback is enabled)
+
+```kotlin
+.setCustomFeedbackMessageTextId(feedbackCustomMessageTextId: Int)
+```
+
+- Change the custom feedback button text and add a click listener (only visible if custom feedback is enabled)
+
+```kotlin
+.setCustomFeedbackButton(customFeedbackButtonTextId: Int, customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
+```
+
+#### Other settings
+
+- Choose the rating threshold. If the user rates below, the feedback dialog will show up. If the user rates the threshold or higher, the store dialog will show up.
+
+```kotlin
+.setRatingThreshold(ratingThreshold: RatingThreshold) // default is RatingThreshold.THREE
+```
+
+- Choose if the dialogs should be cancelable (by clicking outside or using the back button)
+
+```kotlin
+.setCancelable(cancelable: Boolean) // default is false
+```
+
+- Disable all library logs
+
+```kotlin
+.setLoggingEnabled(isLoggingEnabled: Boolean) // default is true
+```
+
+- Enable debug mode which will cause the dialog to show up immediately when calling `showIfMeetsConditions()`  (no conditions will be checked)
+
+```kotlin
+.setDebug(isDebug: Boolean) // default is false
+```
 
 ## Note
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
