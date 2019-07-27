@@ -72,7 +72,7 @@ object AppRating {
         // rating dialog feedback
         fun setFeedbackTitleTextId(@StringRes feedbackTitleTextId: Int) = apply { dialogOptions.feedbackTitleTextId = feedbackTitleTextId }
 
-        fun setNoFeedbackButton(@StringRes noFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_button_no, noFeedbackButtonClickListener: RateDialogClickListener) =
+        fun setNoFeedbackButton(@StringRes noFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_button_no, noFeedbackButtonClickListener: RateDialogClickListener? = null) =
                 apply { dialogOptions.noFeedbackButton = RateButton(noFeedbackButtonTextId, noFeedbackButtonClickListener) }
 
 
