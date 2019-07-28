@@ -3,7 +3,7 @@ package com.suddenh4x.ratingdialog.logging
 import android.util.Log
 
 internal object RatingLogger {
-    private const val TAG = "awesome_app_rate"
+    private const val TAG = "awesome_app_rating"
     var isLoggingEnabled = true
 
     fun verbose(logMessage: String) {
