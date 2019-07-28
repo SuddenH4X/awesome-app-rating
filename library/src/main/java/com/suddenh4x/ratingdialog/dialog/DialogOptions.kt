@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButton
 import com.suddenh4x.ratingdialog.buttons.RateButton
+import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import java.io.Serializable
 
@@ -38,6 +39,7 @@ internal object DialogOptions : Serializable {
     @StringRes
     var feedbackMailMessageTextId = R.string.rating_dialog_feedback_mail_message
     var mailFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
+    var mailSettings: MailSettings? = null
 
     // rating dialog custom feedback
     var useCustomFeedback = false
