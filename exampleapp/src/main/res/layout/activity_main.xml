@@ -86,8 +86,20 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_big"
             android:onClick="onRatingThresholdButtonClicked"
             android:text="@string/button_rating_threshold_4_and_a_half" />
+
+        <TextView
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_custom_texts" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:onClick="onCustomTextsButtonClicked"
+            android:text="@string/button_custom_texts" />
     </LinearLayout>
 </ScrollView>
