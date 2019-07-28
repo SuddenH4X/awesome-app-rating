@@ -1,4 +1,4 @@
-package com.suddenh4x.ratingdialog
+package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
 import com.suddenh4x.ratingdialog.logging.RatingLogger
