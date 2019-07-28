@@ -37,7 +37,7 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumLaunchTimes(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, 4)
+    fun getMinimumLaunchTimes(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, 5)
 
     fun setMinimumLaunchTimesToShowAgain(context: Context, minimumLaunchTimes: Int) {
         RatingLogger.verbose("Set minimum launch times to show the dialog again to $minimumLaunchTimes.")
@@ -46,7 +46,7 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumLaunchTimesToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 28)
+    fun getMinimumLaunchTimesToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
 
     fun setMinimumDays(context: Context, minimumDays: Int) {
         RatingLogger.verbose("Set minimum days to $minimumDays.")
@@ -55,7 +55,7 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumDays(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS, 7)
+    fun getMinimumDays(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS, 3)
 
     fun setMinimumDaysToShowAgain(context: Context, minimumDays: Int) {
         RatingLogger.verbose("Set minimum days to show the dialog again to $minimumDays.")
@@ -64,7 +64,7 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumDaysToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 28)
+    fun getMinimumDaysToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
     fun updateRemindTimestamp(context: Context) {
         RatingLogger.verbose("Update remind timestamp. Set launch times to 0.")

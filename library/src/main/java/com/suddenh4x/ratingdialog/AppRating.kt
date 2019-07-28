@@ -114,12 +114,12 @@ object AppRating {
 
         fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) = apply { PreferenceUtil.setMinimumDaysToShowAgain(context, minimumDaysToShowAgain) }
 
+        fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply { RatingLogger.isLoggingEnabled = isLoggingEnabled }
+
         fun setDebug(isDebug: Boolean) = apply {
             this.isDebug = isDebug
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
-
-        fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply { RatingLogger.isLoggingEnabled = isLoggingEnabled }
 
         fun create(): DialogFragment {
             val rateDialogFragment = RateDialogFragment()
