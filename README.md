@@ -109,6 +109,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 
 #### Design
 
+##### General
+
 - Change the icon of the dialog
 
 ```kotlin
@@ -127,6 +129,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 .showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
 ```
 
+##### Rating Overview
+
 - Change the title of the rating dialog
 
 ```kotlin
@@ -144,6 +148,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 ```kotlin
 .setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
+
+##### Store Rating
 
 - Change the title of the store rating dialog
 
@@ -169,6 +175,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
 ````
 
+##### Feedback
+
 - Change the title of the feedback dialog
 
 ```kotlin
@@ -181,31 +189,45 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setNoFeedbackButton(noFeedbackButtonTextId: Int, noFeedbackButtonClickListener: RateDialogClickListener)
 ```
 
-- Change the message of the mail feedback dialog (not visible if custom feedback is enabled)
-
-```kotlin
-.setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
-```
-
-- Change the mail feedback button text and add a click listener (not visible if custom feedback is enabled)
-
-```kotlin
-.setMailFeedbackButton(mailFeedbackButtonTextId: Int, mailFeedbackButtonClickListener: RateDialogClickListener)
-```
-
 - Use the custom feedback dialog instead of the mail feedback dialog
 
 ```kotlin
 .setUseCustomFeedback(useCustomFeedback: Boolean) // default is false
 ```
 
-- Change the message of the custom feedback dialog (only visible if custom feedback is enabled)
+##### Mail Feedback
+
+If custom feedback is enabled, these settings will be ignored:
+
+- Change the message of the mail feedback dialog
+
+```kotlin
+.setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
+```
+
+- Set the mail settings for the mail feedback dialog (mail address, subject, text and app chooser title)
+
+```kotlin
+setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
+```
+
+- Change the mail feedback button text and add a click listener (setting a click listener will overwrite the mail settings)
+
+```kotlin
+.setMailFeedbackButton(mailFeedbackButtonTextId: Int, mailFeedbackButtonClickListener: RateDialogClickListener)
+```
+
+##### Custom Feedback
+
+These settings will only apply if custom feedback is enabled:
+
+- Change the message of the custom feedback dialog
 
 ```kotlin
 .setCustomFeedbackMessageTextId(feedbackCustomMessageTextId: Int)
 ```
 
-- Change the custom feedback button text and add a click listener (only visible if custom feedback is enabled)
+- Change the custom feedback button text and add a click listener
 
 ```kotlin
 .setCustomFeedbackButton(customFeedbackButtonTextId: Int, customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
@@ -256,19 +278,19 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ## Note
 
-* Don't forget to set up you mail address, if you want to use the mail feedback dialog (otherwise nothing will happen)
+* Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
 * If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
-* If the user rates below the defined minimum threshold, the dialog will not show up again
+* If the user rates below the defined minimum threshold, the feedback dialog will be displayed and then the dialog will not show up again
 * If you don't want to customize anything, you can just use `AppRating.Builder(this).showIfMeetsConditions()` without any settings
-* If you have any problems, check out the logs in Logcat first (You can filter by `awesome_app_rating`)
-* Just look at the example app to get a first impression
+* If you have any problems, check out the logs in Logcat (You can filter by `awesome_app_rating`)
+* Look at the example app to get first impressions
 
 ## Recommendations
 - Don't show the dialog immediately after install
 - Don't set the rating threshold to 5
 - Show the `Never` button so the user can decide whether or not to rate your app
-- Don't use `AppRating.reset(this)` 
+- Don't use `AppRating.reset(this)` in your production app
 
 ## License
 

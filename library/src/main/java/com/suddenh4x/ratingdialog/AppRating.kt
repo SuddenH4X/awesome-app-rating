@@ -16,6 +16,7 @@ import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.dialog.RateDialogFragment
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
+import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -79,9 +80,11 @@ object AppRating {
         // rating dialog mail feedback
         fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply { dialogOptions.feedbackMailMessageTextId = feedbackMailMessageTextId }
 
+        fun setMailSettingsForFeedbackDialog(mailSettings: MailSettings) = apply { dialogOptions.mailSettings = mailSettings }
+
         fun setMailFeedbackButton(@StringRes mailFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_mail_button_mail, mailFeedbackButtonClickListener: RateDialogClickListener) =
                 apply { dialogOptions.mailFeedbackButton = RateButton(mailFeedbackButtonTextId, mailFeedbackButtonClickListener) }
-
+        
 
         // rating dialog custom feedback
         fun setUseCustomFeedback(useCustomFeedback: Boolean) = apply {
