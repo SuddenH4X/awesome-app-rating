@@ -80,11 +80,11 @@ object AppRating {
         // rating dialog mail feedback
         fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply { dialogOptions.feedbackMailMessageTextId = feedbackMailMessageTextId }
 
-        fun setMailFeedbackButton(@StringRes mailFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_mail_button_mail, mailFeedbackButtonClickListener: RateDialogClickListener) =
-                apply { dialogOptions.mailFeedbackButton = RateButton(mailFeedbackButtonTextId, mailFeedbackButtonClickListener) }
-
         fun setMailSettingsForFeedbackDialog(mailSettings: MailSettings) = apply { dialogOptions.mailSettings = mailSettings }
 
+        fun setMailFeedbackButton(@StringRes mailFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_mail_button_mail, mailFeedbackButtonClickListener: RateDialogClickListener) =
+                apply { dialogOptions.mailFeedbackButton = RateButton(mailFeedbackButtonTextId, mailFeedbackButtonClickListener) }
+        
 
         // rating dialog custom feedback
         fun setUseCustomFeedback(useCustomFeedback: Boolean) = apply {
