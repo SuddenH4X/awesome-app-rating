@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">awesome-app-rating Example App</string>
-    <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart.</string>
+
+    <!-- Example Buttons and Descriptions -->
+    <string name="text_note_app_reset">Note: All settings of this example app will be cleared after a restart. Maybe you also have to kill the app.</string>
     <string name="text_default_example">This example has no customizations. Debug is enabled.</string>
     <string name="button_default_example">Default</string>
     <string name="button_custom_icon">Custom Icon</string>
@@ -17,4 +19,23 @@
     <string name="text_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you need to rate at least 4.5 stars
         to see the store rating dialog. Debug is enabled.</string>
     <string name="button_rating_threshold_4_and_a_half">Rating threshold 4.5</string>
+    <string name="text_custom_texts">In this example the default texts has been replaced with dummy texts. Debug is enabled.</string>
+    <string name="button_custom_texts">Custom texts</string>
+
+    <!-- Custom Button Texts -->
+    <string name="button_rate_now">Foo</string>
+    <string name="button_rate_never">Doe</string>
+    <string name="button_rate_later">Bar</string>
+
+    <string name="title_overview">Another Title</string>
+    <string name="message_overview">This is an additional message, which is hidden by default.</string>
+    <string name="button_confirm">Go on!</string>
+
+    <string name="title_store">Custom Title</string>
+    <string name="message_store">The answer to life, the universe and everything is 42.</string>
+
+    <string name="title_feedback">Wow!</string>
+    <string name="message_feedback">I am so blue I\'m greener than purple.</string>
+    <string name="button_mail_feedback">Foo</string>
+    <string name="button_no_feedback">John</string>
 </resources>
