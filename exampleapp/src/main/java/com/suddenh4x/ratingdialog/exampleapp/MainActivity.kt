@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
+import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +37,19 @@ class MainActivity : AppCompatActivity() {
         appRatingBuilder
                 .setDebug(true)
                 .setIconDrawable(iconDrawable)
+                .showIfMeetsConditions()
+    }
+
+    fun onMailFeedbackButtonClicked(view: View) {
+        // This call is only needed in the example app. Just use the builder
+        // directly within your app.
+        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
+
+        appRatingBuilder
+                .setDebug(true)
+                .setMailSettingsForFeedbackDialog(MailSettings("info@your-app.de",
+                        "Feedback Mail",
+                        "This is an example text.\n\nYou could set some device infos here."))
                 .showIfMeetsConditions()
     }
 
