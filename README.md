@@ -237,7 +237,25 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setDebug(isDebug: Boolean) // default is false
 ```
 
+### Orientation Change
+
+If the orientation is changed, the `onCreate()` method will be called again and so does the Builder. These additional calls will distort the library behavior because each call of `showIfMeetsConditions()` will increase the counted app launches. To guarantee the correct behavior, you have to check for the `savedInstanceState` like this:
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_main)
+
+    if (savedInstanceState == null) {
+        AppRating.Builder(this)
+                // your configuration
+                .showIfMeetsConditions()
+    }
+}
+```
+
 ## Note
+
 * Don't forget to set up you mail address, if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
 * If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
