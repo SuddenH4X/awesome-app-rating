@@ -1,4 +1,4 @@
-# WIP: Awesome App Rate
+# Awesome App Rating
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
 ![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/feature/update_readme/preview/showcase.png)
@@ -23,7 +23,7 @@ This library:
 
 ## How to use
 ### Gradle
-You can simply include the library via Gradle:
+The library supports API level 14 and higher. You can simply include it in your app via Gradle:
 
 ```groovy
 dependencies {
@@ -31,8 +31,6 @@ dependencies {
     implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:1.0.0'
 }
 ```
-
-
 
 ### Builder usage
 This library provides a builder to configure its behavior. 
@@ -253,7 +251,7 @@ These settings will only apply if custom feedback is enabled:
 .setLoggingEnabled(isLoggingEnabled: Boolean) // default is true
 ```
 
-- Enable debug mode which will cause the dialog to show up immediately when calling `showIfMeetsConditions()`  (no conditions will be checked)
+- Enable debug mode, which will cause the dialog to show up immediately when calling `showIfMeetsConditions()`  (no conditions will be checked)
 
 ```kotlin
 .setDebug(isDebug: Boolean) // default is false
@@ -287,6 +285,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 * Look at the example app to get first impressions
 
 ## Recommendations
+The following things are highly recommended to not annoy the user, which in turn could lead to negative reviews:
+
 - Don't show the dialog immediately after install
 - Don't set the rating threshold to 5
 - Show the `Never` button so the user can decide whether or not to rate your app
