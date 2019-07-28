@@ -1,7 +1,5 @@
-package com.suddenh4x.ratingdialog
+package com.suddenh4x.ratingdialog.preferences
 
-import com.suddenh4x.ratingdialog.preferences.RatingThreshold
-import com.suddenh4x.ratingdialog.preferences.toFloat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

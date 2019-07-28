@@ -1,9 +1,8 @@
-package com.suddenh4x.ratingdialog
+package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.suddenh4x.ratingdialog.logging.RatingLogger
-import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_FILE_NAME
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_LAUNCH_TIMES
 import io.mockk.every
