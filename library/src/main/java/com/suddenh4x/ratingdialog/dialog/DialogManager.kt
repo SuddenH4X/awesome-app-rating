@@ -3,6 +3,8 @@ package com.suddenh4x.ratingdialog.dialog
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,9 +12,11 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.logging.RatingLogger
+import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import kotlinx.android.synthetic.main.dialog_rating_custom_feedback.view.*
 import kotlinx.android.synthetic.main.dialog_rating_overview.view.*
@@ -121,13 +125,26 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick()
-                            ?: RatingLogger.error("Mail feedback button has no click listener. Nothing happens.")
+                            ?: openMailAppChooser(context, dialogOptions.mailSettings)
 
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
         }
         builder.show()
+    }
+
+    private fun openMailAppChooser(context: Context, mailSettings: MailSettings?) {
+        mailSettings?.let { settings ->
+            val intent = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", settings.mailAddress, null)).apply {
+                putExtra(Intent.EXTRA_SUBJECT, settings.subject)
+                putExtra(Intent.EXTRA_TEXT, settings.text)
+            }
+
+            startActivity(context, Intent.createChooser(intent, settings.chooserTitle), null)
+            RatingLogger.info("Open mail app chooser.")
+        }
+                ?: RatingLogger.error("Mail feedback button has no click listener and mail settings are not set. Nothing happens.")
     }
 
     private fun createCustomFeedbackDialog(context: Context, dialogOptions: DialogOptions) {
