@@ -13,9 +13,9 @@ internal object ConditionsChecker {
         val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
         val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
         val remindTimestamp = PreferenceUtil.getRemindTimestamp(context)
+        val showDialogLater = PreferenceUtil.shouldShowDialogLater(context)
         val currentTimestamp = System.currentTimeMillis()
         val daysBetween = calculateDaysBetween(Date(remindTimestamp), Date(currentTimestamp))
-        val showDialogLater = PreferenceUtil.shouldShowDialogLater(context)
 
         RatingLogger.verbose("Is dialog agreed: $isDialogAgreed.")
         RatingLogger.verbose("Do not show again: $isDoNotShowAgain.")
@@ -36,7 +36,7 @@ internal object ConditionsChecker {
                 (PreferenceUtil.getLaunchTimes(context) >= PreferenceUtil.getMinimumLaunchTimes(context)))
     }
 
-    private fun calculateDaysBetween(d1: Date, d2: Date): Long {
+    internal fun calculateDaysBetween(d1: Date, d2: Date): Long {
         return TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
     }
 }
