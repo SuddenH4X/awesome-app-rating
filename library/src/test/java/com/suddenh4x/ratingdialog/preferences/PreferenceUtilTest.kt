@@ -34,7 +34,7 @@ class PreferenceUtilTest {
     }
 
     @Test
-    fun `is using correct preferences`() {
+    fun `correct preferences are used`() {
         assertEquals(PreferenceUtil.getPreferences(context), sharedPreferences)
     }
 

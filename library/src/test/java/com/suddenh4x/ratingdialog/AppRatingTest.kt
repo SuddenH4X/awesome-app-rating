@@ -238,7 +238,7 @@ class AppRatingTest {
         fun `create passes dialog options correctly`() {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } returns Unit
+            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
 
             AppRating.Builder(activity).create()
             verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, any<DialogOptions>()) }
@@ -248,8 +248,8 @@ class AppRatingTest {
         fun `show now passes dialog options correctly`() {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } returns Unit
-            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } returns Unit
+            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
+            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } just Runs
             every { activity.supportFragmentManager } returns mockk()
 
             AppRating.Builder(activity).showNow()
@@ -260,8 +260,8 @@ class AppRatingTest {
         fun `show now calls show function of RateDialogFragment`() {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } returns Unit
-            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } returns Unit
+            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
+            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } just Runs
             every { activity.supportFragmentManager } returns mockk()
 
             AppRating.Builder(activity).showNow()
@@ -271,7 +271,7 @@ class AppRatingTest {
         @Test
         fun `show if meets conditions increases launch times`() {
             mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } returns Unit
+            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
             every { ConditionsChecker.shouldShowDialog(activity) } returns false
@@ -283,13 +283,13 @@ class AppRatingTest {
         @Test
         fun `show if meets conditions calls show now if conditions are met`() {
             mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } returns Unit
+            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
             every { ConditionsChecker.shouldShowDialog(activity) } returns true
 
             mockkConstructor(AppRating.Builder::class)
-            every { anyConstructed<AppRating.Builder>().showNow() } returns Unit
+            every { anyConstructed<AppRating.Builder>().showNow() } just Runs
 
             AppRating.Builder(activity).showIfMeetsConditions()
             verify(exactly = 1) { anyConstructed<AppRating.Builder>().showNow() }
@@ -298,13 +298,13 @@ class AppRatingTest {
         @Test
         fun `show if meets conditions doesn't call show now if conditions are met`() {
             mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } returns Unit
+            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
             every { ConditionsChecker.shouldShowDialog(activity) } returns false
 
             mockkConstructor(AppRating.Builder::class)
-            every { anyConstructed<AppRating.Builder>().showNow() } returns Unit
+            every { anyConstructed<AppRating.Builder>().showNow() } just Runs
 
             AppRating.Builder(activity).showIfMeetsConditions()
             verify(exactly = 0) { anyConstructed<AppRating.Builder>().showNow() }
