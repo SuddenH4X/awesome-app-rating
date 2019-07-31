@@ -18,7 +18,7 @@ This library:
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
-- is Android Q (API 29) ready __(in progress)__
+- is Android Q (API 29) ready
 - is easy to use
 
 ## How to use
