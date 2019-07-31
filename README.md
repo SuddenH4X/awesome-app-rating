@@ -14,7 +14,7 @@ A highly customizable Android library providing a dialog, which asks the user to
 
 This library:
 - is completely written in Kotlin
-- is Unit
+- is Unit tested
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
