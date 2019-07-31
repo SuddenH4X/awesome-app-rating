@@ -27,9 +27,9 @@ object AppRating {
         RatingLogger.warn("Settings were reset.")
     }
 
-    data class Builder(var context: AppCompatActivity) {
+    data class Builder(var activity: AppCompatActivity) {
         private var dialogOptions: DialogOptions = DialogOptions
-        private var isDebug = false
+        internal var isDebug = false
 
         init {
             initializeRateNowButton()
@@ -78,7 +78,7 @@ object AppRating {
 
 
         // rating dialog mail feedback
-        fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply { dialogOptions.feedbackMailMessageTextId = feedbackMailMessageTextId }
+        fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply { dialogOptions.mailFeedbackMessageTextId = feedbackMailMessageTextId }
 
         fun setMailSettingsForFeedbackDialog(mailSettings: MailSettings) = apply { dialogOptions.mailSettings = mailSettings }
 
@@ -92,7 +92,7 @@ object AppRating {
             RatingLogger.debug("Use custom feedback instead of mail feedback: $useCustomFeedback.")
         }
 
-        fun setCustomFeedbackMessageTextId(@StringRes feedbackCustomMessageTextId: Int) = apply { dialogOptions.feedbackCustomMessageTextId = feedbackCustomMessageTextId }
+        fun setCustomFeedbackMessageTextId(@StringRes feedbackCustomMessageTextId: Int) = apply { dialogOptions.customFeedbackMessageTextId = feedbackCustomMessageTextId }
 
         fun setCustomFeedbackButton(@StringRes customFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_custom_button_submit, customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) =
                 apply { dialogOptions.customFeedbackButton = CustomFeedbackButton(customFeedbackButtonTextId, customFeedbackButtonClickListener) }
@@ -109,13 +109,13 @@ object AppRating {
             RatingLogger.debug("Set cancelable to $cancelable.")
         }
 
-        fun setMinimumLaunchTimes(launchTimes: Int) = apply { PreferenceUtil.setMinimumLaunchTimes(context, launchTimes) }
+        fun setMinimumLaunchTimes(launchTimes: Int) = apply { PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes) }
 
-        fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply { PreferenceUtil.setMinimumLaunchTimesToShowAgain(context, launchTimesToShowAgain) }
+        fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply { PreferenceUtil.setMinimumLaunchTimesToShowAgain(activity, launchTimesToShowAgain) }
 
-        fun setMinimumDays(minimumDays: Int) = apply { PreferenceUtil.setMinimumDays(context, minimumDays) }
+        fun setMinimumDays(minimumDays: Int) = apply { PreferenceUtil.setMinimumDays(activity, minimumDays) }
 
-        fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) = apply { PreferenceUtil.setMinimumDaysToShowAgain(context, minimumDaysToShowAgain) }
+        fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) = apply { PreferenceUtil.setMinimumDaysToShowAgain(activity, minimumDaysToShowAgain) }
 
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply { RatingLogger.isLoggingEnabled = isLoggingEnabled }
 
@@ -133,12 +133,12 @@ object AppRating {
         fun showNow() {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply { putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, dialogOptions) }
-            rateDialogFragment.show(context.supportFragmentManager, TAG)
+            rateDialogFragment.show(activity.supportFragmentManager, TAG)
         }
 
         fun showIfMeetsConditions() {
-            PreferenceUtil.increaseLaunchTimes(context)
-            if (isDebug || ConditionsChecker.shouldShowDialog(context)) {
+            PreferenceUtil.increaseLaunchTimes(activity)
+            if (isDebug || ConditionsChecker.shouldShowDialog(activity)) {
                 RatingLogger.info("Show rating dialog now: Conditions met.")
                 showNow()
             } else {
@@ -146,14 +146,14 @@ object AppRating {
             }
         }
 
-        private fun initializeRateNowButton() {
+        internal fun initializeRateNowButton() {
             val rateNowButtonClickListener = object : RateDialogClickListener {
                 override fun onClick() {
                     RatingLogger.info("Default rate now button click listener was called.")
-                    val url = Uri.parse(GOOGLE_PLAY_URL + context.packageName)
+                    val url = Uri.parse(GOOGLE_PLAY_URL + activity.packageName)
                     RatingLogger.info("Open rating url: $url.")
                     val googlePlayIntent = Intent(Intent.ACTION_VIEW, url)
-                    context.startActivity(googlePlayIntent)
+                    activity.startActivity(googlePlayIntent)
                 }
             }
             dialogOptions.rateNowButton = RateButton(R.string.rating_dialog_store_button_rate_now, rateNowButtonClickListener)
