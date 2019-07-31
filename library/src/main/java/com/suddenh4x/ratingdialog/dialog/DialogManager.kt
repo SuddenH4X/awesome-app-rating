@@ -18,6 +18,7 @@ import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
+import com.suddenh4x.ratingdialog.preferences.toFloat
 import kotlinx.android.synthetic.main.dialog_rating_custom_feedback.view.*
 import kotlinx.android.synthetic.main.dialog_rating_overview.view.*
 import kotlinx.android.synthetic.main.dialog_rating_overview.view.imageView
@@ -42,7 +43,7 @@ internal object DialogManager {
 
             setPositiveButton(dialogOptions.confirmButtonTextId) { _, _ ->
                 when {
-                    rating >= (dialogOptions.ratingThreshold.ordinal / 2.0) -> {
+                    rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
                         createRatingStoreDialog(context, dialogOptions)
                     }
@@ -116,7 +117,7 @@ internal object DialogManager {
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
-            setMessage(dialogOptions.feedbackMailMessageTextId)
+            setMessage(dialogOptions.mailFeedbackMessageTextId)
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.mailFeedbackButton.let { button ->
@@ -155,7 +156,7 @@ internal object DialogManager {
         val ratingCustomFeedbackDialogView = inflater.inflate(R.layout.dialog_rating_custom_feedback, null)
         val customFeedbackEditText = ratingCustomFeedbackDialogView.customFeedbackEditText
         ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
-        customFeedbackEditText.setHint(dialogOptions.feedbackCustomMessageTextId)
+        customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
 
         builder.apply {
             setView(ratingCustomFeedbackDialogView)
