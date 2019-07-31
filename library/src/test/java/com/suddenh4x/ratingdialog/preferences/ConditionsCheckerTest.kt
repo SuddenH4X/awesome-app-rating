@@ -479,7 +479,7 @@ class ConditionsCheckerTest {
     }
 
     @Test
-    fun dayCalculationIsCorrect() {
+    fun `day calculation is correct`() {
         val threeDaysAgo = getDateThreeDaysAgo()
         val currentTime = Date(System.currentTimeMillis())
         val days = ConditionsChecker.calculateDaysBetween(threeDaysAgo, currentTime)
