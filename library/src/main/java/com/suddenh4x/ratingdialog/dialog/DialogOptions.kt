@@ -37,14 +37,14 @@ internal object DialogOptions : Serializable {
 
     // rating dialog mail feedback
     @StringRes
-    var feedbackMailMessageTextId = R.string.rating_dialog_feedback_mail_message
+    var mailFeedbackMessageTextId = R.string.rating_dialog_feedback_mail_message
     var mailFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
     var mailSettings: MailSettings? = null
 
     // rating dialog custom feedback
     var useCustomFeedback = false
     @StringRes
-    var feedbackCustomMessageTextId = R.string.rating_dialog_feedback_custom_message
+    var customFeedbackMessageTextId = R.string.rating_dialog_feedback_custom_message
     var customFeedbackButton: CustomFeedbackButton = CustomFeedbackButton(R.string.rating_dialog_feedback_custom_button_submit, null)
 
     // other settings

@@ -117,7 +117,7 @@ internal object DialogManager {
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
-            setMessage(dialogOptions.feedbackMailMessageTextId)
+            setMessage(dialogOptions.mailFeedbackMessageTextId)
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.mailFeedbackButton.let { button ->
@@ -156,7 +156,7 @@ internal object DialogManager {
         val ratingCustomFeedbackDialogView = inflater.inflate(R.layout.dialog_rating_custom_feedback, null)
         val customFeedbackEditText = ratingCustomFeedbackDialogView.customFeedbackEditText
         ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
-        customFeedbackEditText.setHint(dialogOptions.feedbackCustomMessageTextId)
+        customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
 
         builder.apply {
             setView(ratingCustomFeedbackDialogView)
