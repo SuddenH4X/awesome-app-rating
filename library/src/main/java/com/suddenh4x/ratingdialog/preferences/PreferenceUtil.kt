@@ -6,10 +6,10 @@ import androidx.core.content.edit
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 
 internal object PreferenceUtil {
-    private const val PREF_FILE_NAME = "awesome_app_rate"
+    const val PREF_FILE_NAME = "awesome_app_rate"
 
+    const val PREF_KEY_LAUNCH_TIMES = "launch_times"
     private const val PREF_KEY_REMIND_TIMESTAMP = "timestamp"
-    private const val PREF_KEY_LAUNCH_TIMES = "launch_times"
     private const val PREF_KEY_MINIMUM_LAUNCH_TIMES = "minimum_launch_times"
     private const val PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN = "minimum_launch_times_to_show_again"
     private const val PREF_KEY_MINIMUM_DAYS = "minimum_days"
@@ -18,7 +18,8 @@ internal object PreferenceUtil {
     private const val PREF_KEY_DIALOG_SHOW_LATER = "dialog_show_later"
     private const val PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN = "dialog_do_not_show_again"
 
-    private fun getPreferences(context: Context): SharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
+    fun getPreferences(context: Context): SharedPreferences =
+            context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
 
     fun increaseLaunchTimes(context: Context) {
         val launchTimes = getLaunchTimes(context)
@@ -46,7 +47,8 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumLaunchTimesToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
+    fun getMinimumLaunchTimesToShowAgain(context: Context) =
+            getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
 
     fun setMinimumDays(context: Context, minimumDays: Int) {
         RatingLogger.verbose("Set minimum days to $minimumDays.")
@@ -64,7 +66,8 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumDaysToShowAgain(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
+    fun getMinimumDaysToShowAgain(context: Context) =
+            getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
     fun updateRemindTimestamp(context: Context) {
         RatingLogger.verbose("Update remind timestamp. Set launch times to 0.")
@@ -75,7 +78,8 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getRemindTimestamp(context: Context) = getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
+    fun getRemindTimestamp(context: Context) =
+            getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
 
     fun setDialogAgreed(context: Context) {
         RatingLogger.debug("Set dialog agreed.")
@@ -95,7 +99,8 @@ internal object PreferenceUtil {
         }
     }
 
-    fun isDoNotShowAgain(context: Context) = getPreferences(context).getBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, false)
+    fun isDoNotShowAgain(context: Context) =
+            getPreferences(context).getBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, false)
 
     fun reset(context: Context) {
         RatingLogger.warn("Clearing all settings.")
