@@ -235,28 +235,6 @@ class AppRatingTest {
     @Nested
     inner class DialogFragmentTestCalls {
         @Test
-        fun `create passes dialog options correctly`() {
-            mockkConstructor(RateDialogFragment::class)
-            mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
-
-            AppRating.Builder(activity).create()
-            verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, any<DialogOptions>()) }
-        }
-
-        @Test
-        fun `show now passes dialog options correctly`() {
-            mockkConstructor(RateDialogFragment::class)
-            mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
-            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } just Runs
-            every { activity.supportFragmentManager } returns mockk()
-
-            AppRating.Builder(activity).showNow()
-            verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, any<DialogOptions>()) }
-        }
-
-        @Test
         fun `show now calls show function of RateDialogFragment`() {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)

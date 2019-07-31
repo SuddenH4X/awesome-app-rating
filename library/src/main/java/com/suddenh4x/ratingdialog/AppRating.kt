@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -126,13 +125,11 @@ object AppRating {
 
         fun create(): DialogFragment {
             val rateDialogFragment = RateDialogFragment()
-            rateDialogFragment.arguments = Bundle().apply { putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, dialogOptions) }
             return rateDialogFragment
         }
 
         fun showNow() {
             val rateDialogFragment = RateDialogFragment()
-            rateDialogFragment.arguments = Bundle().apply { putSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS, dialogOptions) }
             rateDialogFragment.show(activity.supportFragmentManager, TAG)
         }
 
