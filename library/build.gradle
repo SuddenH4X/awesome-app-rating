@@ -50,3 +50,7 @@ publish {
     desc = 'A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.'
     website = 'https://github.com/SuddenH4X/awesome-app-rating'
 }
+
+afterEvaluate {
+    lint.dependsOn ktlintCheck
+}
