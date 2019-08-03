@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .showIfMeetsConditions()
     }
 
     fun onCustomIconButtonClicked(view: View) {
@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setIconDrawable(iconDrawable)
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setIconDrawable(iconDrawable)
+            .showIfMeetsConditions()
     }
 
     fun onMailFeedbackButtonClicked(view: View) {
@@ -46,11 +46,15 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setMailSettingsForFeedbackDialog(MailSettings("info@your-app.de",
-                        "Feedback Mail",
-                        "This is an example text.\n\nYou could set some device infos here."))
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setMailSettingsForFeedbackDialog(
+                MailSettings(
+                    "info@your-app.de",
+                    "Feedback Mail",
+                    "This is an example text.\n\nYou could set some device infos here."
+                )
+            )
+            .showIfMeetsConditions()
     }
 
     fun onCustomFeedbackButtonClicked(view: View) {
@@ -59,9 +63,9 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setUseCustomFeedback(true)
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setUseCustomFeedback(true)
+            .showIfMeetsConditions()
     }
 
     fun onShowNeverButtonClicked(view: View) {
@@ -70,10 +74,10 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setRateLaterButton()
-                .showRateNeverButton()
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setRateLaterButton()
+            .showRateNeverButton()
+            .showIfMeetsConditions()
     }
 
     fun onShowOnThirdClickButtonClicked(view: View) {
@@ -82,13 +86,13 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setRateLaterButton()
-                .showRateNeverButton()
-                .setMinimumLaunchTimes(3)
-                .setMinimumDays(0)
-                .setMinimumLaunchTimesToShowAgain(5)
-                .setMinimumDaysToShowAgain(0)
-                .showIfMeetsConditions()
+            .setRateLaterButton()
+            .showRateNeverButton()
+            .setMinimumLaunchTimes(3)
+            .setMinimumDays(0)
+            .setMinimumLaunchTimesToShowAgain(5)
+            .setMinimumDaysToShowAgain(0)
+            .showIfMeetsConditions()
     }
 
     fun onRatingThresholdButtonClicked(view: View) {
@@ -97,9 +101,9 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
+            .showIfMeetsConditions()
     }
 
     fun onCustomTextsButtonClicked(view: View) {
@@ -108,22 +112,22 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-                .setDebug(true)
-                .setRateNowButtonTextId(R.string.button_rate_now)
-                .setRateLaterButton(R.string.button_rate_later)
-                .showRateNeverButton(R.string.button_rate_never)
-                .setTitleTextId(R.string.title_overview)
-                .setMessageTextId(R.string.message_overview)
-                .setConfirmButtonTextId(R.string.button_confirm)
-                .setStoreRatingTitleTextId(R.string.title_store)
-                .setStoreRatingMessageTextId(R.string.message_store)
-                .setFeedbackTitleTextId(R.string.title_feedback)
-                .setMailFeedbackMessageTextId(R.string.message_feedback)
-                .setMailFeedbackButton(R.string.button_mail_feedback, object : RateDialogClickListener {
-                    override fun onClick() {}
-                })
-                .setNoFeedbackButton(R.string.button_no_feedback)
-                .showIfMeetsConditions()
+            .setDebug(true)
+            .setRateNowButtonTextId(R.string.button_rate_now)
+            .setRateLaterButton(R.string.button_rate_later)
+            .showRateNeverButton(R.string.button_rate_never)
+            .setTitleTextId(R.string.title_overview)
+            .setMessageTextId(R.string.message_overview)
+            .setConfirmButtonTextId(R.string.button_confirm)
+            .setStoreRatingTitleTextId(R.string.title_store)
+            .setStoreRatingMessageTextId(R.string.message_store)
+            .setFeedbackTitleTextId(R.string.title_feedback)
+            .setMailFeedbackMessageTextId(R.string.message_feedback)
+            .setMailFeedbackButton(R.string.button_mail_feedback, object : RateDialogClickListener {
+                override fun onClick() {}
+            })
+            .setNoFeedbackButton(R.string.button_no_feedback)
+            .showIfMeetsConditions()
     }
 
     // This function is only needed in the example app. It's resetting some
@@ -131,8 +135,8 @@ class MainActivity : AppCompatActivity() {
     // within your app.
     private fun resetSomeBuilderSettings(appRatingBuilder: AppRating.Builder): AppRating.Builder {
         return appRatingBuilder
-                .setIconDrawable(null)
-                .setRatingThreshold(RatingThreshold.THREE)
-                .setUseCustomFeedback(false)
+            .setIconDrawable(null)
+            .setRatingThreshold(RatingThreshold.THREE)
+            .setUseCustomFeedback(false)
     }
 }
