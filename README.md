@@ -14,11 +14,11 @@ A highly customizable Android library providing a dialog, which asks the user to
 
 This library:
 - is completely written in Kotlin
-- is Unit and UI tested __(in progress)__
+- is Unit tested
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
-- is Android Q (API 29) ready __(in progress)__
+- is Android Q (API 29) ready
 - is easy to use
 
 ## How to use
