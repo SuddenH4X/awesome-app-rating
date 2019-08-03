@@ -44,7 +44,8 @@ internal object DialogOptions {
     var useCustomFeedback = false
     @StringRes
     var customFeedbackMessageTextId = R.string.rating_dialog_feedback_custom_message
-    var customFeedbackButton: CustomFeedbackButton = CustomFeedbackButton(R.string.rating_dialog_feedback_custom_button_submit, null)
+    var customFeedbackButton: CustomFeedbackButton =
+        CustomFeedbackButton(R.string.rating_dialog_feedback_custom_button_submit, null)
 
     // other settings
     var cancelable = false

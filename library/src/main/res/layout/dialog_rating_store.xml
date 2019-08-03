@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"/>
 
         <TextView
             android:id="@+id/storeRatingTitleTextView"
@@ -31,7 +31,7 @@
             app:layout_constraintBottom_toTopOf="@id/storeRatingMessageTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
         <TextView
             android:id="@+id/storeRatingMessageTextView"
@@ -42,7 +42,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/storeRatingTitleTextView" />
+            app:layout_constraintTop_toBottomOf="@id/storeRatingTitleTextView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

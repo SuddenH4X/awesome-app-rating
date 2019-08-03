@@ -50,19 +50,26 @@ internal object DialogManager {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
                         val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments = Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.RATING_STORE) }
+                        rateDialogFragment.arguments =
+                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.RATING_STORE) }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                     dialogOptions.useCustomFeedback -> {
-                        RatingLogger.info("Below threshold and custom feedback is enabled. Showing custom feedback dialog.")
+                        RatingLogger.info(
+                            "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
+                        )
                         val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments = Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_CUSTOM) }
+                        rateDialogFragment.arguments =
+                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_CUSTOM) }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                     else -> {
-                        RatingLogger.info("Below threshold and custom feedback is disabled. Showing mail feedback dialog.")
+                        RatingLogger.info(
+                            "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
+                        )
                         val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments = Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_MAIL) }
+                        rateDialogFragment.arguments =
+                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_MAIL) }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                 }
@@ -85,10 +92,11 @@ internal object DialogManager {
     }
 
     private fun initRatingBar(customRatingDialogView: View, dialog: AlertDialog) {
-        customRatingDialogView.ratingBar.onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, rating, _ ->
-            DialogManager.rating = rating
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
-        }
+        customRatingDialogView.ratingBar.onRatingBarChangeListener =
+            RatingBar.OnRatingBarChangeListener { _, rating, _ ->
+                DialogManager.rating = rating
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
+            }
         disablePositiveButtonWhenDialogShows(dialog)
     }
 
@@ -112,7 +120,7 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick()
-                            ?: RatingLogger.error("Rate button has no click listener. Nothing happens.")
+                        ?: RatingLogger.error("Rate button has no click listener. Nothing happens.")
                 }
             }
             initializeRateLaterButton(context, dialogOptions.rateLaterButton, this)
@@ -136,8 +144,7 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick()
-                            ?: openMailAppChooser(context, dialogOptions.mailSettings)
-
+                        ?: openMailAppChooser(context, dialogOptions.mailSettings)
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
@@ -155,7 +162,9 @@ internal object DialogManager {
             startActivity(context, Intent.createChooser(intent, settings.chooserTitle), null)
             RatingLogger.info("Open mail app chooser.")
         }
-                ?: RatingLogger.error("Mail feedback button has no click listener and mail settings are not set. Nothing happens.")
+            ?: RatingLogger.error(
+                "Mail feedback button has no click listener and mail settings are not set. Nothing happens."
+            )
     }
 
     internal fun createCustomFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
@@ -187,7 +196,8 @@ internal object DialogManager {
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
         }
-        return builder.create().also { dialog -> initializeCustomFeedbackDialogButtonHandler(customFeedbackEditText, dialog) }
+        return builder.create()
+            .also { dialog -> initializeCustomFeedbackDialogButtonHandler(customFeedbackEditText, dialog) }
     }
 
     private fun initializeCustomFeedbackDialogButtonHandler(editText: EditText, dialog: AlertDialog) {
@@ -200,7 +210,6 @@ internal object DialogManager {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
             }
         })
-
     }
 
     private fun disablePositiveButtonWhenDialogShows(dialog: AlertDialog) {
@@ -209,7 +218,11 @@ internal object DialogManager {
         }
     }
 
-    private fun initializeRatingDialogIcon(context: Context, customRatingDialogView: View, dialogOptions: DialogOptions) {
+    private fun initializeRatingDialogIcon(
+        context: Context,
+        customRatingDialogView: View,
+        dialogOptions: DialogOptions
+    ) {
         if (dialogOptions.iconDrawable != null) {
             RatingLogger.info("Use custom rating dialog icon.")
             customRatingDialogView.imageView.setImageDrawable(dialogOptions.iconDrawable)
@@ -220,35 +233,47 @@ internal object DialogManager {
         }
     }
 
-    private fun initializeRateLaterButton(context: Context, rateLaterButton: RateButton?, dialogBuilder: AlertDialog.Builder) {
+    private fun initializeRateLaterButton(
+        context: Context,
+        rateLaterButton: RateButton?,
+        dialogBuilder: AlertDialog.Builder
+    ) {
         rateLaterButton?.let { button ->
             dialogBuilder.setNeutralButton(button.textId) { _, _ ->
                 RatingLogger.info("Rate later button clicked.")
                 PreferenceUtil.updateRemindTimestamp(context)
                 button.rateDialogClickListener?.onClick()
-                        ?: RatingLogger.info("Rate later button has no click listener.")
+                    ?: RatingLogger.info("Rate later button has no click listener.")
             }
         }
     }
 
-    private fun initializeRateNeverButton(context: Context, rateNeverButton: RateButton?, dialogBuilder: AlertDialog.Builder) {
+    private fun initializeRateNeverButton(
+        context: Context,
+        rateNeverButton: RateButton?,
+        dialogBuilder: AlertDialog.Builder
+    ) {
         rateNeverButton?.let { button ->
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("Rate never button clicked.")
                 PreferenceUtil.setDoNotShowAgain(context)
                 button.rateDialogClickListener?.onClick()
-                        ?: RatingLogger.info("Rate never button has no click listener.")
+                    ?: RatingLogger.info("Rate never button has no click listener.")
             }
         }
     }
 
-    private fun initializeNoFeedbackButton(context: Context, noFeedbackButton: RateButton, dialogBuilder: AlertDialog.Builder) {
+    private fun initializeNoFeedbackButton(
+        context: Context,
+        noFeedbackButton: RateButton,
+        dialogBuilder: AlertDialog.Builder
+    ) {
         noFeedbackButton.let { button ->
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("No feedback button clicked.")
                 PreferenceUtil.setDialogAgreed(context)
                 button.rateDialogClickListener?.onClick()
-                        ?: RatingLogger.info("No feedback button has no click listener.")
+                    ?: RatingLogger.info("No feedback button has no click listener.")
             }
         }
     }
