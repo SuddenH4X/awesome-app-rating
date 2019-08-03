@@ -2,8 +2,6 @@ package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
 import com.suddenh4x.ratingdialog.logging.RatingLogger
-import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
-import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -14,7 +12,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 @ExtendWith(MockKExtension::class)
 class ConditionsCheckerTest {
