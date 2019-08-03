@@ -14,6 +14,7 @@ class RatingLoggerTest {
 
     @BeforeEach
     fun setup() {
+        RatingLogger.isLoggingEnabled = true
         mockkStatic(Log::class)
         every { Log.v(any(), any()) } returns 0
         every { Log.d(any(), any()) } returns 0
