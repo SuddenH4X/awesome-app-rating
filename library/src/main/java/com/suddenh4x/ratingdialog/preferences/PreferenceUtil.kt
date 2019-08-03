@@ -19,7 +19,7 @@ internal object PreferenceUtil {
     private const val PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN = "dialog_do_not_show_again"
 
     fun getPreferences(context: Context): SharedPreferences =
-            context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
+        context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
 
     fun increaseLaunchTimes(context: Context) {
         val launchTimes = getLaunchTimes(context)
@@ -48,7 +48,7 @@ internal object PreferenceUtil {
     }
 
     fun getMinimumLaunchTimesToShowAgain(context: Context) =
-            getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
+        getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
 
     fun setMinimumDays(context: Context, minimumDays: Int) {
         RatingLogger.verbose("Set minimum days to $minimumDays.")
@@ -67,7 +67,7 @@ internal object PreferenceUtil {
     }
 
     fun getMinimumDaysToShowAgain(context: Context) =
-            getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
+        getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
     fun updateRemindTimestamp(context: Context) {
         RatingLogger.verbose("Update remind timestamp. Set launch times to 0.")
@@ -79,7 +79,7 @@ internal object PreferenceUtil {
     }
 
     fun getRemindTimestamp(context: Context) =
-            getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
+        getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
 
     fun setDialogAgreed(context: Context) {
         RatingLogger.debug("Set dialog agreed.")
@@ -100,7 +100,7 @@ internal object PreferenceUtil {
     }
 
     fun isDoNotShowAgain(context: Context) =
-            getPreferences(context).getBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, false)
+        getPreferences(context).getBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, false)
 
     fun reset(context: Context) {
         RatingLogger.warn("Clearing all settings.")

@@ -14,9 +14,16 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.mockkConstructor
+import io.mockk.mockkObject
+import io.mockk.unmockkAll
+import io.mockk.verify
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
