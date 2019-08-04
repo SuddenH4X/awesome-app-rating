@@ -38,13 +38,13 @@ dependencies {
 ### Builder usage
 This library provides a builder to configure its behavior. 
 ```kotlin
- AppRating.Builder(this)
-            .setMinimumLaunchTimes(5)
-            .setMinimumDays(7)
-			.setMinimumLaunchTimesToShowAgain(5)
-			.setMinimumDaysToShowAgain(10)
-            .setRatingThreshold(RatingThreshold.FOUR)
-			.showIfMeetsConditions()
+AppRating.Builder(this)
+	.setMinimumLaunchTimes(5)
+	.setMinimumDays(7)
+	.setMinimumLaunchTimesToShowAgain(5)
+	.setMinimumDaysToShowAgain(10)
+	.setRatingThreshold(RatingThreshold.FOUR)
+	.showIfMeetsConditions()
 ```
 You should call the builder only in the `onCreate()` method of your main Activity class, because every call of the method `showIfMeetsConditions` will increase the launch times.
 
