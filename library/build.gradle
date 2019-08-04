@@ -1,15 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: 'com.novoda.bintray-release'
 
+def version = "1.2.0"
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 2
-        versionName "1.1.0"
+        versionCode 3
+        versionName "$version"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,13 +31,16 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.annotation:annotation:1.1.0'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.0"
+    testImplementation "io.mockk:mockk:1.9.3"
+    testImplementation("org.assertj:assertj-core:3.13.0")
 }
 
 publish {
     def groupProjectID = 'com.suddenh4x.ratingdialog'
     def artifactProjectID = 'awesome-app-rating'
-    def publishVersionID = '1.0.0'
+    def publishVersionID = "$version"
 
     userOrg = 'suddenh4x'
     repoName = 'Awesome-App-Rating'
@@ -44,4 +49,8 @@ publish {
     publishVersion = publishVersionID
     desc = 'A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.'
     website = 'https://github.com/SuddenH4X/awesome-app-rating'
+}
+
+afterEvaluate {
+    lint.dependsOn ktlintCheck
 }
