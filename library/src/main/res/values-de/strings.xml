@@ -1,0 +1,26 @@
+<resources>
+    <string name="rating_dialog_button_rate_later">Später</string>
+    <string name="rating_dialog_button_rate_never">Nie</string>
+
+    // rating dialog overview
+    <string name="rating_dialog_overview_image_content_description">App Icon</string>
+    <string name="rating_dialog_overview_title">Wie gefällt dir diese App?</string>
+    <string name="rating_dialog_overview_button_confirm">Bestätigen</string>
+
+    // rating dialog store
+    <string name="rating_dialog_store_title">Store Bewertung</string>
+    <string name="rating_dialog_store_message">Würdest du dir bitte einen Moment Zeit nehmen, um diese App zu bewerten? Danke für deinen Support!</string>
+    <string name="rating_dialog_store_button_rate_now">Bewerten</string>
+
+    // rating dialog feedback
+    <string name="rating_dialog_feedback_title">Feedback geben</string>
+    <string name="rating_dialog_feedback_button_no">Nein</string>
+
+    // rating dialog mail feedback
+    <string name="rating_dialog_feedback_mail_message">Wir wollen diese App mit deiner Hilfe verbessern. Willst du uns eine Mail mit deinen Verbesserungsvorschlägen schicken?</string>
+    <string name="rating_dialog_feedback_mail_button_mail">Mail</string>
+
+    // rating dialog custom feedback
+    <string name="rating_dialog_feedback_custom_message">Sag uns, was schief gelaufen ist und wir werden daran arbeiten.</string>
+    <string name="rating_dialog_feedback_custom_button_submit">Senden</string>
+</resources>
