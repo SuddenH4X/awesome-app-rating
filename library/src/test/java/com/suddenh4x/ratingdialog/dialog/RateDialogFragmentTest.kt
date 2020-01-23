@@ -26,6 +26,7 @@ class RateDialogFragmentTest {
         mockkObject(DialogManager)
         every { rateDialogFragment.arguments } returns bundle
         every { rateDialogFragment.requireActivity() } returns mockk()
+        every { rateDialogFragment.requireContext() } returns mockk()
     }
 
     @Test

@@ -21,6 +21,8 @@
     <string name="text_example_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you need to rate at least 4.5 stars
         to see the store rating dialog. Debug is enabled.</string>
     <string name="button_example_rating_threshold_4_and_a_half">Rating threshold 4.5</string>
+    <string name="text_example_full_star_rating">In this example full star rating is enabled. So you can\'t set half stars in the rating dialog. Debug is enabled.</string>
+    <string name="button_example_full_star_rating">Full star rating</string>
     <string name="text_example_custom_texts">In this example the default texts has been replaced with dummy texts. Debug is enabled.</string>
     <string name="button_example_custom_texts">Custom texts</string>
 

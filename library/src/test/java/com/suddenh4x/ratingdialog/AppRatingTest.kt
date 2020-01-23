@@ -24,7 +24,6 @@ import io.mockk.mockkConstructor
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -46,15 +45,15 @@ class AppRatingTest {
     fun `icon drawable is set correctly into DialogOptions`() {
         val drawable = mockk<Drawable>()
         AppRating.Builder(activity).setIconDrawable(drawable)
-        Assertions.assertThat(DialogOptions.iconDrawable).isEqualTo(drawable)
+        assertThat(DialogOptions.iconDrawable).isEqualTo(drawable)
     }
 
     @Test
     fun `rate later button is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setRateLaterButton(INT_RES_ID, clickListener)
         DialogOptions.rateLaterButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
+            assertThat(button.textId).isEqualTo(INT_RES_ID)
+            assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
         }
     }
 
@@ -62,100 +61,107 @@ class AppRatingTest {
     fun `rate never button is set correctly into DialogOptions`() {
         AppRating.Builder(activity).showRateNeverButton(INT_RES_ID, clickListener)
         DialogOptions.rateNeverButton.let { button ->
-            Assertions.assertThat(button?.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button?.rateDialogClickListener).isEqualTo(clickListener)
+            assertThat(button?.textId).isEqualTo(INT_RES_ID)
+            assertThat(button?.rateDialogClickListener).isEqualTo(clickListener)
         }
     }
 
     @Test
     fun `title text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.titleTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.titleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `message text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.messageTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.messageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `confirm button text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setConfirmButtonTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.confirmButtonTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.confirmButtonTextId).isEqualTo(INT_RES_ID)
+    }
+
+    @Test
+    fun `full star rating is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setShowOnlyFullStars(true)
+        assertThat(DialogOptions.showOnlyFullStars).isEqualTo(true)
     }
 
     @Test
     fun `store rating title text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setStoreRatingTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `store rating message text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setStoreRatingMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.storeRatingMessageTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.storeRatingMessageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `rate now button text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setRateNowButtonTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.rateNowButton.textId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.rateNowButton.textId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `rate now button clicklistener is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setRateNowButtonClickListener(clickListener)
-        Assertions.assertThat(DialogOptions.rateNowButton.rateDialogClickListener).isEqualTo(clickListener)
+        assertThat(DialogOptions.rateNowButton.rateDialogClickListener)
+            .isEqualTo(clickListener)
     }
 
     @Test
     fun `feedback title text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setFeedbackTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.feedbackTitleTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.feedbackTitleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `no feedback button is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setNoFeedbackButton(INT_RES_ID, clickListener)
         DialogOptions.noFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
+            assertThat(button.textId).isEqualTo(INT_RES_ID)
+            assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
         }
     }
 
     @Test
     fun `mail feedback message text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setMailFeedbackMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.mailFeedbackMessageTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.mailFeedbackMessageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
     fun `mail settings are set correctly into DialogOptions`() {
         val mailSettings = MailSettings("address", "subject", "body", "chooserTitle")
         AppRating.Builder(activity).setMailSettingsForFeedbackDialog(mailSettings)
-        Assertions.assertThat(DialogOptions.mailSettings).isEqualTo(mailSettings)
+        assertThat(DialogOptions.mailSettings).isEqualTo(mailSettings)
     }
 
     @Test
     fun `mail feedback button is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setMailFeedbackButton(INT_RES_ID, clickListener)
         DialogOptions.mailFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
+            assertThat(button.textId).isEqualTo(INT_RES_ID)
+            assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
         }
     }
 
     @Test
     fun `custom feedback enabled set correctly into DialogOptions`() {
         AppRating.Builder(activity).setUseCustomFeedback(true)
-        Assertions.assertThat(DialogOptions.useCustomFeedback).isEqualTo(true)
+        assertThat(DialogOptions.useCustomFeedback).isEqualTo(true)
     }
 
     @Test
     fun `custom feedback message text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setCustomFeedbackMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.customFeedbackMessageTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.customFeedbackMessageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
@@ -166,33 +172,33 @@ class AppRatingTest {
         }
         AppRating.Builder(activity).setCustomFeedbackButton(INT_RES_ID, clickListener)
         DialogOptions.customFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.customFeedbackButtonClickListener).isEqualTo(clickListener)
+            assertThat(button.textId).isEqualTo(INT_RES_ID)
+            assertThat(button.customFeedbackButtonClickListener).isEqualTo(clickListener)
         }
     }
 
     @Test
     fun `rating threshold is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
-        Assertions.assertThat(DialogOptions.ratingThreshold).isEqualTo(RatingThreshold.FOUR_AND_A_HALF)
+        assertThat(DialogOptions.ratingThreshold)
+            .isEqualTo(RatingThreshold.FOUR_AND_A_HALF)
     }
 
     @Test
     fun `cancelable is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setCancelable(true)
-        Assertions.assertThat(DialogOptions.cancelable).isEqualTo(true)
+        assertThat(DialogOptions.cancelable).isEqualTo(true)
     }
 
     @Nested
     inner class PreferenceUtilChanges {
-        @MockK
+        @MockK(relaxed = true)
         lateinit var sharedPreferences: SharedPreferences
 
         @BeforeEach
         fun setup() {
             mockkObject(PreferenceUtil)
             every { PreferenceUtil.getPreferences(activity) } returns sharedPreferences
-            every { sharedPreferences.edit() } returns mockk(relaxed = true)
         }
 
         @Test
@@ -229,14 +235,14 @@ class AppRatingTest {
     @Test
     fun `logging enabled is set correctly into RatingLogger`() {
         AppRating.Builder(activity).setLoggingEnabled(false)
-        Assertions.assertThat(RatingLogger.isLoggingEnabled).isEqualTo(false)
+        assertThat(RatingLogger.isLoggingEnabled).isEqualTo(false)
     }
 
     @Test
     fun `debug is set correctly into RatingLogger`() {
         val builder = AppRating.Builder(activity)
         builder.setDebug(true)
-        Assertions.assertThat(builder.isDebug).isEqualTo(true)
+        assertThat(builder.isDebug).isEqualTo(true)
     }
 
     @Nested
@@ -246,11 +252,21 @@ class AppRatingTest {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)
             every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
-            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } just Runs
+            every {
+                anyConstructed<RateDialogFragment>().show(
+                    any<FragmentManager>(),
+                    any()
+                )
+            } just Runs
             every { activity.supportFragmentManager } returns mockk()
 
             AppRating.Builder(activity).showNow()
-            verify(exactly = 1) { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) }
+            verify(exactly = 1) {
+                anyConstructed<RateDialogFragment>().show(
+                    any<FragmentManager>(),
+                    any()
+                )
+            }
         }
 
         @Test

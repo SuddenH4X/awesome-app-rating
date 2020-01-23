@@ -106,6 +106,17 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
+    fun onFullStarRatingButtonClicked(view: View) {
+        // This call is only needed in the example app. Just use the builder
+        // directly within your app.
+        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
+
+        appRatingBuilder
+            .setDebug(true)
+            .setShowOnlyFullStars(true)
+            .showIfMeetsConditions()
+    }
+
     fun onCustomTextsButtonClicked(view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
@@ -137,6 +148,7 @@ class MainActivity : AppCompatActivity() {
         return appRatingBuilder
             .setIconDrawable(null)
             .setRatingThreshold(RatingThreshold.THREE)
+            .setShowOnlyFullStars(false)
             .setUseCustomFeedback(false)
     }
 }
