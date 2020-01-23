@@ -33,14 +33,15 @@ object AppRating {
             RatingLogger.debug("Use custom icon drawable.")
         }
 
-        fun setRateLaterButton(
-            @StringRes rateLaterButtonTextId: Int = R.string.rating_dialog_button_rate_later,
-            onRateLaterButtonClickListener: RateDialogClickListener? = null
-        ) = apply {
-            dialogOptions.rateLaterButton =
-                RateButton(rateLaterButtonTextId, onRateLaterButtonClickListener)
-            RatingLogger.debug("Show rate later button.")
+        fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
+            dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
+
+        fun setRateLaterButtonClickListener(onRateLaterButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.rateLaterButton.rateDialogClickListener =
+                    onRateLaterButtonClickListener
+            }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
@@ -91,13 +92,15 @@ object AppRating {
             dialogOptions.feedbackTitleTextId = feedbackTitleTextId
         }
 
-        fun setNoFeedbackButton(
-            @StringRes noFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_button_no,
-            noFeedbackButtonClickListener: RateDialogClickListener? = null
-        ) = apply {
-            dialogOptions.noFeedbackButton =
-                RateButton(noFeedbackButtonTextId, noFeedbackButtonClickListener)
+        fun setNoFeedbackButtonTextId(@StringRes noFeedbackButtonTextId: Int) = apply {
+            dialogOptions.noFeedbackButton.textId = noFeedbackButtonTextId
         }
+
+        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.noFeedbackButton.rateDialogClickListener =
+                    noFeedbackButtonClickListener
+            }
 
         // rating dialog mail feedback
         fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply {
@@ -108,13 +111,15 @@ object AppRating {
             dialogOptions.mailSettings = mailSettings
         }
 
-        fun setMailFeedbackButton(
-            @StringRes mailFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_mail_button_mail,
-            mailFeedbackButtonClickListener: RateDialogClickListener
-        ) = apply {
-            dialogOptions.mailFeedbackButton =
-                RateButton(mailFeedbackButtonTextId, mailFeedbackButtonClickListener)
+        fun setMailFeedbackButtonTextId(@StringRes mailFeedbackButtonTextId: Int) = apply {
+            dialogOptions.mailFeedbackButton.textId = mailFeedbackButtonTextId
         }
+
+        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.mailFeedbackButton.rateDialogClickListener =
+                    mailFeedbackButtonClickListener
+            }
 
         // rating dialog custom feedback
         fun setUseCustomFeedback(useCustomFeedback: Boolean) = apply {
@@ -126,13 +131,15 @@ object AppRating {
             dialogOptions.customFeedbackMessageTextId = feedbackCustomMessageTextId
         }
 
-        fun setCustomFeedbackButton(
-            @StringRes customFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_custom_button_submit,
-            customFeedbackButtonClickListener: CustomFeedbackButtonClickListener
-        ) = apply {
-            dialogOptions.customFeedbackButton =
-                CustomFeedbackButton(customFeedbackButtonTextId, customFeedbackButtonClickListener)
+        fun setCustomFeedbackButtonTextId(@StringRes customFeedbackButtonTextId: Int) = apply {
+            dialogOptions.customFeedbackButton.textId = customFeedbackButtonTextId
         }
+
+        fun setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) =
+            apply {
+                dialogOptions.customFeedbackButton.customFeedbackButtonClickListener =
+                    customFeedbackButtonClickListener
+            }
 
         // other settings
         fun setRatingThreshold(ratingThreshold: RatingThreshold) = apply {

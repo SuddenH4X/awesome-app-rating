@@ -221,11 +221,8 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     val userFeedbackText = customFeedbackEditText.text.toString()
-                    if (button.customFeedbackButtonClickListener != null) {
-                        button.customFeedbackButtonClickListener.onClick(userFeedbackText)
-                    } else {
-                        RatingLogger.error("Custom feedback button has no click listener. Nothing happens.")
-                    }
+                    button.customFeedbackButtonClickListener?.onClick(userFeedbackText)
+                        ?: RatingLogger.error("Custom feedback button has no click listener. Nothing happens.")
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
@@ -293,16 +290,14 @@ internal object DialogManager {
 
     private fun initializeRateLaterButton(
         context: Context,
-        rateLaterButton: RateButton?,
+        rateLaterButton: RateButton,
         dialogBuilder: AlertDialog.Builder
     ) {
-        rateLaterButton?.let { button ->
-            dialogBuilder.setNeutralButton(button.textId) { _, _ ->
-                RatingLogger.info("Rate later button clicked.")
-                PreferenceUtil.updateRemindTimestamp(context)
-                button.rateDialogClickListener?.onClick()
-                    ?: RatingLogger.info("Rate later button has no click listener.")
-            }
+        dialogBuilder.setNeutralButton(rateLaterButton.textId) { _, _ ->
+            RatingLogger.info("Rate later button clicked.")
+            PreferenceUtil.updateRemindTimestamp(context)
+            rateLaterButton.rateDialogClickListener?.onClick()
+                ?: RatingLogger.info("Rate later button has no click listener.")
         }
     }
 

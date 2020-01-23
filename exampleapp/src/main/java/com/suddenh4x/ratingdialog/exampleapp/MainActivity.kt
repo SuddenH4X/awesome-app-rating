@@ -2,10 +2,11 @@ package com.suddenh4x.ratingdialog.exampleapp
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.suddenh4x.ratingdialog.AppRating
-import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
+import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -65,6 +66,15 @@ class MainActivity : AppCompatActivity() {
         appRatingBuilder
             .setDebug(true)
             .setUseCustomFeedback(true)
+            .setCustomFeedbackButtonClickListener(object : CustomFeedbackButtonClickListener {
+                override fun onClick(userFeedbackText: String) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Feedback: $userFeedbackText",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
             .showIfMeetsConditions()
     }
 
@@ -75,7 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         appRatingBuilder
             .setDebug(true)
-            .setRateLaterButton()
             .showRateNeverButton()
             .showIfMeetsConditions()
     }
@@ -86,7 +95,6 @@ class MainActivity : AppCompatActivity() {
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
 
         appRatingBuilder
-            .setRateLaterButton()
             .showRateNeverButton()
             .setMinimumLaunchTimes(3)
             .setMinimumDays(0)
@@ -125,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         appRatingBuilder
             .setDebug(true)
             .setRateNowButtonTextId(R.string.button_rate_now)
-            .setRateLaterButton(R.string.button_rate_later)
+            .setRateLaterButtonTextId(R.string.button_rate_later)
             .showRateNeverButton(R.string.button_rate_never)
             .setTitleTextId(R.string.title_overview)
             .setMessageTextId(R.string.message_overview)
@@ -134,10 +142,8 @@ class MainActivity : AppCompatActivity() {
             .setStoreRatingMessageTextId(R.string.message_store)
             .setFeedbackTitleTextId(R.string.title_feedback)
             .setMailFeedbackMessageTextId(R.string.message_feedback)
-            .setMailFeedbackButton(R.string.button_mail_feedback, object : RateDialogClickListener {
-                override fun onClick() {}
-            })
-            .setNoFeedbackButton(R.string.button_no_feedback)
+            .setMailFeedbackButtonTextId(R.string.button_mail_feedback)
+            .setNoFeedbackButtonTextId(R.string.button_no_feedback)
             .showIfMeetsConditions()
     }
 
