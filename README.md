@@ -11,7 +11,7 @@ A highly customizable Android library providing a dialog, which asks the user to
 - Let the dialog show up on a defined app session or after n days of usage
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
-- You can override all click listeners to fit your needs
+- You can override all click listeners to fit your needs (or to implement extensive tracking)
 - The dialog handles orientation changes correctly
 - Extracts the accent color of your app's theme
 
@@ -41,10 +41,10 @@ This library provides a builder to configure its behavior.
  AppRating.Builder(this)
             .setMinimumLaunchTimes(5)
             .setMinimumDays(7)
-			.setMinimumLaunchTimesToShowAgain(5)
-			.setMinimumDaysToShowAgain(10)
+            .setMinimumLaunchTimesToShowAgain(5)
+            .setMinimumDaysToShowAgain(10)
             .setRatingThreshold(RatingThreshold.FOUR)
-			.showIfMeetsConditions()
+            .showIfMeetsConditions()
 ```
 You should call the builder only in the `onCreate()` method of your main Activity class, because every call of the method `showIfMeetsConditions` will increase the launch times.
 
@@ -118,16 +118,22 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
 ```
 
-- Change the rate later button text and add a click listener
+- Change the rate later button text
 
 ```kotlin
-.setRateLaterButton(rateLaterButtonTextId: Int, onRateLaterButtonClickListener: RateDialogClickListener)
+.setRateLaterButtonTextId(rateLaterButtonTextId: Int)
+```
+
+- Add a click listener to the rate later button
+
+```kotlin
+.setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener)
 ```
 
 - Show the rate never button, change the button text and add a click listener
 
 ```kotlin
-.showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+.showRateNeverButton(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
 ```
 
 ##### Rating Overview
@@ -150,10 +156,16 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
 
+- Add a click listener to the confirm button
+
+```kotlin
+.setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener)
+```
+
 - Show only full star ratings
 
 ```kotlin
-.setShowOnlyFullStars(showOnlyFullStars: Boolean)
+.setShowOnlyFullStars(showOnlyFullStars: Boolean)  // default is false
 ```
 
 ##### Store Rating
@@ -176,10 +188,16 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setRateNowButtonTextId(rateNowButtonTextId: Int)
 ```
 
-- Override the rate now button click listener
+- Overwrite the default rate now button click listener
 
 ````kotlin
-.setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+.overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+````
+
+- Add an additional click listener to the rate now button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener)
 ````
 
 ##### Feedback
@@ -190,10 +208,16 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setFeedbackTitleTextId(feedbackTitleTextId: Int)
 ```
 
-- Change the no feedback button text and add a click listener
+- Change the no feedback button text
 
 ```kotlin
-.setNoFeedbackButton(noFeedbackButtonTextId: Int, noFeedbackButtonClickListener: RateDialogClickListener)
+.setNoFeedbackButtonTextId(noFeedbackButtonTextId: Int)
+```
+
+- Add a click listener to the no feedback button
+
+```kotlin
+.setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener)
 ```
 
 - Use the custom feedback dialog instead of the mail feedback dialog
@@ -212,17 +236,29 @@ If custom feedback is enabled, these settings will be ignored:
 .setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
 ```
 
-- Set the mail settings for the mail feedback dialog (mail address, subject, text and app chooser title)
+- Set the mail settings for the mail feedback dialog (mail address, subject, text and error toast message)
 
 ```kotlin
-setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
+.setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
 ```
 
-- Change the mail feedback button text and add a click listener (setting a click listener will overwrite the mail settings)
+- Change the mail feedback button text
 
 ```kotlin
-.setMailFeedbackButton(mailFeedbackButtonTextId: Int, mailFeedbackButtonClickListener: RateDialogClickListener)
+.setMailFeedbackButtonTextId(mailFeedbackButtonTextId: Int)
 ```
+
+- Overwrite the mail settings with a custom click listener
+
+```kotlin
+.overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener)
+```
+
+- Add an additional click listener to the mail feedback button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener)
+````
 
 ##### Custom Feedback
 
@@ -234,10 +270,16 @@ These settings will only apply if custom feedback is enabled:
 .setCustomFeedbackMessageTextId(feedbackCustomMessageTextId: Int)
 ```
 
-- Change the custom feedback button text and add a click listener
+- Change the custom feedback button text
 
 ```kotlin
-.setCustomFeedbackButton(customFeedbackButtonTextId: Int, customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
+.setCustomFeedbackButtonTextId(customFeedbackButtonTextId: Int)
+```
+
+- Add a click listener to the custom feedback button
+
+```kotlin
+.setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
 ```
 
 #### Other settings
@@ -287,7 +329,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 * Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
-* If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
+* If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButtonClickListener()`)
 * If the user rates below the defined minimum threshold, the feedback dialog will be displayed and then the dialog will not show up again
 * If you don't want to customize anything, you can just use `AppRating.Builder(this).showIfMeetsConditions()` without any settings
 * If you have any problems, check out the logs in Logcat (You can filter by `awesome_app_rating`)

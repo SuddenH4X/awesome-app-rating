@@ -12,12 +12,25 @@ internal class RateDialogFragment : DialogFragment() {
         super.onCreateDialog(savedInstanceState)
         isCancelable = DialogOptions.cancelable
 
-        dialogType = arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
+        dialogType =
+            arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         return when (dialogType) {
-            DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(requireActivity(), DialogOptions)
-            DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(requireActivity(), DialogOptions)
-            DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(requireActivity(), DialogOptions)
-            DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(requireActivity(), DialogOptions)
+            DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(
+                requireActivity(),
+                DialogOptions
+            )
+            DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
+                requireActivity(),
+                DialogOptions
+            )
+            DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
+                requireActivity(),
+                DialogOptions
+            )
+            DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
+                requireActivity(),
+                DialogOptions
+            )
         }
     }
 

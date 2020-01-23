@@ -1,13 +1,11 @@
 package com.suddenh4x.ratingdialog
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButton
+import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
@@ -30,79 +28,114 @@ object AppRating {
         private var dialogOptions: DialogOptions = DialogOptions
         internal var isDebug = false
 
-        init {
-            initializeRateNowButton()
-        }
-
         fun setIconDrawable(iconDrawable: Drawable?) = apply {
             dialogOptions.iconDrawable = iconDrawable
             RatingLogger.debug("Use custom icon drawable.")
         }
 
-        fun setRateLaterButton(
-            @StringRes rateLaterButtonTextId: Int = R.string.rating_dialog_button_rate_later,
-            onRateLaterButtonClickListener: RateDialogClickListener? = null
-        ) =
+        fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
+            dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
+        }
+
+        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) =
             apply {
-                dialogOptions.rateLaterButton = RateButton(rateLaterButtonTextId, onRateLaterButtonClickListener)
-                RatingLogger.debug("Show rate later button.")
+                dialogOptions.rateLaterButton.rateDialogClickListener =
+                    rateLaterButtonClickListener
             }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
-            onRateNeverButtonClickListener: RateDialogClickListener? = null
-        ) =
-            apply {
-                dialogOptions.rateNeverButton = RateButton(rateNeverButtonTextId, onRateNeverButtonClickListener)
-                RatingLogger.debug("Show rate never button.")
-            }
+            rateNeverButtonClickListener: RateDialogClickListener? = null
+        ) = apply {
+            dialogOptions.rateNeverButton =
+                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            RatingLogger.debug("Show rate never button.")
+        }
 
         // rating dialog overview
-        fun setTitleTextId(@StringRes titleTextId: Int) = apply { dialogOptions.titleTextId = titleTextId }
+        fun setTitleTextId(@StringRes titleTextId: Int) = apply {
+            dialogOptions.titleTextId = titleTextId
+        }
 
-        fun setMessageTextId(@StringRes messageTextId: Int) = apply { dialogOptions.messageTextId = messageTextId }
+        fun setMessageTextId(@StringRes messageTextId: Int) = apply {
+            dialogOptions.messageTextId = messageTextId
+        }
 
-        fun setConfirmButtonTextId(@StringRes confirmButtonTextId: Int) =
-            apply { dialogOptions.confirmButtonTextId = confirmButtonTextId }
+        fun setConfirmButtonTextId(@StringRes confirmButtonTextId: Int) = apply {
+            dialogOptions.confirmButton.textId = confirmButtonTextId
+        }
 
-        fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply { dialogOptions.showOnlyFullStars = showOnlyFullStars }
+        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) =
+            apply {
+                dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
+            }
+
+        fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply {
+            dialogOptions.showOnlyFullStars = showOnlyFullStars
+        }
 
         // rating dialog store
-        fun setStoreRatingTitleTextId(@StringRes storeRatingTitleTextId: Int) =
-            apply { dialogOptions.storeRatingTitleTextId = storeRatingTitleTextId }
+        fun setStoreRatingTitleTextId(@StringRes storeRatingTitleTextId: Int) = apply {
+            dialogOptions.storeRatingTitleTextId = storeRatingTitleTextId
+        }
 
-        fun setStoreRatingMessageTextId(@StringRes storeRatingMessageTextId: Int) =
-            apply { dialogOptions.storeRatingMessageTextId = storeRatingMessageTextId }
+        fun setStoreRatingMessageTextId(@StringRes storeRatingMessageTextId: Int) = apply {
+            dialogOptions.storeRatingMessageTextId = storeRatingMessageTextId
+        }
 
-        fun setRateNowButtonTextId(@StringRes rateNowButtonTextId: Int) =
-            apply { dialogOptions.rateNowButton.textId = rateNowButtonTextId }
+        fun setRateNowButtonTextId(@StringRes rateNowButtonTextId: Int) = apply {
+            dialogOptions.rateNowButton.textId = rateNowButtonTextId
+        }
 
-        fun setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
-            apply { dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener }
+        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
+            }
+
+        fun setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.additionalRateNowButtonClickListener =
+                    additionalRateNowButtonClickListener
+            }
 
         // rating dialog feedback
-        fun setFeedbackTitleTextId(@StringRes feedbackTitleTextId: Int) =
-            apply { dialogOptions.feedbackTitleTextId = feedbackTitleTextId }
+        fun setFeedbackTitleTextId(@StringRes feedbackTitleTextId: Int) = apply {
+            dialogOptions.feedbackTitleTextId = feedbackTitleTextId
+        }
 
-        fun setNoFeedbackButton(
-            @StringRes noFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_button_no,
-            noFeedbackButtonClickListener: RateDialogClickListener? = null
-        ) =
-            apply { dialogOptions.noFeedbackButton = RateButton(noFeedbackButtonTextId, noFeedbackButtonClickListener) }
+        fun setNoFeedbackButtonTextId(@StringRes noFeedbackButtonTextId: Int) = apply {
+            dialogOptions.noFeedbackButton.textId = noFeedbackButtonTextId
+        }
+
+        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.noFeedbackButton.rateDialogClickListener =
+                    noFeedbackButtonClickListener
+            }
 
         // rating dialog mail feedback
-        fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) =
-            apply { dialogOptions.mailFeedbackMessageTextId = feedbackMailMessageTextId }
+        fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply {
+            dialogOptions.mailFeedbackMessageTextId = feedbackMailMessageTextId
+        }
 
-        fun setMailSettingsForFeedbackDialog(mailSettings: MailSettings) =
-            apply { dialogOptions.mailSettings = mailSettings }
+        fun setMailSettingsForFeedbackDialog(mailSettings: MailSettings) = apply {
+            dialogOptions.mailSettings = mailSettings
+        }
 
-        fun setMailFeedbackButton(
-            @StringRes mailFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_mail_button_mail,
-            mailFeedbackButtonClickListener: RateDialogClickListener
-        ) =
+        fun setMailFeedbackButtonTextId(@StringRes mailFeedbackButtonTextId: Int) = apply {
+            dialogOptions.mailFeedbackButton.textId = mailFeedbackButtonTextId
+        }
+
+        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) =
             apply {
-                dialogOptions.mailFeedbackButton = RateButton(mailFeedbackButtonTextId, mailFeedbackButtonClickListener)
+                dialogOptions.mailFeedbackButton.rateDialogClickListener =
+                    mailFeedbackButtonClickListener
+            }
+
+        fun setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.additionalMailFeedbackButtonClickListener =
+                    additionalMailFeedbackButtonClickListener
             }
 
         // rating dialog custom feedback
@@ -111,16 +144,18 @@ object AppRating {
             RatingLogger.debug("Use custom feedback instead of mail feedback: $useCustomFeedback.")
         }
 
-        fun setCustomFeedbackMessageTextId(@StringRes feedbackCustomMessageTextId: Int) =
-            apply { dialogOptions.customFeedbackMessageTextId = feedbackCustomMessageTextId }
+        fun setCustomFeedbackMessageTextId(@StringRes feedbackCustomMessageTextId: Int) = apply {
+            dialogOptions.customFeedbackMessageTextId = feedbackCustomMessageTextId
+        }
 
-        fun setCustomFeedbackButton(
-            @StringRes customFeedbackButtonTextId: Int = R.string.rating_dialog_feedback_custom_button_submit,
-            customFeedbackButtonClickListener: CustomFeedbackButtonClickListener
-        ) =
+        fun setCustomFeedbackButtonTextId(@StringRes customFeedbackButtonTextId: Int) = apply {
+            dialogOptions.customFeedbackButton.textId = customFeedbackButtonTextId
+        }
+
+        fun setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) =
             apply {
-                dialogOptions.customFeedbackButton =
-                    CustomFeedbackButton(customFeedbackButtonTextId, customFeedbackButtonClickListener)
+                dialogOptions.customFeedbackButton.customFeedbackButtonClickListener =
+                    customFeedbackButtonClickListener
             }
 
         // other settings
@@ -134,28 +169,35 @@ object AppRating {
             RatingLogger.debug("Set cancelable to $cancelable.")
         }
 
-        fun setMinimumLaunchTimes(launchTimes: Int) =
-            apply { PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes) }
+        fun setMinimumLaunchTimes(launchTimes: Int) = apply {
+            PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes)
+        }
 
-        fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) =
-            apply { PreferenceUtil.setMinimumLaunchTimesToShowAgain(activity, launchTimesToShowAgain) }
+        fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply {
+            PreferenceUtil.setMinimumLaunchTimesToShowAgain(
+                activity,
+                launchTimesToShowAgain
+            )
+        }
 
-        fun setMinimumDays(minimumDays: Int) = apply { PreferenceUtil.setMinimumDays(activity, minimumDays) }
+        fun setMinimumDays(minimumDays: Int) = apply {
+            PreferenceUtil.setMinimumDays(activity, minimumDays)
+        }
 
-        fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) =
-            apply { PreferenceUtil.setMinimumDaysToShowAgain(activity, minimumDaysToShowAgain) }
+        fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) = apply {
+            PreferenceUtil.setMinimumDaysToShowAgain(activity, minimumDaysToShowAgain)
+        }
 
-        fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply { RatingLogger.isLoggingEnabled = isLoggingEnabled }
+        fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {
+            RatingLogger.isLoggingEnabled = isLoggingEnabled
+        }
 
         fun setDebug(isDebug: Boolean) = apply {
             this.isDebug = isDebug
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
 
-        fun create(): DialogFragment {
-            val rateDialogFragment = RateDialogFragment()
-            return rateDialogFragment
-        }
+        fun create(): DialogFragment = RateDialogFragment()
 
         fun showNow() {
             val rateDialogFragment = RateDialogFragment()
@@ -172,24 +214,8 @@ object AppRating {
             }
         }
 
-        internal fun initializeRateNowButton() {
-            val rateNowButtonClickListener = object : RateDialogClickListener {
-                override fun onClick() {
-                    RatingLogger.info("Default rate now button click listener was called.")
-                    val url = Uri.parse(GOOGLE_PLAY_URL + activity.packageName)
-                    RatingLogger.info("Open rating url: $url.")
-                    val googlePlayIntent = Intent(Intent.ACTION_VIEW, url)
-                    activity.startActivity(googlePlayIntent)
-                }
-            }
-            dialogOptions.rateNowButton =
-                RateButton(R.string.rating_dialog_store_button_rate_now, rateNowButtonClickListener)
-            RatingLogger.debug("Default rate now button initialized.")
-        }
-
         companion object {
             private val TAG = AppRating::class.java.simpleName
-            private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id="
         }
     }
 }
