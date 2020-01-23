@@ -144,7 +144,7 @@ class AppRatingTest {
 
     @Test
     fun `mail settings are set correctly into DialogOptions`() {
-        val mailSettings = MailSettings("address", "subject", "body", "chooserTitle")
+        val mailSettings = MailSettings("address", "subject", "body", "errorToast")
         AppRating.Builder(activity).setMailSettingsForFeedbackDialog(mailSettings)
         assertThat(DialogOptions.mailSettings).isEqualTo(mailSettings)
     }

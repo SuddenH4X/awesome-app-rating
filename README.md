@@ -224,10 +224,10 @@ If custom feedback is enabled, these settings will be ignored:
 .setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
 ```
 
-- Set the mail settings for the mail feedback dialog (mail address, subject, text and app chooser title)
+- Set the mail settings for the mail feedback dialog (mail address, subject, text and error toast message)
 
 ```kotlin
-setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
+.setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
 ```
 
 - Change the mail feedback button text
