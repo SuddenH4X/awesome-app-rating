@@ -176,10 +176,10 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setRateNowButtonTextId(rateNowButtonTextId: Int)
 ```
 
-- Override the rate now button click listener
+- Overwrite the default rate now button click listener
 
 ````kotlin
-.setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+.overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
 ````
 
 ##### Feedback

@@ -28,7 +28,7 @@ internal object DialogOptions {
     var storeRatingTitleTextId = R.string.rating_dialog_store_title
     @StringRes
     var storeRatingMessageTextId = R.string.rating_dialog_store_message
-    lateinit var rateNowButton: RateButton
+    var rateNowButton: RateButton = RateButton(R.string.rating_dialog_store_button_rate_now, null)
 
     // rating dialog feedback
     @StringRes

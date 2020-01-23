@@ -2,6 +2,7 @@ package com.suddenh4x.ratingdialog.dialog
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -29,6 +30,8 @@ import kotlinx.android.synthetic.main.dialog_rating_store.view.*
 
 @SuppressLint("InflateParams")
 internal object DialogManager {
+    private const val GOOGLE_PLAY_WEB_URL = "https://play.google.com/store/apps/details?id="
+    private const val GOOGLE_PLAY_IN_APP_URL = "market://details?id="
     private val TAG = DialogManager::class.java.simpleName
     private var rating: Float = -1f
 
@@ -52,43 +55,19 @@ internal object DialogManager {
                 when {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
-                        val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments =
-                            Bundle().apply {
-                                putSerializable(
-                                    ARG_DIALOG_TYPE,
-                                    DialogType.RATING_STORE
-                                )
-                            }
-                        rateDialogFragment.show(activity.supportFragmentManager, TAG)
+                        showRatingDialog(DialogType.RATING_STORE, activity)
                     }
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
                         )
-                        val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments =
-                            Bundle().apply {
-                                putSerializable(
-                                    ARG_DIALOG_TYPE,
-                                    DialogType.FEEDBACK_CUSTOM
-                                )
-                            }
-                        rateDialogFragment.show(activity.supportFragmentManager, TAG)
+                        showRatingDialog(DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
                         )
-                        val rateDialogFragment = RateDialogFragment()
-                        rateDialogFragment.arguments =
-                            Bundle().apply {
-                                putSerializable(
-                                    ARG_DIALOG_TYPE,
-                                    DialogType.FEEDBACK_MAIL
-                                )
-                            }
-                        rateDialogFragment.show(activity.supportFragmentManager, TAG)
+                        showRatingDialog(DialogType.FEEDBACK_MAIL, activity)
                     }
                 }
             }
@@ -113,6 +92,17 @@ internal object DialogManager {
                 visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun showRatingDialog(dialogType: DialogType, activity: FragmentActivity) {
+        val rateDialogFragment = RateDialogFragment()
+        rateDialogFragment.arguments = Bundle().apply {
+            putSerializable(
+                ARG_DIALOG_TYPE,
+                dialogType
+            )
+        }
+        rateDialogFragment.show(activity.supportFragmentManager, TAG)
     }
 
     private fun initRatingBar(
@@ -154,8 +144,7 @@ internal object DialogManager {
                     RatingLogger.info("Rate button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    button.rateDialogClickListener?.onClick()
-                        ?: RatingLogger.error("Rate button has no click listener. Nothing happens.")
+                    button.rateDialogClickListener?.onClick() ?: openPlayStore(context)
                 }
             }
             initializeRateLaterButton(context, dialogOptions.rateLaterButton, this)
@@ -268,6 +257,22 @@ internal object DialogManager {
     private fun disablePositiveButtonWhenDialogShows(dialog: AlertDialog) {
         dialog.setOnShowListener { visibleDialog ->
             (visibleDialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+        }
+    }
+
+    private fun openPlayStore(context: Context) {
+        try {
+            RatingLogger.info("Default rate now button click listener was called.")
+            val uri = Uri.parse(GOOGLE_PLAY_IN_APP_URL + context.packageName)
+            RatingLogger.info("Open rating url (in app): $uri.")
+            val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
+            context.startActivity(googlePlayIntent)
+        } catch (activityNotFoundException: ActivityNotFoundException) {
+            RatingLogger.info("Google Play Store not found on this device. Calling web url now.")
+            val uri = Uri.parse(GOOGLE_PLAY_WEB_URL + context.packageName)
+            RatingLogger.info("Open rating url (web): $uri.")
+            val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
+            context.startActivity(googlePlayIntent)
         }
     }
 

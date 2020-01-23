@@ -1,9 +1,7 @@
 package com.suddenh4x.ratingdialog
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -29,10 +27,6 @@ object AppRating {
     data class Builder(var activity: AppCompatActivity) {
         private var dialogOptions: DialogOptions = DialogOptions
         internal var isDebug = false
-
-        init {
-            initializeRateNowButton()
-        }
 
         fun setIconDrawable(iconDrawable: Drawable?) = apply {
             dialogOptions.iconDrawable = iconDrawable
@@ -87,7 +81,7 @@ object AppRating {
             dialogOptions.rateNowButton.textId = rateNowButtonTextId
         }
 
-        fun setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
+        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
             apply {
                 dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
             }
@@ -179,10 +173,7 @@ object AppRating {
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
 
-        fun create(): DialogFragment {
-            val rateDialogFragment = RateDialogFragment()
-            return rateDialogFragment
-        }
+        fun create(): DialogFragment = RateDialogFragment()
 
         fun showNow() {
             val rateDialogFragment = RateDialogFragment()
@@ -199,24 +190,8 @@ object AppRating {
             }
         }
 
-        internal fun initializeRateNowButton() {
-            val rateNowButtonClickListener = object : RateDialogClickListener {
-                override fun onClick() {
-                    RatingLogger.info("Default rate now button click listener was called.")
-                    val url = Uri.parse(GOOGLE_PLAY_URL + activity.packageName)
-                    RatingLogger.info("Open rating url: $url.")
-                    val googlePlayIntent = Intent(Intent.ACTION_VIEW, url)
-                    activity.startActivity(googlePlayIntent)
-                }
-            }
-            dialogOptions.rateNowButton =
-                RateButton(R.string.rating_dialog_store_button_rate_now, rateNowButtonClickListener)
-            RatingLogger.debug("Default rate now button initialized.")
-        }
-
         companion object {
             private val TAG = AppRating::class.java.simpleName
-            private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id="
         }
     }
 }
