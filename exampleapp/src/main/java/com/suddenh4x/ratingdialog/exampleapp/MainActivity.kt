@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         AppRating.reset(this)
     }
 
-    fun onDefaultExampleButtonClicked(view: View) {
+    fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCustomIconButtonClicked(view: View) {
+    fun onCustomIconButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         val iconDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_star_black, null)
 
         // This call is only needed in the example app. Just use the builder
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onMailFeedbackButtonClicked(view: View) {
+    fun onMailFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCustomFeedbackButtonClicked(view: View) {
+    fun onCustomFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onShowNeverButtonClicked(view: View) {
+    fun onShowNeverButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onShowOnThirdClickButtonClicked(view: View) {
+    fun onShowOnThirdClickButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onRatingThresholdButtonClicked(view: View) {
+    fun onRatingThresholdButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onFullStarRatingButtonClicked(view: View) {
+    fun onFullStarRatingButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCustomTextsButtonClicked(view: View) {
+    fun onCustomTextsButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         // This call is only needed in the example app. Just use the builder
         // directly within your app.
         val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
