@@ -65,6 +65,8 @@ object AppRating {
         fun setConfirmButtonTextId(@StringRes confirmButtonTextId: Int) =
             apply { dialogOptions.confirmButtonTextId = confirmButtonTextId }
 
+        fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply { dialogOptions.showOnlyFullStars = showOnlyFullStars }
+
         // rating dialog store
         fun setStoreRatingTitleTextId(@StringRes storeRatingTitleTextId: Int) =
             apply { dialogOptions.storeRatingTitleTextId = storeRatingTitleTextId }

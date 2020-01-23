@@ -78,7 +78,7 @@ internal object DialogManager {
             initializeRateNeverButton(activity, dialogOptions.rateNeverButton, this)
         }
 
-        return builder.create().also { dialog -> initRatingBar(ratingOverviewDialogView, dialog) }
+        return builder.create().also { dialog -> initRatingBar(ratingOverviewDialogView, dialogOptions.showOnlyFullStars, dialog) }
     }
 
     @SuppressLint("ResourceType")
@@ -91,12 +91,16 @@ internal object DialogManager {
         }
     }
 
-    private fun initRatingBar(customRatingDialogView: View, dialog: AlertDialog) {
-        customRatingDialogView.ratingBar.onRatingBarChangeListener =
-            RatingBar.OnRatingBarChangeListener { _, rating, _ ->
+    private fun initRatingBar(customRatingDialogView: View, showOnlyFullStars: Boolean, dialog: AlertDialog) {
+        customRatingDialogView.ratingBar.apply {
+            if (showOnlyFullStars) {
+                stepSize = 1f
+            }
+            onRatingBarChangeListener = RatingBar.OnRatingBarChangeListener { _, rating, _ ->
                 DialogManager.rating = rating
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = true
             }
+        }
         disablePositiveButtonWhenDialogShows(dialog)
     }
 
