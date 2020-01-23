@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
@@ -84,7 +85,15 @@ class AppRatingTest {
     @Test
     fun `confirm button text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setConfirmButtonTextId(INT_RES_ID)
-        assertThat(DialogOptions.confirmButtonTextId).isEqualTo(INT_RES_ID)
+        assertThat(DialogOptions.confirmButton.textId).isEqualTo(INT_RES_ID)
+    }
+
+    @Test
+    fun `confirm button click listener is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setConfirmButtonClickListener(confirmButtonClickListener)
+        assertThat(DialogOptions.confirmButton.confirmButtonClickListener).isEqualTo(
+            confirmButtonClickListener
+        )
     }
 
     @Test
@@ -112,9 +121,16 @@ class AppRatingTest {
     }
 
     @Test
-    fun `rate now button clicklistener is set correctly into DialogOptions`() {
+    fun `rate now button click listener is set correctly into DialogOptions`() {
         AppRating.Builder(activity).overwriteRateNowButtonClickListener(clickListener)
         assertThat(DialogOptions.rateNowButton.rateDialogClickListener)
+            .isEqualTo(clickListener)
+    }
+
+    @Test
+    fun `additional rate now button click listener is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setAdditionalRateNowButtonClickListener(clickListener)
+        assertThat(DialogOptions.additionalRateNowButtonClickListener)
             .isEqualTo(clickListener)
     }
 
@@ -162,6 +178,13 @@ class AppRatingTest {
     }
 
     @Test
+    fun `additional mail feedback button click listener is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setAdditionalMailFeedbackButtonClickListener(clickListener)
+        assertThat(DialogOptions.additionalMailFeedbackButtonClickListener)
+            .isEqualTo(clickListener)
+    }
+
+    @Test
     fun `custom feedback enabled set correctly into DialogOptions`() {
         AppRating.Builder(activity).setUseCustomFeedback(true)
         assertThat(DialogOptions.useCustomFeedback).isEqualTo(true)
@@ -181,13 +204,10 @@ class AppRatingTest {
 
     @Test
     fun `custom feedback button click listener is set correctly into DialogOptions`() {
-        val clickListener = object : CustomFeedbackButtonClickListener {
-            override fun onClick(userFeedbackText: String) {
-            }
-        }
-        AppRating.Builder(activity).setCustomFeedbackButtonClickListener(clickListener)
+        AppRating.Builder(activity)
+            .setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener)
         assertThat(DialogOptions.customFeedbackButton.customFeedbackButtonClickListener)
-            .isEqualTo(clickListener)
+            .isEqualTo(customFeedbackButtonClickListener)
     }
 
     @Test
@@ -328,6 +348,14 @@ class AppRatingTest {
         private const val INT_RES_ID = 42
         private val clickListener = object : RateDialogClickListener {
             override fun onClick() {
+            }
+        }
+        private val confirmButtonClickListener = object : ConfirmButtonClickListener {
+            override fun onClick(userRating: Float) {
+            }
+        }
+        private val customFeedbackButtonClickListener = object : CustomFeedbackButtonClickListener {
+            override fun onClick(userFeedbackText: String) {
             }
         }
     }
