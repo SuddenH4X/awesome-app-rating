@@ -85,6 +85,12 @@ class AppRatingTest {
     }
 
     @Test
+    fun `full star rating is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setShowOnlyFullStars(true)
+        assertThat(DialogOptions.showOnlyFullStars).isEqualTo(true)
+    }
+
+    @Test
     fun `store rating title text is set correctly into DialogOptions`() {
         AppRating.Builder(activity).setStoreRatingTitleTextId(INT_RES_ID)
         assertThat(DialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
