@@ -25,7 +25,8 @@ internal object ConditionsChecker {
             return (!isDialogAgreed &&
                 !isDoNotShowAgain &&
                 daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
-                (PreferenceUtil.getLaunchTimes(context) >= PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)))
+                (PreferenceUtil.getLaunchTimes(context) >=
+                    PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)))
         }
 
         RatingLogger.debug("Show later button hasn't been clicked until now.")

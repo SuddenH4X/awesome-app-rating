@@ -38,7 +38,8 @@ internal object DialogOptions {
     // rating dialog mail feedback
     @StringRes
     var mailFeedbackMessageTextId = R.string.rating_dialog_feedback_mail_message
-    var mailFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
+    var mailFeedbackButton: RateButton =
+        RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
     var mailSettings: MailSettings? = null
 
     // rating dialog custom feedback

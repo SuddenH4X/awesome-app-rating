@@ -19,23 +19,23 @@
             app:layout_constraintBottom_toTopOf="@id/customFeedbackEditText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/customFeedbackEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:background="@drawable/edittext_border"
             android:hint="@string/rating_dialog_feedback_custom_message"
             android:importantForAutofill="no"
-            android:lines="4"
-            android:layout_margin="@dimen/margin_normal"
             android:inputType="textMultiLine"
-            android:background="@drawable/edittext_border"
+            android:lines="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/customFeedbackTitleTextView"
-            tools:targetApi="o"/>
+            tools:targetApi="o" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
