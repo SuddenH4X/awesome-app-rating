@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButton
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
@@ -37,18 +36,18 @@ object AppRating {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
 
-        fun setRateLaterButtonClickListener(onRateLaterButtonClickListener: RateDialogClickListener) =
+        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) =
             apply {
                 dialogOptions.rateLaterButton.rateDialogClickListener =
-                    onRateLaterButtonClickListener
+                    rateLaterButtonClickListener
             }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
-            onRateNeverButtonClickListener: RateDialogClickListener? = null
+            rateNeverButtonClickListener: RateDialogClickListener? = null
         ) = apply {
             dialogOptions.rateNeverButton =
-                RateButton(rateNeverButtonTextId, onRateNeverButtonClickListener)
+                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
             RatingLogger.debug("Show rate never button.")
         }
 

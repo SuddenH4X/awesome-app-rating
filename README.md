@@ -127,13 +127,13 @@ Between the constructor and the show or create method you can adjust the dialog 
 - Add a click listener to the rate later button
 
 ```kotlin
-.setRateLaterButtonClickListener(onRateLaterButtonClickListener: RateDialogClickListener)
+.setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener)
 ```
 
 - Show the rate never button, change the button text and add a click listener
 
 ```kotlin
-.showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+.showRateNeverButton(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
 ```
 
 ##### Rating Overview
