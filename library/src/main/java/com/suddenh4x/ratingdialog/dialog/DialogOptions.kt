@@ -21,6 +21,7 @@ internal object DialogOptions {
     var messageTextId: Int? = null
     @StringRes
     var confirmButtonTextId = R.string.rating_dialog_overview_button_confirm
+    var showOnlyFullStars = false
 
     // rating dialog store
     @StringRes
