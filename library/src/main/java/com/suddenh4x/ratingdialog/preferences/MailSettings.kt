@@ -4,5 +4,5 @@ data class MailSettings(
     val mailAddress: String,
     val subject: String,
     val text: String? = null,
-    val chooserTitle: String? = null
+    val errorToastMessage: String? = null
 )
