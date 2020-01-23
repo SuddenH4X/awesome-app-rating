@@ -150,6 +150,12 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
 
+- Show only full star ratings
+
+```kotlin
+.setShowOnlyFullStars(showOnlyFullStars: Boolean)
+```
+
 ##### Store Rating
 
 - Change the title of the store rating dialog
