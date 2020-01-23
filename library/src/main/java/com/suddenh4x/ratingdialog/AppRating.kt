@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
@@ -61,8 +62,13 @@ object AppRating {
         }
 
         fun setConfirmButtonTextId(@StringRes confirmButtonTextId: Int) = apply {
-            dialogOptions.confirmButtonTextId = confirmButtonTextId
+            dialogOptions.confirmButton.textId = confirmButtonTextId
         }
+
+        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) =
+            apply {
+                dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
+            }
 
         fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply {
             dialogOptions.showOnlyFullStars = showOnlyFullStars
@@ -84,6 +90,12 @@ object AppRating {
         fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
             apply {
                 dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
+            }
+
+        fun setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.additionalRateNowButtonClickListener =
+                    additionalRateNowButtonClickListener
             }
 
         // rating dialog feedback
@@ -118,6 +130,12 @@ object AppRating {
             apply {
                 dialogOptions.mailFeedbackButton.rateDialogClickListener =
                     mailFeedbackButtonClickListener
+            }
+
+        fun setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener) =
+            apply {
+                dialogOptions.additionalMailFeedbackButtonClickListener =
+                    additionalMailFeedbackButtonClickListener
             }
 
         // rating dialog custom feedback
