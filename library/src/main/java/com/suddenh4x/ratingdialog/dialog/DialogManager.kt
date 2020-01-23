@@ -51,7 +51,11 @@ internal object DialogManager {
         builder.apply {
             setView(ratingOverviewDialogView)
 
-            setPositiveButton(dialogOptions.confirmButtonTextId) { _, _ ->
+            setPositiveButton(dialogOptions.confirmButton.textId) { _, _ ->
+                RatingLogger.debug("Confirm button clicked.")
+                dialogOptions.confirmButton.confirmButtonClickListener?.onClick(rating)
+                    ?: RatingLogger.info("Confirm button has no click listener.")
+
                 when {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
@@ -145,6 +149,8 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick() ?: openPlayStore(context)
+                    dialogOptions.additionalRateNowButtonClickListener?.onClick()
+                        ?: RatingLogger.info("Additional rate now button click listener not set.")
                 }
             }
             initializeRateLaterButton(context, dialogOptions.rateLaterButton, this)
@@ -172,6 +178,9 @@ internal object DialogManager {
 
                     button.rateDialogClickListener?.onClick()
                         ?: openMailApp(context, dialogOptions.mailSettings)
+
+                    dialogOptions.additionalMailFeedbackButtonClickListener?.onClick()
+                        ?: RatingLogger.info("Additional mail feedback button click listener not set.")
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)

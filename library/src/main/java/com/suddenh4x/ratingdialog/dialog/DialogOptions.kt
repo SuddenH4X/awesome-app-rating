@@ -3,8 +3,10 @@ package com.suddenh4x.ratingdialog.dialog
 import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 import com.suddenh4x.ratingdialog.R
+import com.suddenh4x.ratingdialog.buttons.ConfirmButton
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButton
 import com.suddenh4x.ratingdialog.buttons.RateButton
+import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -19,8 +21,7 @@ internal object DialogOptions {
     var titleTextId = R.string.rating_dialog_overview_title
     @StringRes
     var messageTextId: Int? = null
-    @StringRes
-    var confirmButtonTextId = R.string.rating_dialog_overview_button_confirm
+    var confirmButton = ConfirmButton(R.string.rating_dialog_overview_button_confirm, null)
     var showOnlyFullStars = false
 
     // rating dialog store
@@ -29,6 +30,7 @@ internal object DialogOptions {
     @StringRes
     var storeRatingMessageTextId = R.string.rating_dialog_store_message
     var rateNowButton: RateButton = RateButton(R.string.rating_dialog_store_button_rate_now, null)
+    var additionalRateNowButtonClickListener: RateDialogClickListener? = null
 
     // rating dialog feedback
     @StringRes
@@ -41,6 +43,7 @@ internal object DialogOptions {
     var mailFeedbackButton: RateButton =
         RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
     var mailSettings: MailSettings? = null
+    var additionalMailFeedbackButtonClickListener: RateDialogClickListener? = null
 
     // rating dialog custom feedback
     var useCustomFeedback = false
