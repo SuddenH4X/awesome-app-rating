@@ -110,7 +110,7 @@ class AppRatingTest {
 
     @Test
     fun `rate now button clicklistener is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setRateNowButtonClickListener(clickListener)
+        AppRating.Builder(activity).overwriteRateNowButtonClickListener(clickListener)
         assertThat(DialogOptions.rateNowButton.rateDialogClickListener)
             .isEqualTo(clickListener)
     }
@@ -310,14 +310,6 @@ class AppRatingTest {
             AppRating.Builder(activity).showIfMeetsConditions()
             verify(exactly = 0) { anyConstructed<AppRating.Builder>().showNow() }
         }
-    }
-
-    @Test
-    fun `initialize rate now button sets text and click listener correctly into DialogOptions`() {
-        AppRating.Builder(activity).initializeRateNowButton()
-
-        assertThat(DialogOptions.rateNowButton.textId).isEqualTo(R.string.rating_dialog_store_button_rate_now)
-        assertThat(DialogOptions.rateNowButton.rateDialogClickListener).isNotNull
     }
 
     companion object {
