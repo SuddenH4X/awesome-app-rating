@@ -11,7 +11,7 @@ A highly customizable Android library providing a dialog, which asks the user to
 - Let the dialog show up on a defined app session or after n days of usage
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
-- You can override all click listeners to fit your needs
+- You can override all click listeners to fit your needs (or to implement extensive tracking)
 - The dialog handles orientation changes correctly
 - Extracts the accent color of your app's theme
 
@@ -156,6 +156,12 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
 
+- Add a click listener to the confirm button
+
+```kotlin
+.setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener)
+```
+
 - Show only full star ratings
 
 ```kotlin
@@ -186,6 +192,12 @@ Between the constructor and the show or create method you can adjust the dialog 
 
 ````kotlin
 .overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+````
+
+- Add an additional click listener to the rate now button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener)
 ````
 
 ##### Feedback
@@ -241,6 +253,12 @@ If custom feedback is enabled, these settings will be ignored:
 ```kotlin
 .overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener)
 ```
+
+- Add an additional click listener to the mail feedback button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener)
+````
 
 ##### Custom Feedback
 
