@@ -14,7 +14,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
@@ -171,7 +171,7 @@ internal object DialogManager {
                     PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick()
-                        ?: openMailAppChooser(context, dialogOptions.mailSettings)
+                        ?: openMailApp(context, dialogOptions.mailSettings)
                 }
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
@@ -179,22 +179,27 @@ internal object DialogManager {
         return builder.create()
     }
 
-    private fun openMailAppChooser(context: Context, mailSettings: MailSettings?) {
+    private fun openMailApp(context: Context, mailSettings: MailSettings?) {
         mailSettings?.let { settings ->
-            val intent = Intent(
-                Intent.ACTION_SENDTO,
-                Uri.fromParts("mailto", settings.mailAddress, null)
-            ).apply {
+            val mailIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SENDTO
+                data = Uri.parse("mailto: ${settings.mailAddress}")
                 putExtra(Intent.EXTRA_SUBJECT, settings.subject)
                 putExtra(Intent.EXTRA_TEXT, settings.text)
             }
 
-            startActivity(context, Intent.createChooser(intent, settings.chooserTitle), null)
-            RatingLogger.info("Open mail app chooser.")
-        }
-            ?: RatingLogger.error(
-                "Mail feedback button has no click listener and mail settings are not set. Nothing happens."
-            )
+            if (mailIntent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(mailIntent)
+                RatingLogger.info("Open mail app.")
+            } else {
+                val errorMessage = mailSettings.errorToastMessage
+                    ?: context.getString(R.string.rating_dialog_feedback_mail_no_mail_error)
+                RatingLogger.error("No mail app is installed. Showing error toast now.")
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+            }
+        } ?: RatingLogger.error(
+            "Mail feedback button has no click listener and mail settings are not set. Nothing happens."
+        )
     }
 
     internal fun createCustomFeedbackDialog(
@@ -265,7 +270,7 @@ internal object DialogManager {
             val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(googlePlayIntent)
         } catch (activityNotFoundException: ActivityNotFoundException) {
-            RatingLogger.info("Google Play Store not found on this device. Calling web url now.")
+            RatingLogger.info("Google Play Store was not found on this device. Calling web url now.")
             val uri = Uri.parse(GOOGLE_PLAY_WEB_URL + context.packageName)
             RatingLogger.info("Open rating url (web): $uri.")
             val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)

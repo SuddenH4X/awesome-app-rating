@@ -19,6 +19,7 @@
     // rating dialog mail feedback
     <string name="rating_dialog_feedback_mail_message">Wir wollen diese App mit deiner Hilfe verbessern. Willst du uns eine Mail mit deinen Verbesserungsvorschlägen schicken?</string>
     <string name="rating_dialog_feedback_mail_button_mail">Mail</string>
+    <string name="rating_dialog_feedback_mail_no_mail_error">Für das Senden von Feedback via E-Mail wird eine Mail-App benötigt!</string>
 
     // rating dialog custom feedback
     <string name="rating_dialog_feedback_custom_message">Sag uns, was schief gelaufen ist und wir werden daran arbeiten.</string>
