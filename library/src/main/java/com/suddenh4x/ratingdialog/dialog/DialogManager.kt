@@ -32,7 +32,10 @@ internal object DialogManager {
     private val TAG = DialogManager::class.java.simpleName
     private var rating: Float = -1f
 
-    internal fun createRatingOverviewDialog(activity: FragmentActivity, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createRatingOverviewDialog(
+        activity: FragmentActivity,
+        dialogOptions: DialogOptions
+    ): AlertDialog {
         RatingLogger.debug("Creating rating overview dialog.")
         val builder = AlertDialog.Builder(activity)
 
@@ -51,7 +54,12 @@ internal object DialogManager {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
                         val rateDialogFragment = RateDialogFragment()
                         rateDialogFragment.arguments =
-                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.RATING_STORE) }
+                            Bundle().apply {
+                                putSerializable(
+                                    ARG_DIALOG_TYPE,
+                                    DialogType.RATING_STORE
+                                )
+                            }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                     dialogOptions.useCustomFeedback -> {
@@ -60,7 +68,12 @@ internal object DialogManager {
                         )
                         val rateDialogFragment = RateDialogFragment()
                         rateDialogFragment.arguments =
-                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_CUSTOM) }
+                            Bundle().apply {
+                                putSerializable(
+                                    ARG_DIALOG_TYPE,
+                                    DialogType.FEEDBACK_CUSTOM
+                                )
+                            }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                     else -> {
@@ -69,7 +82,12 @@ internal object DialogManager {
                         )
                         val rateDialogFragment = RateDialogFragment()
                         rateDialogFragment.arguments =
-                            Bundle().apply { putSerializable(ARG_DIALOG_TYPE, DialogType.FEEDBACK_MAIL) }
+                            Bundle().apply {
+                                putSerializable(
+                                    ARG_DIALOG_TYPE,
+                                    DialogType.FEEDBACK_MAIL
+                                )
+                            }
                         rateDialogFragment.show(activity.supportFragmentManager, TAG)
                     }
                 }
@@ -78,7 +96,13 @@ internal object DialogManager {
             initializeRateNeverButton(activity, dialogOptions.rateNeverButton, this)
         }
 
-        return builder.create().also { dialog -> initRatingBar(ratingOverviewDialogView, dialogOptions.showOnlyFullStars, dialog) }
+        return builder.create().also { dialog ->
+            initRatingBar(
+                ratingOverviewDialogView,
+                dialogOptions.showOnlyFullStars,
+                dialog
+            )
+        }
     }
 
     @SuppressLint("ResourceType")
@@ -91,7 +115,11 @@ internal object DialogManager {
         }
     }
 
-    private fun initRatingBar(customRatingDialogView: View, showOnlyFullStars: Boolean, dialog: AlertDialog) {
+    private fun initRatingBar(
+        customRatingDialogView: View,
+        showOnlyFullStars: Boolean,
+        dialog: AlertDialog
+    ) {
         customRatingDialogView.ratingBar.apply {
             if (showOnlyFullStars) {
                 stepSize = 1f
@@ -104,7 +132,10 @@ internal object DialogManager {
         disablePositiveButtonWhenDialogShows(dialog)
     }
 
-    internal fun createRatingStoreDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createRatingStoreDialog(
+        context: Context,
+        dialogOptions: DialogOptions
+    ): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
         val builder = AlertDialog.Builder(context)
 
@@ -133,7 +164,10 @@ internal object DialogManager {
         return builder.create()
     }
 
-    internal fun createMailFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createMailFeedbackDialog(
+        context: Context,
+        dialogOptions: DialogOptions
+    ): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
         val builder = AlertDialog.Builder(context)
 
@@ -158,7 +192,10 @@ internal object DialogManager {
 
     private fun openMailAppChooser(context: Context, mailSettings: MailSettings?) {
         mailSettings?.let { settings ->
-            val intent = Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", settings.mailAddress, null)).apply {
+            val intent = Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", settings.mailAddress, null)
+            ).apply {
                 putExtra(Intent.EXTRA_SUBJECT, settings.subject)
                 putExtra(Intent.EXTRA_TEXT, settings.text)
             }
@@ -171,12 +208,16 @@ internal object DialogManager {
             )
     }
 
-    internal fun createCustomFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createCustomFeedbackDialog(
+        context: Context,
+        dialogOptions: DialogOptions
+    ): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
         val builder = AlertDialog.Builder(context)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val ratingCustomFeedbackDialogView = inflater.inflate(R.layout.dialog_rating_custom_feedback, null)
+        val ratingCustomFeedbackDialogView =
+            inflater.inflate(R.layout.dialog_rating_custom_feedback, null)
         val customFeedbackEditText = ratingCustomFeedbackDialogView.customFeedbackEditText
         ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
         customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
@@ -201,10 +242,18 @@ internal object DialogManager {
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
         }
         return builder.create()
-            .also { dialog -> initializeCustomFeedbackDialogButtonHandler(customFeedbackEditText, dialog) }
+            .also { dialog ->
+                initializeCustomFeedbackDialogButtonHandler(
+                    customFeedbackEditText,
+                    dialog
+                )
+            }
     }
 
-    private fun initializeCustomFeedbackDialogButtonHandler(editText: EditText, dialog: AlertDialog) {
+    private fun initializeCustomFeedbackDialogButtonHandler(
+        editText: EditText,
+        dialog: AlertDialog
+    ) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
