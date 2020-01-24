@@ -15,6 +15,9 @@ internal object DialogOptions {
     var rateLaterButton: RateButton = RateButton(R.string.rating_dialog_button_rate_later, null)
     var rateNeverButton: RateButton? = null
     var ratingThreshold: RatingThreshold = RatingThreshold.THREE
+    var customCondition: (() -> Boolean)? = null
+    var customConditionToShowAgain: (() -> Boolean)? = null
+    var countAppLaunch: Boolean = true
 
     // rating dialog overview
     @StringRes
