@@ -28,6 +28,11 @@ object AppRating {
         internal var isDebug = false
         private var dialogOptions = DialogOptions()
 
+        internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) :
+            this(activity) {
+            this.dialogOptions = dialogOptions
+        }
+
         fun setIconDrawable(iconDrawable: Drawable?) = apply {
             dialogOptions.iconDrawable = iconDrawable
             RatingLogger.debug("Use custom icon drawable.")

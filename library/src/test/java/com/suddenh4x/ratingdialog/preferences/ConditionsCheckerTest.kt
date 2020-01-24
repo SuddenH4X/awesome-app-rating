@@ -1,6 +1,8 @@
 package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import io.mockk.every
@@ -22,6 +24,9 @@ import java.util.Date
 class ConditionsCheckerTest {
     @MockK
     lateinit var context: Context
+    @MockK
+    lateinit var activity: AppCompatActivity
+    private lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
     fun setup() {
@@ -30,6 +35,7 @@ class ConditionsCheckerTest {
         every { PreferenceUtil.isDialogAgreed(context) } returns false
         every { PreferenceUtil.isDoNotShowAgain(context) } returns false
         every { PreferenceUtil.getRemindTimestamp(context) } returns 0
+        dialogOptions = DialogOptions()
     }
 
     @Nested
@@ -41,28 +47,28 @@ class ConditionsCheckerTest {
 
         @AfterEach
         fun cleanup() {
-            DialogOptions.customConditionToShowAgain = null
+            dialogOptions.customConditionToShowAgain = null
         }
 
         @Test
         fun `and dialog agreed should return false`() {
             every { PreferenceUtil.isDialogAgreed(context) } returns true
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test
         fun `and do not show again clicked should return false`() {
             every { PreferenceUtil.isDoNotShowAgain(context) } returns true
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test
         fun `and false custom condition to show again should immediately return false`() {
-            DialogOptions.customConditionToShowAgain = { false }
+            dialogOptions.customConditionToShowAgain = { false }
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
             verify(exactly = 0) { PreferenceUtil.getMinimumDaysToShowAgain(context) }
         }
 
@@ -91,23 +97,38 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
 
                     @Test
                     fun `and with true custom condition to show again and launch times set to 0 returns true`() {
-                        DialogOptions.customConditionToShowAgain = { true }
+                        dialogOptions.customConditionToShowAgain = { true }
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
 
                     @Test
                     fun `and with false custom condition to show again and launch times set to 0 returns false`() {
-                        DialogOptions.customConditionToShowAgain = { false }
+                        dialogOptions.customConditionToShowAgain = { false }
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
                 }
 
@@ -122,21 +143,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -152,7 +188,7 @@ class ConditionsCheckerTest {
                 fun `and with launch times set to 10 returns false`() {
                     every { PreferenceUtil.getLaunchTimes(context) } returns 10
                     // fixme: Getting strange errors if using property access
-                    assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                    assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
                 }
             }
         }
@@ -182,7 +218,12 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
 
@@ -197,21 +238,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -234,7 +290,12 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
 
@@ -249,21 +310,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -279,7 +355,7 @@ class ConditionsCheckerTest {
                 fun `and with launch times set to 10 returns false`() {
                     every { PreferenceUtil.getLaunchTimes(context) } returns 10
                     // fixme: Getting strange errors if using property access
-                    assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                    assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
                 }
             }
         }
@@ -294,28 +370,28 @@ class ConditionsCheckerTest {
 
         @AfterEach
         fun cleanup() {
-            DialogOptions.customCondition = null
+            dialogOptions.customCondition = null
         }
 
         @Test
         fun `and dialog agreed should return false`() {
             every { PreferenceUtil.isDialogAgreed(context) } returns true
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test
         fun `and do not show again clicked should return false`() {
             every { PreferenceUtil.isDoNotShowAgain(context) } returns true
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test
         fun `and false custom condition should immediately return false`() {
-            DialogOptions.customCondition = { false }
+            dialogOptions.customCondition = { false }
             // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
             verify(exactly = 0) { PreferenceUtil.getMinimumDays(context) }
         }
 
@@ -344,7 +420,12 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
 
@@ -359,21 +440,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -389,7 +485,7 @@ class ConditionsCheckerTest {
                 fun `and with launch times set to 10 returns false`() {
                     every { PreferenceUtil.getLaunchTimes(context) } returns 10
                     // fixme: Getting strange errors if using property access
-                    assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                    assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
                 }
             }
         }
@@ -419,23 +515,38 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
 
                     @Test
                     fun `and with true custom condition and launch times set to 0 returns true`() {
-                        DialogOptions.customCondition = { true }
+                        dialogOptions.customCondition = { true }
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
 
                     @Test
                     fun `and with false custom condition and launch times set to 0 returns false`() {
-                        DialogOptions.customCondition = { false }
+                        dialogOptions.customCondition = { false }
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
                 }
 
@@ -450,21 +561,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -487,7 +613,12 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
 
@@ -502,21 +633,36 @@ class ConditionsCheckerTest {
                     fun `and with launch times set to 0 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 0
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 1 returns false`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 1
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isFalse()
                     }
 
                     @Test
                     fun `and with launch times set to 2 returns true`() {
                         every { PreferenceUtil.getLaunchTimes(context) } returns 2
                         // fixme: Getting strange errors if using property access
-                        assertThat(ConditionsChecker.shouldShowDialog(context)).isTrue()
+                        assertThat(
+                            ConditionsChecker.shouldShowDialog(
+                                context,
+                                dialogOptions
+                            )
+                        ).isTrue()
                     }
                 }
             }
@@ -532,7 +678,7 @@ class ConditionsCheckerTest {
                 fun `and with launch times set to 10 returns false`() {
                     every { PreferenceUtil.getLaunchTimes(context) } returns 10
                     // fixme: Getting strange errors if using property access
-                    assertThat(ConditionsChecker.shouldShowDialog(context)).isFalse()
+                    assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
                 }
             }
         }
@@ -551,4 +697,6 @@ class ConditionsCheckerTest {
         calendar.add(Calendar.DAY_OF_MONTH, -3)
         return calendar.time
     }
+
+    private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 }
