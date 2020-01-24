@@ -10,26 +10,28 @@ internal class RateDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        isCancelable = DialogOptions.cancelable
+        val dialogOptions: DialogOptions =
+            arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
+        isCancelable = dialogOptions.cancelable
 
         dialogType =
             arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         return when (dialogType) {
             DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(
                 requireActivity(),
-                DialogOptions
+                dialogOptions
             )
             DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
                 requireActivity(),
-                DialogOptions
+                dialogOptions
             )
             DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
                 requireActivity(),
-                DialogOptions
+                dialogOptions
             )
             DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
                 requireActivity(),
-                DialogOptions
+                dialogOptions
             )
         }
     }
@@ -42,6 +44,24 @@ internal class RateDialogFragment : DialogFragment() {
     }
 
     companion object {
-        const val ARG_DIALOG_TYPE = "DialogOptions"
+        private const val ARG_DIALOG_TYPE = "DialogType"
+        private const val ARG_DIALOG_OPTIONS = "DialogOptions"
+
+        fun newInstance(dialogOptions: DialogOptions): RateDialogFragment {
+            val rateDialogFragment = RateDialogFragment()
+            rateDialogFragment.arguments = Bundle().apply {
+                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
+            }
+            return rateDialogFragment
+        }
+
+        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+            val rateDialogFragment = RateDialogFragment()
+            rateDialogFragment.arguments = Bundle().apply {
+                putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
+                putSerializable(ARG_DIALOG_TYPE, dialogType)
+            }
+            return rateDialogFragment
+        }
     }
 }
