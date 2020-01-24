@@ -17,6 +17,12 @@
             android:layout_height="wrap_content"
             android:text="@string/text_example_note_app_reset" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onResetButtonClicked"
+            android:text="@string/button_example_reset" />
+
         <TextView
             style="@style/ExampleText"
             android:layout_width="match_parent"
