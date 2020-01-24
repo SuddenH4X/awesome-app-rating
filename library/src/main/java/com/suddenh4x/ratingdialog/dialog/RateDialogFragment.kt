@@ -44,8 +44,8 @@ internal class RateDialogFragment : DialogFragment() {
     }
 
     companion object {
-        private const val ARG_DIALOG_TYPE = "DialogType"
-        private const val ARG_DIALOG_OPTIONS = "DialogOptions"
+        internal const val ARG_DIALOG_TYPE = "DialogType"
+        internal const val ARG_DIALOG_OPTIONS = "DialogOptions"
 
         fun newInstance(dialogOptions: DialogOptions): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
