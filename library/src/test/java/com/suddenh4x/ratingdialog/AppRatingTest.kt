@@ -237,7 +237,7 @@ class AppRatingTest {
     @Test
     fun `countAppLaunch is set correctly into DialogOptions`() {
         assertThat(DialogOptions.countAppLaunch).isTrue()
-        AppRating.Builder(activity).dontCountThisLaunch()
+        AppRating.Builder(activity).dontCountThisAsAppLaunch()
         assertThat(DialogOptions.countAppLaunch).isFalse()
     }
 
@@ -245,7 +245,7 @@ class AppRatingTest {
     fun `Builder resets correctly the temporary options`() {
         AppRating.Builder(activity).setCustomCondition(customCondition)
         AppRating.Builder(activity).setCustomConditionToShowAgain(customCondition)
-        AppRating.Builder(activity).dontCountThisLaunch()
+        AppRating.Builder(activity).dontCountThisAsAppLaunch()
         AppRating.Builder(activity)
         assertThat(DialogOptions.countAppLaunch).isEqualTo(true)
         assertThat(DialogOptions.customCondition?.invoke()).isEqualTo(null)
