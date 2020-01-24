@@ -25,8 +25,13 @@ object AppRating {
     }
 
     data class Builder(var activity: AppCompatActivity) {
-        private var dialogOptions: DialogOptions = DialogOptions
         internal var isDebug = false
+        private var dialogOptions = DialogOptions()
+
+        internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) :
+            this(activity) {
+            this.dialogOptions = dialogOptions
+        }
 
         fun setIconDrawable(iconDrawable: Drawable?) = apply {
             dialogOptions.iconDrawable = iconDrawable
@@ -188,6 +193,21 @@ object AppRating {
             PreferenceUtil.setMinimumDaysToShowAgain(activity, minimumDaysToShowAgain)
         }
 
+        fun setCustomCondition(customCondition: () -> Boolean) = apply {
+            dialogOptions.customCondition = customCondition
+            RatingLogger.debug("Custom condition set. This condition will be removed next time you call the Builder constructor.")
+        }
+
+        fun setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean) = apply {
+            dialogOptions.customConditionToShowAgain = customConditionToShowAgain
+            RatingLogger.debug("Custom condition to show again set. This condition will be removed next time you call the Builder constructor.")
+        }
+
+        fun dontCountThisAsAppLaunch() = apply {
+            dialogOptions.countAppLaunch = false
+            RatingLogger.debug("countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.")
+        }
+
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {
             RatingLogger.isLoggingEnabled = isLoggingEnabled
         }
@@ -197,16 +217,20 @@ object AppRating {
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
 
-        fun create(): DialogFragment = RateDialogFragment()
+        fun create(): DialogFragment = RateDialogFragment.newInstance(dialogOptions)
 
-        fun showNow() {
-            val rateDialogFragment = RateDialogFragment()
-            rateDialogFragment.show(activity.supportFragmentManager, TAG)
-        }
+        fun showNow() =
+            RateDialogFragment.newInstance(dialogOptions).show(activity.supportFragmentManager, TAG)
 
         fun showIfMeetsConditions() {
-            PreferenceUtil.increaseLaunchTimes(activity)
-            if (isDebug || ConditionsChecker.shouldShowDialog(activity)) {
+            if (dialogOptions.countAppLaunch) {
+                RatingLogger.debug("App launch will be counted: countAppLaunch is true.")
+                PreferenceUtil.increaseLaunchTimes(activity)
+            } else {
+                RatingLogger.info("App launch not counted this time: countAppLaunch has been set to false.")
+            }
+
+            if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
                 RatingLogger.info("Show rating dialog now: Conditions met.")
                 showNow()
             } else {

@@ -108,6 +108,24 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) // default is 5
 ```
 
+- Set a custom condition which will be evaluated before showing the dialog. See below for more information.
+
+```kotlin
+.setCustomCondition(customCondition: () -> Boolean)
+```
+
+- Set a custom condition which will be evaluated before showing the dialog after the `later` button has been clicked. See below for more information.
+
+```kotlin
+.setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean)
+```
+
+- Disable app launch counting for this time. It makes sense to combine this option with the custom condition(s).
+
+```kotlin
+.dontCountThisAsAppLaunch()
+```
+
 #### Design
 
 ##### General
@@ -325,6 +343,21 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+### Custom Conditions
+
+You can easily use custom conditions to show the dialog not (only) on app start but e.g. directly after the nth user interaction. Just call the Builder with your conditions and `dontCountThisAsAppLaunch()`:
+
+```kotlin
+AppRating.Builder(this)
+    // your other settings
+    .setCustomCondition { buttonClicks > 10 }
+    .setCustomConditionToShowAgain { buttonClicks > 20 }
+    .dontCountThisAsAppLaunch()
+    .showIfMeetsConditions()
+```
+
+If you want to show the dialog on app start, but with your custom conditions, you can of course just call the Builder in your `onCreate()` method of your main Activity class. If so, don't forget to remove the `dontCountThisAsAppLaunch()` method from the example above.
+
 ## Note
 
 * Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
@@ -332,6 +365,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 * If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButtonClickListener()`)
 * If the user rates below the defined minimum threshold, the feedback dialog will be displayed and then the dialog will not show up again
 * If you don't want to customize anything, you can just use `AppRating.Builder(this).showIfMeetsConditions()` without any settings
+* App launches will only get counted if you call `showIfMeetsConditions()` and `dontCountThisAsAppLaunch()` hasn't been called
 * If you have any problems, check out the logs in Logcat (You can filter by `awesome_app_rating`)
 * Look at the example app to get first impressions
 
