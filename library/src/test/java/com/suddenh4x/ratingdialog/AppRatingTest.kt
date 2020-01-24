@@ -1,5 +1,6 @@
 package com.suddenh4x.ratingdialog
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
+import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -162,7 +164,6 @@ class AppRatingTest {
 
     @Test
     fun `mail settings are set correctly into dialogOptions`() {
-        val mailSettings = MailSettings("address", "subject", "body", "errorToast")
         getBuilder().setMailSettingsForFeedbackDialog(mailSettings)
         assertThat(dialogOptions.mailSettings).isEqualTo(mailSettings)
     }
@@ -314,6 +315,7 @@ class AppRatingTest {
             every { activity.supportFragmentManager } returns mockk()
 
             getBuilder().showNow()
+            verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(any(), any()) }
             verify(exactly = 1) {
                 anyConstructed<RateDialogFragment>().show(
                     any<FragmentManager>(),
@@ -365,6 +367,24 @@ class AppRatingTest {
         }
     }
 
+    @Test
+    fun `open mail feedback calls correct function of FeedbackUtils`() {
+        mockkObject(FeedbackUtils)
+        every { FeedbackUtils.openMailFeedback(any(), any()) } just Runs
+        val context = mockk<Context>()
+        AppRating.openMailFeedback(context, mailSettings)
+        verify(exactly = 1) { FeedbackUtils.openMailFeedback(context, mailSettings) }
+    }
+
+    @Test
+    fun `open play store listing calls correct function of FeedbackUtils`() {
+        mockkObject(FeedbackUtils)
+        every { FeedbackUtils.openPlayStoreListing(any()) } just Runs
+        val context = mockk<Context>()
+        AppRating.openPlayStoreListing(context)
+        verify(exactly = 1) { FeedbackUtils.openPlayStoreListing(context) }
+    }
+
     private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 
     companion object {
@@ -382,5 +402,6 @@ class AppRatingTest {
             }
         }
         private val customCondition: () -> Boolean = { true }
+        private val mailSettings = MailSettings("mailAddress", "subject", "message", "errorToast")
     }
 }
