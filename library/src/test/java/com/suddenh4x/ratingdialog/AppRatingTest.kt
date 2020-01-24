@@ -222,6 +222,36 @@ class AppRatingTest {
         assertThat(DialogOptions.cancelable).isEqualTo(true)
     }
 
+    @Test
+    fun `custom condition is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setCustomCondition(customCondition)
+        assertThat(DialogOptions.customCondition?.invoke()).isEqualTo(customCondition())
+    }
+
+    @Test
+    fun `custom condition to show again is set correctly into DialogOptions`() {
+        AppRating.Builder(activity).setCustomConditionToShowAgain(customCondition)
+        assertThat(DialogOptions.customConditionToShowAgain?.invoke()).isEqualTo(customCondition())
+    }
+
+    @Test
+    fun `countAppLaunch is set correctly into DialogOptions`() {
+        assertThat(DialogOptions.countAppLaunch).isTrue()
+        AppRating.Builder(activity).dontCountThisLaunch()
+        assertThat(DialogOptions.countAppLaunch).isFalse()
+    }
+
+    @Test
+    fun `Builder resets correctly the temporary options`() {
+        AppRating.Builder(activity).setCustomCondition(customCondition)
+        AppRating.Builder(activity).setCustomConditionToShowAgain(customCondition)
+        AppRating.Builder(activity).dontCountThisLaunch()
+        AppRating.Builder(activity)
+        assertThat(DialogOptions.countAppLaunch).isEqualTo(true)
+        assertThat(DialogOptions.customCondition?.invoke()).isEqualTo(null)
+        assertThat(DialogOptions.customConditionToShowAgain?.invoke()).isEqualTo(null)
+    }
+
     @Nested
     inner class PreferenceUtilChanges {
         @MockK(relaxed = true)
@@ -358,5 +388,6 @@ class AppRatingTest {
             override fun onClick(userFeedbackText: String) {
             }
         }
+        private val customCondition: () -> Boolean = { true }
     }
 }
