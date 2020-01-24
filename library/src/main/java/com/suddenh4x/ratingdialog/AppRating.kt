@@ -205,7 +205,7 @@ object AppRating {
             RatingLogger.debug("Custom condition to show again set. This condition will be removed next time you call the Builder constructor.")
         }
 
-        fun dontCountThisLaunch() = apply {
+        fun dontCountThisAsAppLaunch() = apply {
             DialogOptions.countAppLaunch = false
             RatingLogger.debug("countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.")
         }
