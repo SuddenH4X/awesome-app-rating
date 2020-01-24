@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit
 
 internal object ConditionsChecker {
 
-    fun shouldShowDialog(context: Context): Boolean {
+    fun shouldShowDialog(context: Context, dialogOptions: DialogOptions): Boolean {
         RatingLogger.info("Checking conditions.")
         val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
         val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
@@ -21,11 +21,11 @@ internal object ConditionsChecker {
         RatingLogger.verbose("Do not show again: $isDoNotShowAgain.")
         RatingLogger.verbose("Days between later button click and now: $daysBetween.")
 
-        if (!checkCustomCondition()) return false
+        if (!checkCustomCondition(dialogOptions)) return false
 
         if (showDialogLater) {
             RatingLogger.debug("Show later button has already been clicked.")
-            if (!checkCustomConditionToShowAgain()) return false
+            if (!checkCustomConditionToShowAgain(dialogOptions)) return false
 
             return (!isDialogAgreed &&
                 !isDoNotShowAgain &&
@@ -45,8 +45,8 @@ internal object ConditionsChecker {
         return TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
     }
 
-    private fun checkCustomCondition(): Boolean {
-        DialogOptions.customCondition?.let { condition ->
+    private fun checkCustomCondition(dialogOptions: DialogOptions): Boolean {
+        dialogOptions.customCondition?.let { condition ->
             val conditionResult = condition()
             RatingLogger.info("Custom condition found. Condition result is: $conditionResult.")
             return conditionResult
@@ -54,8 +54,8 @@ internal object ConditionsChecker {
         return true
     }
 
-    private fun checkCustomConditionToShowAgain(): Boolean {
-        DialogOptions.customConditionToShowAgain?.let { condition ->
+    private fun checkCustomConditionToShowAgain(dialogOptions: DialogOptions): Boolean {
+        dialogOptions.customConditionToShowAgain?.let { condition ->
             val conditionResult = condition()
             RatingLogger.info("Custom condition to show again found. Condition result is: $conditionResult.")
             return conditionResult
