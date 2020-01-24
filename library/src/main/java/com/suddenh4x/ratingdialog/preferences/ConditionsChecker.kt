@@ -1,13 +1,14 @@
 package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
+import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import java.util.Date
 import java.util.concurrent.TimeUnit
 
 internal object ConditionsChecker {
 
-    fun shouldShowDialog(context: Context): Boolean {
+    fun shouldShowDialog(context: Context, dialogOptions: DialogOptions): Boolean {
         RatingLogger.info("Checking conditions.")
         val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
         val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
@@ -20,8 +21,12 @@ internal object ConditionsChecker {
         RatingLogger.verbose("Do not show again: $isDoNotShowAgain.")
         RatingLogger.verbose("Days between later button click and now: $daysBetween.")
 
+        if (!checkCustomCondition(dialogOptions)) return false
+
         if (showDialogLater) {
             RatingLogger.debug("Show later button has already been clicked.")
+            if (!checkCustomConditionToShowAgain(dialogOptions)) return false
+
             return (!isDialogAgreed &&
                 !isDoNotShowAgain &&
                 daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
@@ -38,5 +43,23 @@ internal object ConditionsChecker {
 
     internal fun calculateDaysBetween(d1: Date, d2: Date): Long {
         return TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
+    }
+
+    private fun checkCustomCondition(dialogOptions: DialogOptions): Boolean {
+        dialogOptions.customCondition?.let { condition ->
+            val conditionResult = condition()
+            RatingLogger.info("Custom condition found. Condition result is: $conditionResult.")
+            return conditionResult
+        } ?: RatingLogger.debug("No custom condition was set.")
+        return true
+    }
+
+    private fun checkCustomConditionToShowAgain(dialogOptions: DialogOptions): Boolean {
+        dialogOptions.customConditionToShowAgain?.let { condition ->
+            val conditionResult = condition()
+            RatingLogger.info("Custom condition to show again found. Condition result is: $conditionResult.")
+            return conditionResult
+        } ?: RatingLogger.debug("No custom condition to show again was set.")
+        return true
     }
 }
