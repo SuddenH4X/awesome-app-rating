@@ -16,6 +16,7 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
+import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 
 object AppRating {
 
@@ -23,6 +24,11 @@ object AppRating {
         PreferenceUtil.reset(context)
         RatingLogger.warn("Settings were reset.")
     }
+
+    fun openMailFeedback(context: Context, mailSettings: MailSettings) =
+        FeedbackUtils.openMailFeedback(context, mailSettings)
+
+    fun openPlayStoreListing(context: Context) = FeedbackUtils.openPlayStoreListing(context)
 
     data class Builder(var activity: AppCompatActivity) {
         internal var isDebug = false
