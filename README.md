@@ -58,7 +58,7 @@ Furthermore the dialog will show up again if the user has clicked the `later` bu
 - The button click happened at least 10 days ago and 
 - the app is launched again for a minimum of 5 times.
 
-If the rate or never button is clicked once or if the user rates below the defined minimum threshold, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but this is not recommended.
+If the rate or never button is clicked once or if the user rates below the defined minimum threshold, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but doing this is not recommended.
 
 If you have adjusted the dialog to suit your preferences, you have multiple possibilities to show it. Usually you want to show the dialog if the configured conditions are met:
 
@@ -209,7 +209,7 @@ Between the constructor and the show or create method you can adjust the dialog 
 - Overwrite the default rate now button click listener
 
 ````kotlin
-.overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+.overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the Play Store listing of your app
 ````
 
 - Add an additional click listener to the rate now button (e.g. for extensive tracking while still using the default library behaviour)
@@ -326,6 +326,26 @@ These settings will only apply if custom feedback is enabled:
 .setDebug(isDebug: Boolean) // default is false
 ```
 
+#### Other methods
+
+- Open the mail feedback directly without showing up the rating dialog
+
+```kotlin
+AppRating.openMailFeedback(context: Context, mailSettings: MailSettings)
+```
+
+- Open your app's Play Store listing without showing up the rating dialog
+
+```kotlin
+AppRating.openPlayStoreListing(context: Context)
+```
+
+- Reset all library settings to factory default
+
+```kotlin
+AppRating.reset(context: Context)
+```
+
 ### Orientation Change
 
 If the orientation is changed, the `onCreate()` method will be called again and so does the Builder. These additional calls will distort the library behavior because each call of `showIfMeetsConditions()` will increase the counted app launches. To guarantee the correct behavior, you have to check for the `savedInstanceState` like this:
@@ -375,6 +395,7 @@ The following things are highly recommended to not annoy the user, which in turn
 - Don't show the dialog immediately after install
 - Don't set the rating threshold to 5
 - Show the `Never` button so the user can decide whether or not to rate your app
+- Use the methods `openPlayStoreListing()` and `openMailFeedback()` in your app settings to give the user the ability of unprompted feedback
 - Don't use `AppRating.reset(this)` in your production app
 
 ## License
