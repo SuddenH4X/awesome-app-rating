@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
-import com.suddenh4x.ratingdialog.dialog.RateDialogFragment.Companion.ARG_DIALOG_TYPE
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
@@ -59,19 +57,19 @@ internal object DialogManager {
                 when {
                     rating >= dialogOptions.ratingThreshold.toFloat() -> {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
-                        showRatingDialog(DialogType.RATING_STORE, activity)
+                        showRatingDialog(dialogOptions, DialogType.RATING_STORE, activity)
                     }
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
                         )
-                        showRatingDialog(DialogType.FEEDBACK_CUSTOM, activity)
+                        showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
                         )
-                        showRatingDialog(DialogType.FEEDBACK_MAIL, activity)
+                        showRatingDialog(dialogOptions, DialogType.FEEDBACK_MAIL, activity)
                     }
                 }
             }
@@ -98,15 +96,13 @@ internal object DialogManager {
         }
     }
 
-    private fun showRatingDialog(dialogType: DialogType, activity: FragmentActivity) {
-        val rateDialogFragment = RateDialogFragment()
-        rateDialogFragment.arguments = Bundle().apply {
-            putSerializable(
-                ARG_DIALOG_TYPE,
-                dialogType
-            )
-        }
-        rateDialogFragment.show(activity.supportFragmentManager, TAG)
+    private fun showRatingDialog(
+        dialogOptions: DialogOptions,
+        dialogType: DialogType,
+        activity: FragmentActivity
+    ) {
+        RateDialogFragment.newInstance(dialogOptions, dialogType)
+            .show(activity.supportFragmentManager, TAG)
     }
 
     private fun initRatingBar(

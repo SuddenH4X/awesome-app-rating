@@ -18,12 +18,13 @@ class MainActivity : AppCompatActivity() {
         AppRating.reset(this)
     }
 
-    fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
+    fun onResetButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.reset(this)
+        Toast.makeText(this, R.string.toast_reset, Toast.LENGTH_SHORT).show()
+    }
 
-        appRatingBuilder
+    fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
             .setDebug(true)
             .showIfMeetsConditions()
     }
@@ -31,22 +32,14 @@ class MainActivity : AppCompatActivity() {
     fun onCustomIconButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         val iconDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_star_black, null)
 
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setIconDrawable(iconDrawable)
             .showIfMeetsConditions()
     }
 
     fun onMailFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setMailSettingsForFeedbackDialog(
                 MailSettings(
@@ -59,11 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onCustomFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setUseCustomFeedback(true)
             .setCustomFeedbackButtonClickListener(object : CustomFeedbackButtonClickListener {
@@ -79,22 +68,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onShowNeverButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .showRateNeverButton()
             .showIfMeetsConditions()
     }
 
     fun onShowOnThirdClickButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .showRateNeverButton()
             .setMinimumLaunchTimes(3)
             .setMinimumDays(0)
@@ -104,33 +85,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onRatingThresholdButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
             .showIfMeetsConditions()
     }
 
     fun onFullStarRatingButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setShowOnlyFullStars(true)
             .showIfMeetsConditions()
     }
 
     fun onCustomTextsButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        // This call is only needed in the example app. Just use the builder
-        // directly within your app.
-        val appRatingBuilder = resetSomeBuilderSettings(AppRating.Builder(this))
-
-        appRatingBuilder
+        AppRating.Builder(this)
             .setDebug(true)
             .setRateNowButtonTextId(R.string.button_rate_now)
             .setRateLaterButtonTextId(R.string.button_rate_later)
@@ -145,16 +114,5 @@ class MainActivity : AppCompatActivity() {
             .setMailFeedbackButtonTextId(R.string.button_mail_feedback)
             .setNoFeedbackButtonTextId(R.string.button_no_feedback)
             .showIfMeetsConditions()
-    }
-
-    // This function is only needed in the example app. It's resetting some
-    // configurations between the examples. Just use the builder directly
-    // within your app.
-    private fun resetSomeBuilderSettings(appRatingBuilder: AppRating.Builder): AppRating.Builder {
-        return appRatingBuilder
-            .setIconDrawable(null)
-            .setRatingThreshold(RatingThreshold.THREE)
-            .setShowOnlyFullStars(false)
-            .setUseCustomFeedback(false)
     }
 }

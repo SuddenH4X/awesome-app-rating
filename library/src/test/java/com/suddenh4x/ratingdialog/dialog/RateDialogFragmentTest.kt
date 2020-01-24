@@ -18,12 +18,15 @@ class RateDialogFragmentTest {
     @SpyK
     internal var rateDialogFragment: RateDialogFragment = RateDialogFragment()
     @MockK
-    lateinit var bundle: Bundle
+    private lateinit var bundle: Bundle
+    private lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
     fun setup() {
         RatingLogger.isLoggingEnabled = false
         mockkObject(DialogManager)
+        dialogOptions = DialogOptions()
+        every { bundle.getSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS) } returns dialogOptions
         every { rateDialogFragment.arguments } returns bundle
         every { rateDialogFragment.requireActivity() } returns mockk()
         every { rateDialogFragment.requireContext() } returns mockk()
