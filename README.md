@@ -8,12 +8,12 @@ A highly customizable Android library providing a dialog, which asks the user to
 
 ## Features
 - Auto fetches the app icon to use it in the dialog
-- Let the dialog show up on a defined app session or after n days of usage
+- Let the dialog show up at a defined app session, after n days of usage and/or if your custom conditions meet
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
 - You can override all click listeners to fit your needs (or to implement extensive tracking)
 - The dialog handles orientation changes correctly
-- Extracts the accent color of your app's theme
+- Extracts the accent color of your app's theme and works with dark/night theme out of the box
 
 This library:
 - is completely written in Kotlin
