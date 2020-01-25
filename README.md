@@ -340,6 +340,24 @@ AppRating.openMailFeedback(context: Context, mailSettings: MailSettings)
 AppRating.openPlayStoreListing(context: Context)
 ```
 
+- Check if the dialog has been agreed. This is true if the user has clicked the rate now button or if he gave you a rating below the defined threshold.
+
+```kotlin
+AppRating.isDialogAgreed(context: Context)
+```
+
+- Check if the later button has already been clicked
+
+```kotlin
+AppRating.wasLaterButtonClicked(context: Context)
+```
+
+- Check if the never button has already been clicked
+
+```kotlin
+AppRating.wasNeverButtonClicked(context: Context)
+```
+
 - Reset all library settings to factory default
 
 ```kotlin
