@@ -25,6 +25,12 @@ object AppRating {
         RatingLogger.warn("Settings were reset.")
     }
 
+    fun isDialogAgreed(context: Context) = PreferenceUtil.isDialogAgreed(context)
+
+    fun wasLaterButtonClicked(context: Context) = PreferenceUtil.wasLaterButtonClicked(context)
+
+    fun wasNeverButtonClicked(context: Context) = PreferenceUtil.isDoNotShowAgain(context)
+
     fun openMailFeedback(context: Context, mailSettings: MailSettings) =
         FeedbackUtils.openMailFeedback(context, mailSettings)
 

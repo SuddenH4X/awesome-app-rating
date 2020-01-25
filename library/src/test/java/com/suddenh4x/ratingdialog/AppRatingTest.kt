@@ -245,7 +245,7 @@ class AppRatingTest {
     }
 
     @Nested
-    inner class PreferenceUtilChanges {
+    inner class PreferenceUtilCalls {
         @MockK(relaxed = true)
         lateinit var sharedPreferences: SharedPreferences
 
@@ -283,6 +283,24 @@ class AppRatingTest {
         fun `minimum days to show again is set correctly into PreferenceUtil`() {
             getBuilder().setMinimumDaysToShowAgain(10)
             verify { PreferenceUtil.setMinimumDaysToShowAgain(activity, 10) }
+        }
+
+        @Test
+        fun `is dialog agreed calls correct method of PreferenceUtil`() {
+            AppRating.isDialogAgreed(activity)
+            verify { PreferenceUtil.isDialogAgreed(activity) }
+        }
+
+        @Test
+        fun `was later button clicked calls correct method of PreferenceUtil`() {
+            AppRating.wasLaterButtonClicked(activity)
+            verify { PreferenceUtil.wasLaterButtonClicked(activity) }
+        }
+
+        @Test
+        fun `was never button clicked calls correct method of PreferenceUtil`() {
+            AppRating.wasNeverButtonClicked(activity)
+            verify { PreferenceUtil.isDoNotShowAgain(activity) }
         }
     }
 
