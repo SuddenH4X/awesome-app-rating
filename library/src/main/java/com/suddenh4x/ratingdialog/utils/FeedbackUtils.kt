@@ -10,9 +10,9 @@ import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 
 internal object FeedbackUtils {
-    private const val GOOGLE_PLAY_WEB_URL = "https://play.google.com/store/apps/details?id="
-    private const val GOOGLE_PLAY_IN_APP_URL = "market://details?id="
-    private const val URI_SCHEME_MAIL_TO = "mailto:"
+    internal const val GOOGLE_PLAY_WEB_URL = "https://play.google.com/store/apps/details?id="
+    internal const val GOOGLE_PLAY_IN_APP_URL = "market://details?id="
+    internal const val URI_SCHEME_MAIL_TO = "mailto:"
 
     fun openPlayStoreListing(context: Context) {
         try {
