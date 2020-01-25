@@ -26,7 +26,7 @@ class ConditionsCheckerTest {
     lateinit var context: Context
     @MockK
     lateinit var activity: AppCompatActivity
-    private lateinit var dialogOptions: DialogOptions
+    internal lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
     fun setup() {
