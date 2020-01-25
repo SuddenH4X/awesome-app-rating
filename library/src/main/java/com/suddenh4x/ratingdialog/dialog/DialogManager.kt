@@ -58,12 +58,14 @@ internal object DialogManager {
                         RatingLogger.info(
                             "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
                         )
+                        PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
                         )
+                        PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_MAIL, activity)
                     }
                 }
@@ -169,7 +171,6 @@ internal object DialogManager {
             dialogOptions.mailFeedbackButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
                     RatingLogger.info("Mail feedback button clicked.")
-                    PreferenceUtil.setDialogAgreed(context)
 
                     button.rateDialogClickListener?.onClick() ?: openMailFeedback(
                         context,
@@ -216,7 +217,6 @@ internal object DialogManager {
             dialogOptions.customFeedbackButton.let { button ->
                 setPositiveButton(button.textId) { _, _ ->
                     RatingLogger.info("Custom feedback button clicked.")
-                    PreferenceUtil.setDialogAgreed(context)
 
                     val userFeedbackText = customFeedbackEditText.text.toString()
                     button.customFeedbackButtonClickListener?.onClick(userFeedbackText)
@@ -306,7 +306,6 @@ internal object DialogManager {
         noFeedbackButton.let { button ->
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("No feedback button clicked.")
-                PreferenceUtil.setDialogAgreed(context)
                 button.rateDialogClickListener?.onClick()
                     ?: RatingLogger.info("No feedback button has no click listener.")
             }
