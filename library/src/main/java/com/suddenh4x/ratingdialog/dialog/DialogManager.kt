@@ -2,10 +2,7 @@ package com.suddenh4x.ratingdialog.dialog
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,7 +10,6 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
@@ -21,6 +17,7 @@ import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.toFloat
+import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 import kotlinx.android.synthetic.main.dialog_rating_custom_feedback.view.*
 import kotlinx.android.synthetic.main.dialog_rating_overview.view.*
 import kotlinx.android.synthetic.main.dialog_rating_overview.view.imageView
@@ -28,8 +25,6 @@ import kotlinx.android.synthetic.main.dialog_rating_store.view.*
 
 @SuppressLint("InflateParams")
 internal object DialogManager {
-    private const val GOOGLE_PLAY_WEB_URL = "https://play.google.com/store/apps/details?id="
-    private const val GOOGLE_PLAY_IN_APP_URL = "market://details?id="
     private val TAG = DialogManager::class.java.simpleName
     private var rating: Float = -1f
 
@@ -144,7 +139,11 @@ internal object DialogManager {
                     RatingLogger.info("Rate button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    button.rateDialogClickListener?.onClick() ?: openPlayStore(context)
+                    button.rateDialogClickListener?.onClick()
+                        ?: run {
+                            RatingLogger.info("Default rate now button click listener called.")
+                            FeedbackUtils.openPlayStoreListing(context)
+                        }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional rate now button click listener not set.")
                 }
@@ -172,8 +171,10 @@ internal object DialogManager {
                     RatingLogger.info("Mail feedback button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    button.rateDialogClickListener?.onClick()
-                        ?: openMailApp(context, dialogOptions.mailSettings)
+                    button.rateDialogClickListener?.onClick() ?: openMailFeedback(
+                        context,
+                        dialogOptions.mailSettings
+                    )
 
                     dialogOptions.additionalMailFeedbackButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional mail feedback button click listener not set.")
@@ -184,27 +185,14 @@ internal object DialogManager {
         return builder.create()
     }
 
-    private fun openMailApp(context: Context, mailSettings: MailSettings?) {
-        mailSettings?.let { settings ->
-            val mailIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SENDTO
-                data = Uri.parse("mailto: ${settings.mailAddress}")
-                putExtra(Intent.EXTRA_SUBJECT, settings.subject)
-                putExtra(Intent.EXTRA_TEXT, settings.text)
-            }
-
-            if (mailIntent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(mailIntent)
-                RatingLogger.info("Open mail app.")
-            } else {
-                val errorMessage = mailSettings.errorToastMessage
-                    ?: context.getString(R.string.rating_dialog_feedback_mail_no_mail_error)
-                RatingLogger.error("No mail app is installed. Showing error toast now.")
-                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
-            }
-        } ?: RatingLogger.error(
-            "Mail feedback button has no click listener and mail settings are not set. Nothing happens."
-        )
+    private fun openMailFeedback(context: Context, mailSettings: MailSettings?) {
+        if (mailSettings != null) {
+            FeedbackUtils.openMailFeedback(context, mailSettings)
+        } else {
+            RatingLogger.error(
+                "Mail feedback button has no click listener and mail settings hasn't been set. Nothing happens."
+            )
+        }
     }
 
     internal fun createCustomFeedbackDialog(
@@ -264,22 +252,6 @@ internal object DialogManager {
     private fun disablePositiveButtonWhenDialogShows(dialog: AlertDialog) {
         dialog.setOnShowListener { visibleDialog ->
             (visibleDialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
-        }
-    }
-
-    private fun openPlayStore(context: Context) {
-        try {
-            RatingLogger.info("Default rate now button click listener was called.")
-            val uri = Uri.parse(GOOGLE_PLAY_IN_APP_URL + context.packageName)
-            RatingLogger.info("Open rating url (in app): $uri.")
-            val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
-            context.startActivity(googlePlayIntent)
-        } catch (activityNotFoundException: ActivityNotFoundException) {
-            RatingLogger.info("Google Play Store was not found on this device. Calling web url now.")
-            val uri = Uri.parse(GOOGLE_PLAY_WEB_URL + context.packageName)
-            RatingLogger.info("Open rating url (web): $uri.")
-            val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
-            context.startActivity(googlePlayIntent)
         }
     }
 
