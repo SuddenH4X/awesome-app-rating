@@ -18,8 +18,8 @@ class RateDialogFragmentTest {
     @SpyK
     internal var rateDialogFragment: RateDialogFragment = RateDialogFragment()
     @MockK
-    private lateinit var bundle: Bundle
-    private lateinit var dialogOptions: DialogOptions
+    lateinit var bundle: Bundle
+    internal lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
     fun setup() {
