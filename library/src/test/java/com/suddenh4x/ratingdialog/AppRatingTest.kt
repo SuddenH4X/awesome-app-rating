@@ -75,6 +75,12 @@ class AppRatingTest {
     }
 
     @Test
+    fun `count of later button clicks to show never button is set correctly into dialogOptions`() {
+        getBuilder().showRateNeverButtonAfterNTimes(INT_RES_ID, clickListener, 42)
+        assertThat(dialogOptions.countOfLaterButtonClicksToShowNeverButton).isEqualTo(42)
+    }
+
+    @Test
     fun `title text is set correctly into dialogOptions`() {
         getBuilder().setTitleTextId(INT_RES_ID)
         assertThat(dialogOptions.titleTextId).isEqualTo(INT_RES_ID)

@@ -87,6 +87,18 @@
             style="@style/ExampleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/text_example_show_never_after_three_times" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onShowNeverButtonAfterThreeTimesClicked"
+            android:text="@string/button_example_show_never_after_three_times" />
+
+        <TextView
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/text_example_show_on_third_click" />
 
         <Button
