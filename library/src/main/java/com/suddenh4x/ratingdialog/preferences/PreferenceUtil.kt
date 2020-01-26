@@ -93,7 +93,7 @@ internal object PreferenceUtil {
     fun isDialogAgreed(context: Context) =
         getPreferences(context).getBoolean(PREF_KEY_DIALOG_AGREED, false)
 
-    fun shouldShowDialogLater(context: Context) =
+    fun wasLaterButtonClicked(context: Context) =
         getPreferences(context).getBoolean(PREF_KEY_DIALOG_SHOW_LATER, false)
 
     fun setDoNotShowAgain(context: Context) {

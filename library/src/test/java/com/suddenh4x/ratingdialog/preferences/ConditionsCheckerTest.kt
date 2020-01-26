@@ -42,7 +42,7 @@ class ConditionsCheckerTest {
     inner class WithLaterButtonClicked {
         @BeforeEach
         fun setup() {
-            every { PreferenceUtil.shouldShowDialogLater(context) } returns true
+            every { PreferenceUtil.wasLaterButtonClicked(context) } returns true
         }
 
         @AfterEach
@@ -365,7 +365,7 @@ class ConditionsCheckerTest {
     inner class WithLaterButtonNotClicked {
         @BeforeEach
         fun setup() {
-            every { PreferenceUtil.shouldShowDialogLater(context) } returns false
+            every { PreferenceUtil.wasLaterButtonClicked(context) } returns false
         }
 
         @AfterEach
