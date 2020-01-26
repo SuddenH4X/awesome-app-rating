@@ -302,6 +302,12 @@ class AppRatingTest {
             AppRating.wasNeverButtonClicked(activity)
             verify { PreferenceUtil.isDoNotShowAgain(activity) }
         }
+
+        @Test
+        fun `get number of later button clicks calls correct method of PreferenceUtil`() {
+            AppRating.getNumberOfLaterButtonClicks(activity)
+            verify { PreferenceUtil.getNumberOfLaterButtonClicks(activity) }
+        }
     }
 
     @Test
