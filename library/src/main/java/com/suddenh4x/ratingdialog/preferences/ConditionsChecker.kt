@@ -13,7 +13,7 @@ internal object ConditionsChecker {
         val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
         val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
         val remindTimestamp = PreferenceUtil.getRemindTimestamp(context)
-        val showDialogLater = PreferenceUtil.shouldShowDialogLater(context)
+        val wasLaterButtonClicked = PreferenceUtil.wasLaterButtonClicked(context)
         val currentTimestamp = System.currentTimeMillis()
         val daysBetween = calculateDaysBetween(Date(remindTimestamp), Date(currentTimestamp))
 
@@ -23,7 +23,7 @@ internal object ConditionsChecker {
 
         if (!checkCustomCondition(dialogOptions)) return false
 
-        if (showDialogLater) {
+        if (wasLaterButtonClicked) {
             RatingLogger.debug("Show later button has already been clicked.")
             if (!checkCustomConditionToShowAgain(dialogOptions)) return false
 
