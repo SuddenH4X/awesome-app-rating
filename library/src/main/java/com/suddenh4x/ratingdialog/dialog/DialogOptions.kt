@@ -19,6 +19,7 @@ internal class DialogOptions : Serializable {
     var customCondition: (() -> Boolean)? = null
     var customConditionToShowAgain: (() -> Boolean)? = null
     var countAppLaunch: Boolean = true
+    var countOfLaterButtonClicksToShowNeverButton = 0
 
     // rating dialog overview
     @StringRes
