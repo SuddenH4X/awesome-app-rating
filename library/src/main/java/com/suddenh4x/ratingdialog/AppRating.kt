@@ -31,6 +31,9 @@ object AppRating {
 
     fun wasNeverButtonClicked(context: Context) = PreferenceUtil.isDoNotShowAgain(context)
 
+    fun getNumberOfLaterButtonClicks(context: Context) =
+        PreferenceUtil.getNumberOfLaterButtonClicks(context)
+
     fun openMailFeedback(context: Context, mailSettings: MailSettings) =
         FeedbackUtils.openMailFeedback(context, mailSettings)
 

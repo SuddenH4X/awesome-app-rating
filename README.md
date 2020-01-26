@@ -358,6 +358,12 @@ AppRating.wasLaterButtonClicked(context: Context)
 AppRating.wasNeverButtonClicked(context: Context)
 ```
 
+- Get the number of later button clicks
+
+```kotlin
+AppRating.getNumberOfLaterButtonClicks(context: Context)
+```
+
 - Reset all library settings to factory default
 
 ```kotlin
