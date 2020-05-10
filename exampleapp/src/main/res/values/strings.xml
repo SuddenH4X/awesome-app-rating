@@ -17,6 +17,9 @@
     <string name="button_example_custom_feedback">Custom Feedback</string>
     <string name="text_example_show_never">In this example the show never button will be displayed. Debug is enabled.</string>
     <string name="button_example_show_never">Show \"Never\" button</string>
+    <string name="text_example_show_never_after_three_times">In this example the show never button will be displayed after three
+        times. This means you have to click the later button for at least 3 times (other examples included). Debug is enabled.</string>
+    <string name="button_example_show_never_after_three_times">Show \"Never\" button after 3 times</string>
     <string name="text_example_show_on_third_click">In this example debug is disabled. The dialog will show on the third
         click. If the \"Later\" button has been clicked, the dialog will show again after 5 more clicks. You can also use
         the \"Never\" button.

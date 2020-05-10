@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_FILE_NAME
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_LAUNCH_TIMES
+import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
@@ -29,7 +30,12 @@ class PreferenceUtilTest {
     fun setup() {
         RatingLogger.isLoggingEnabled = false
         mockkObject(PreferenceUtil)
-        every { context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE) } returns sharedPreferences
+        every {
+            context.getSharedPreferences(
+                PREF_FILE_NAME,
+                Context.MODE_PRIVATE
+            )
+        } returns sharedPreferences
         every { sharedPreferences.edit() } returns editor
     }
 
@@ -40,9 +46,20 @@ class PreferenceUtilTest {
 
     @Test
     fun `increase launch times works correctly`() {
-        every { PreferenceUtil.getLaunchTimes(context) } returns 0
+        every { PreferenceUtil.getLaunchTimes(context) } returns 0 andThen 1
+        PreferenceUtil.increaseLaunchTimes(context)
         PreferenceUtil.increaseLaunchTimes(context)
         verify(exactly = 1) { editor.putInt(PREF_KEY_LAUNCH_TIMES, 1) }
+        verify(exactly = 1) { editor.putInt(PREF_KEY_LAUNCH_TIMES, 2) }
+    }
+
+    @Test
+    fun `increase number of later button clicks works correctly`() {
+        every { PreferenceUtil.getNumberOfLaterButtonClicks(context) } returns 0 andThen 1
+        PreferenceUtil.increaseNumberOfLaterButtonClicks(context)
+        PreferenceUtil.increaseNumberOfLaterButtonClicks(context)
+        verify(exactly = 1) { editor.putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 1) }
+        verify(exactly = 1) { editor.putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 2) }
     }
 
     @Test

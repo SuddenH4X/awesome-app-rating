@@ -154,6 +154,12 @@ Between the constructor and the show or create method you can adjust the dialog 
 .showRateNeverButton(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
 ```
 
+- Show the rate never button after n times(, change the button text and add a click listener). This means the user has to click the later button for at least n times to see the never button.
+
+```kotlin
+.showRateNeverButtonAfterNTimes(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener, countOfLaterButtonClicks: Int)
+```
+
 ##### Rating Overview
 
 - Change the title of the rating dialog
@@ -358,6 +364,12 @@ AppRating.wasLaterButtonClicked(context: Context)
 AppRating.wasNeverButtonClicked(context: Context)
 ```
 
+- Get the number of later button clicks
+
+```kotlin
+AppRating.getNumberOfLaterButtonClicks(context: Context)
+```
+
 - Reset all library settings to factory default
 
 ```kotlin
@@ -412,7 +424,7 @@ The following things are highly recommended to not annoy the user, which in turn
 
 - Don't show the dialog immediately after install
 - Don't set the rating threshold to 5
-- Show the `Never` button so the user can decide whether or not to rate your app
+- Show the `Never` button (after n times) so the user can decide whether or not to rate your app
 - Use the methods `openPlayStoreListing()` and `openMailFeedback()` in your app settings to give the user the ability of unprompted feedback
 - Don't use `AppRating.reset(this)` in your production app
 
