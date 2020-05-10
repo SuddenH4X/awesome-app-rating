@@ -11,12 +11,14 @@ internal object PreferenceUtil {
     const val PREF_KEY_LAUNCH_TIMES = "launch_times"
     private const val PREF_KEY_REMIND_TIMESTAMP = "timestamp"
     private const val PREF_KEY_MINIMUM_LAUNCH_TIMES = "minimum_launch_times"
-    private const val PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN = "minimum_launch_times_to_show_again"
+    private const val PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN =
+        "minimum_launch_times_to_show_again"
     private const val PREF_KEY_MINIMUM_DAYS = "minimum_days"
     private const val PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN = "minimum_days_to_show_again"
     private const val PREF_KEY_DIALOG_AGREED = "dialog_agreed"
     private const val PREF_KEY_DIALOG_SHOW_LATER = "dialog_show_later"
     private const val PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN = "dialog_do_not_show_again"
+    const val PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS = "number_of_later_button_clicks"
 
     fun getPreferences(context: Context): SharedPreferences =
         context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
@@ -38,7 +40,8 @@ internal object PreferenceUtil {
         }
     }
 
-    fun getMinimumLaunchTimes(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, 5)
+    fun getMinimumLaunchTimes(context: Context) =
+        getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, 5)
 
     fun setMinimumLaunchTimesToShowAgain(context: Context, minimumLaunchTimes: Int) {
         RatingLogger.verbose("Set minimum launch times to show the dialog again to $minimumLaunchTimes.")
@@ -76,6 +79,7 @@ internal object PreferenceUtil {
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
             putBoolean(PREF_KEY_DIALOG_SHOW_LATER, true)
         }
+        increaseNumberOfLaterButtonClicks(context)
     }
 
     fun getRemindTimestamp(context: Context) =
@@ -88,9 +92,22 @@ internal object PreferenceUtil {
         }
     }
 
-    fun isDialogAgreed(context: Context) = getPreferences(context).getBoolean(PREF_KEY_DIALOG_AGREED, false)
+    fun isDialogAgreed(context: Context) =
+        getPreferences(context).getBoolean(PREF_KEY_DIALOG_AGREED, false)
 
-    fun shouldShowDialogLater(context: Context) = getPreferences(context).getBoolean(PREF_KEY_DIALOG_SHOW_LATER, false)
+    fun wasLaterButtonClicked(context: Context) =
+        getPreferences(context).getBoolean(PREF_KEY_DIALOG_SHOW_LATER, false)
+
+    fun increaseNumberOfLaterButtonClicks(context: Context) {
+        val numberOfLaterButtonClicks = getNumberOfLaterButtonClicks(context)
+        getPreferences(context).edit {
+            putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, numberOfLaterButtonClicks + 1)
+        }
+        RatingLogger.verbose("Increased number of later button clicks by 1. It's now ${numberOfLaterButtonClicks + 1}.")
+    }
+
+    fun getNumberOfLaterButtonClicks(context: Context) =
+        getPreferences(context).getInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 0)
 
     fun setDoNotShowAgain(context: Context) {
         RatingLogger.debug("Set do not show again.")

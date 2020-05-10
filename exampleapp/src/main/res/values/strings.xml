@@ -2,26 +2,39 @@
     <string name="app_name">awesome-app-rating Example App</string>
 
     <!-- Example Buttons and Descriptions -->
-    <string name="text_example_note_app_reset">Note: All settings of this example app will be cleared after a restart. Maybe you also have to kill the app.</string>
+    <string name="text_example_note_app_reset">Note: Use the reset button below or restart the app to clear all settings.</string>
+    <string name="button_example_reset">Reset</string>
     <string name="text_example_default">This example has no customizations. Debug is enabled.</string>
     <string name="button_example_default">Default</string>
-    <string name="text_example_custom_icon">In this example the default icon (app icon) has been replaced with a cusom icon. Debug is enabled.</string>
+    <string name="text_example_custom_icon">In this example the default icon (app icon) has been replaced with a cusom icon.
+        Debug is enabled.</string>
     <string name="button_example_custom_icon">Custom Icon</string>
-    <string name="text_example_mail_feedback">This example uses a configured mail feedback dialog. Rate below the threshold to check it out. Debug is enabled.</string>
+    <string name="text_example_mail_feedback">This example uses a configured mail feedback dialog. Rate below the threshold
+        to check it out.Debug is enabled.</string>
     <string name="button_example_mail_feedback">Mail Feedback</string>
-    <string name="text_example_custom_feedback">This example uses the custom feedback dialog instead of the mail feedback dialog. Debug is enabled.</string>
+    <string name="text_example_custom_feedback">This example uses the custom feedback dialog instead of the mail feedback
+        dialog. Debug is enabled.</string>
     <string name="button_example_custom_feedback">Custom Feedback</string>
-    <string name="text_example_show_never">In this example the show never button is displayed. Debug is enabled.</string>
+    <string name="text_example_show_never">In this example the show never button will be displayed. Debug is enabled.</string>
     <string name="button_example_show_never">Show \"Never\" button</string>
-    <string name="text_example_show_on_third_click">In this example debug is disabled. The dialog will show on the third click. If the \"Later\" button is clicked,
-        the dialog will show again after 5 more clicks. You can also use the \"Never\" button.
-    \nAttention: If you have already clicked the never button of another example, this dialog will not show until you restart the app.
+    <string name="text_example_show_never_after_three_times">In this example the show never button will be displayed after three
+        times. This means you have to click the later button for at least 3 times (other examples included). Debug is enabled.</string>
+    <string name="button_example_show_never_after_three_times">Show \"Never\" button after 3 times</string>
+    <string name="text_example_show_on_third_click">In this example debug is disabled. The dialog will show on the third
+        click. If the \"Later\" button has been clicked, the dialog will show again after 5 more clicks. You can also use
+        the \"Never\" button.
+        \nAttention: If you have already clicked the never button or the feedback button of another example, this dialog will
+        not show up until you click \"reset\" or restart the app.
     </string>
     <string name="button_example_show_on_third_click">Show on third click</string>
-    <string name="text_example_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you need to rate at least 4.5 stars
-        to see the store rating dialog. Debug is enabled.</string>
+    <string name="text_example_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you
+        need to rate at least 4.5 stars to see the store rating dialog. Debug is enabled.</string>
     <string name="button_example_rating_threshold_4_and_a_half">Rating threshold 4.5</string>
-    <string name="text_example_custom_texts">In this example the default texts has been replaced with dummy texts. Debug is enabled.</string>
+    <string name="text_example_full_star_rating">In this example full star rating is enabled. So you can\'t set half stars
+        in the rating dialog. Debug is enabled.</string>
+    <string name="button_example_full_star_rating">Full star rating</string>
+    <string name="text_example_custom_texts">In this example the default texts has been replaced with dummy texts. Debug
+        is enabled.</string>
     <string name="button_example_custom_texts">Custom texts</string>
 
     <!-- Custom Button Texts -->
@@ -40,4 +53,7 @@
     <string name="message_feedback">I am so blue I\'m greener than purple.</string>
     <string name="button_mail_feedback">Foo</string>
     <string name="button_no_feedback">John</string>
+
+    <!-- Other -->
+    <string name="toast_reset">All settings got cleared. Have fun!</string>
 </resources>
