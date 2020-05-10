@@ -30,9 +30,9 @@ internal object FeedbackUtils {
     }
 
     fun openMailFeedback(context: Context, settings: MailSettings) {
-        val mailIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SENDTO
-            data = Uri.parse("$URI_SCHEME_MAIL_TO ${settings.mailAddress}")
+        val mailIntent: Intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse(URI_SCHEME_MAIL_TO)
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(settings.mailAddress))
             putExtra(Intent.EXTRA_SUBJECT, settings.subject)
             putExtra(Intent.EXTRA_TEXT, settings.text)
         }
