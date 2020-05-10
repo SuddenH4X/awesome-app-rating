@@ -288,9 +288,12 @@ internal object DialogManager {
         dialogOptions: DialogOptions,
         dialogBuilder: AlertDialog.Builder
     ) {
-        if (dialogOptions.countOfLaterButtonClicksToShowNeverButton >
-            PreferenceUtil.getNumberOfLaterButtonClicks(context)
-        ) {
+        val countOfLaterButtonClicksToShowNeverButton =
+            dialogOptions.countOfLaterButtonClicksToShowNeverButton
+        val numberOfLaterButtonClicks = PreferenceUtil.getNumberOfLaterButtonClicks(context)
+        RatingLogger.debug("Rate later button was clicked $numberOfLaterButtonClicks times.")
+        if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
+            RatingLogger.info("Less than $countOfLaterButtonClicksToShowNeverButton later button clicks. Rate never button won't be displayed.")
             return
         }
 
