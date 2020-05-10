@@ -40,13 +40,13 @@ internal class DialogOptions : Serializable {
     // rating dialog feedback
     @StringRes
     var feedbackTitleTextId = R.string.rating_dialog_feedback_title
-    var noFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_button_no, null)
+    var noFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_button_cancel, null)
 
     // rating dialog mail feedback
     @StringRes
     var mailFeedbackMessageTextId = R.string.rating_dialog_feedback_mail_message
     var mailFeedbackButton: RateButton =
-        RateButton(R.string.rating_dialog_feedback_mail_button_mail, null)
+        RateButton(R.string.rating_dialog_feedback_mail_button_send, null)
     var mailSettings: MailSettings? = null
     var additionalMailFeedbackButtonClickListener: RateDialogClickListener? = null
 

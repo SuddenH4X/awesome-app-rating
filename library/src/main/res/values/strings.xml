@@ -14,11 +14,11 @@
 
     // rating dialog feedback
     <string name="rating_dialog_feedback_title">Give Feedback</string>
-    <string name="rating_dialog_feedback_button_no">No</string>
+    <string name="rating_dialog_feedback_button_cancel">Cancel</string>
 
     // rating dialog mail feedback
     <string name="rating_dialog_feedback_mail_message">We want to improve the App with your help. Do you want to send an email with your suggestions?</string>
-    <string name="rating_dialog_feedback_mail_button_mail">Mail</string>
+    <string name="rating_dialog_feedback_mail_button_send">Send</string>
     <string name="rating_dialog_feedback_mail_no_mail_error">For sending feedback via mail, you need a mail app!</string>
 
     // rating dialog custom feedback
