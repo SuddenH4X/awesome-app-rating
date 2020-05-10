@@ -126,12 +126,6 @@ Between the constructor and the show or create method you can adjust the dialog 
 .dontCountThisAsAppLaunch()
 ```
 
-- Show the rate never button after n times(, change the button text and add a click listener). This means the user has to click the later button for at least n times to see the never button.
-
-```kotlin
-.showRateNeverButtonAfterNTimes(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener, countOfLaterButtonClicks: Int)
-```
-
 #### Design
 
 ##### General
@@ -158,6 +152,12 @@ Between the constructor and the show or create method you can adjust the dialog 
 
 ```kotlin
 .showRateNeverButton(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+```
+
+- Show the rate never button after n times(, change the button text and add a click listener). This means the user has to click the later button for at least n times to see the never button.
+
+```kotlin
+.showRateNeverButtonAfterNTimes(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener, countOfLaterButtonClicks: Int)
 ```
 
 ##### Rating Overview
