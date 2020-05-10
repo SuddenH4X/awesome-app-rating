@@ -71,7 +71,7 @@ internal object DialogManager {
                 }
             }
             initializeRateLaterButton(activity, dialogOptions.rateLaterButton, this)
-            initializeRateNeverButton(activity, dialogOptions.rateNeverButton, this)
+            initializeRateNeverButton(activity, dialogOptions, this)
         }
 
         return builder.create().also { dialog ->
@@ -151,7 +151,7 @@ internal object DialogManager {
                 }
             }
             initializeRateLaterButton(context, dialogOptions.rateLaterButton, this)
-            initializeRateNeverButton(context, dialogOptions.rateNeverButton, this)
+            initializeRateNeverButton(context, dialogOptions, this)
         }
         return builder.create()
     }
@@ -285,10 +285,19 @@ internal object DialogManager {
 
     private fun initializeRateNeverButton(
         context: Context,
-        rateNeverButton: RateButton?,
+        dialogOptions: DialogOptions,
         dialogBuilder: AlertDialog.Builder
     ) {
-        rateNeverButton?.let { button ->
+        val countOfLaterButtonClicksToShowNeverButton =
+            dialogOptions.countOfLaterButtonClicksToShowNeverButton
+        val numberOfLaterButtonClicks = PreferenceUtil.getNumberOfLaterButtonClicks(context)
+        RatingLogger.debug("Rate later button was clicked $numberOfLaterButtonClicks times.")
+        if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
+            RatingLogger.info("Less than $countOfLaterButtonClicksToShowNeverButton later button clicks. Rate never button won't be displayed.")
+            return
+        }
+
+        dialogOptions.rateNeverButton?.let { button ->
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
                 RatingLogger.info("Rate never button clicked.")
                 PreferenceUtil.setDoNotShowAgain(context)

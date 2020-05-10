@@ -18,6 +18,7 @@ internal object PreferenceUtil {
     private const val PREF_KEY_DIALOG_AGREED = "dialog_agreed"
     private const val PREF_KEY_DIALOG_SHOW_LATER = "dialog_show_later"
     private const val PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN = "dialog_do_not_show_again"
+    const val PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS = "number_of_later_button_clicks"
 
     fun getPreferences(context: Context): SharedPreferences =
         context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE)
@@ -78,6 +79,7 @@ internal object PreferenceUtil {
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
             putBoolean(PREF_KEY_DIALOG_SHOW_LATER, true)
         }
+        increaseNumberOfLaterButtonClicks(context)
     }
 
     fun getRemindTimestamp(context: Context) =
@@ -95,6 +97,17 @@ internal object PreferenceUtil {
 
     fun wasLaterButtonClicked(context: Context) =
         getPreferences(context).getBoolean(PREF_KEY_DIALOG_SHOW_LATER, false)
+
+    fun increaseNumberOfLaterButtonClicks(context: Context) {
+        val numberOfLaterButtonClicks = getNumberOfLaterButtonClicks(context)
+        getPreferences(context).edit {
+            putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, numberOfLaterButtonClicks + 1)
+        }
+        RatingLogger.verbose("Increased number of later button clicks by 1. It's now ${numberOfLaterButtonClicks + 1}.")
+    }
+
+    fun getNumberOfLaterButtonClicks(context: Context) =
+        getPreferences(context).getInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 0)
 
     fun setDoNotShowAgain(context: Context) {
         RatingLogger.debug("Set do not show again.")

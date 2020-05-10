@@ -74,6 +74,13 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
+    fun onShowNeverButtonAfterThreeTimesClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .showRateNeverButtonAfterNTimes(countOfLaterButtonClicks = 3)
+            .showIfMeetsConditions()
+    }
+
     fun onShowOnThirdClickButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .showRateNeverButton()

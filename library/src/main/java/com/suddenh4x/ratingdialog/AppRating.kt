@@ -31,6 +31,9 @@ object AppRating {
 
     fun wasNeverButtonClicked(context: Context) = PreferenceUtil.isDoNotShowAgain(context)
 
+    fun getNumberOfLaterButtonClicks(context: Context) =
+        PreferenceUtil.getNumberOfLaterButtonClicks(context)
+
     fun openMailFeedback(context: Context, mailSettings: MailSettings) =
         FeedbackUtils.openMailFeedback(context, mailSettings)
 
@@ -67,6 +70,17 @@ object AppRating {
             dialogOptions.rateNeverButton =
                 RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
             RatingLogger.debug("Show rate never button.")
+        }
+
+        fun showRateNeverButtonAfterNTimes(
+            @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
+            rateNeverButtonClickListener: RateDialogClickListener? = null,
+            countOfLaterButtonClicks: Int
+        ) = apply {
+            dialogOptions.rateNeverButton =
+                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            dialogOptions.countOfLaterButtonClicksToShowNeverButton = countOfLaterButtonClicks
+            RatingLogger.debug("Show rate never button after $countOfLaterButtonClicks later button clicks.")
         }
 
         // rating dialog overview
