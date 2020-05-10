@@ -1,10 +1,12 @@
 package com.suddenh4x.ratingdialog
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
@@ -14,6 +16,7 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
+import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -24,7 +27,6 @@ import io.mockk.mockkConstructor
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
 import io.mockk.verify
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -35,164 +37,228 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AppRatingTest {
     @MockK
     lateinit var activity: AppCompatActivity
+    internal lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
     fun setup() {
         RatingLogger.isLoggingEnabled = false
+        dialogOptions = DialogOptions()
         unmockkAll()
     }
 
     @Test
-    fun `icon drawable is set correctly into DialogOptions`() {
+    fun `icon drawable is set correctly into dialogOptions`() {
         val drawable = mockk<Drawable>()
-        AppRating.Builder(activity).setIconDrawable(drawable)
-        Assertions.assertThat(DialogOptions.iconDrawable).isEqualTo(drawable)
+        getBuilder().setIconDrawable(drawable)
+        assertThat(dialogOptions.iconDrawable).isEqualTo(drawable)
     }
 
     @Test
-    fun `rate later button is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setRateLaterButton(INT_RES_ID, clickListener)
-        DialogOptions.rateLaterButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
+    fun `rate later button text is set correctly into dialogOptions`() {
+        getBuilder().setRateLaterButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.rateLaterButton.textId).isEqualTo(INT_RES_ID)
+    }
+
+    @Test
+    fun `rate later button click listener is set correctly into dialogOptions`() {
+        getBuilder().setRateLaterButtonClickListener(clickListener)
+        assertThat(dialogOptions.rateLaterButton.rateDialogClickListener).isEqualTo(clickListener)
+    }
+
+    @Test
+    fun `rate never button is set correctly into dialogOptions`() {
+        getBuilder().showRateNeverButton(INT_RES_ID, clickListener)
+        dialogOptions.rateNeverButton.let { button ->
+            assertThat(button?.textId).isEqualTo(INT_RES_ID)
+            assertThat(button?.rateDialogClickListener).isEqualTo(clickListener)
         }
     }
 
     @Test
-    fun `rate never button is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).showRateNeverButton(INT_RES_ID, clickListener)
-        DialogOptions.rateNeverButton.let { button ->
-            Assertions.assertThat(button?.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button?.rateDialogClickListener).isEqualTo(clickListener)
-        }
+    fun `count of later button clicks to show never button is set correctly into dialogOptions`() {
+        getBuilder().showRateNeverButtonAfterNTimes(INT_RES_ID, clickListener, 42)
+        assertThat(dialogOptions.countOfLaterButtonClicksToShowNeverButton).isEqualTo(42)
     }
 
     @Test
-    fun `title text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.titleTextId).isEqualTo(INT_RES_ID)
+    fun `title text is set correctly into dialogOptions`() {
+        getBuilder().setTitleTextId(INT_RES_ID)
+        assertThat(dialogOptions.titleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `message text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.messageTextId).isEqualTo(INT_RES_ID)
+    fun `message text is set correctly into dialogOptions`() {
+        getBuilder().setMessageTextId(INT_RES_ID)
+        assertThat(dialogOptions.messageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `confirm button text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setConfirmButtonTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.confirmButtonTextId).isEqualTo(INT_RES_ID)
+    fun `confirm button text is set correctly into dialogOptions`() {
+        getBuilder().setConfirmButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.confirmButton.textId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `store rating title text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setStoreRatingTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
+    fun `confirm button click listener is set correctly into dialogOptions`() {
+        getBuilder().setConfirmButtonClickListener(confirmButtonClickListener)
+        assertThat(dialogOptions.confirmButton.confirmButtonClickListener).isEqualTo(
+            confirmButtonClickListener
+        )
     }
 
     @Test
-    fun `store rating message text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setStoreRatingMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.storeRatingMessageTextId).isEqualTo(INT_RES_ID)
+    fun `full star rating is set correctly into dialogOptions`() {
+        getBuilder().setShowOnlyFullStars(true)
+        assertThat(dialogOptions.showOnlyFullStars).isEqualTo(true)
     }
 
     @Test
-    fun `rate now button text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setRateNowButtonTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.rateNowButton.textId).isEqualTo(INT_RES_ID)
+    fun `store rating title text is set correctly into dialogOptions`() {
+        getBuilder().setStoreRatingTitleTextId(INT_RES_ID)
+        assertThat(dialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `rate now button clicklistener is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setRateNowButtonClickListener(clickListener)
-        Assertions.assertThat(DialogOptions.rateNowButton.rateDialogClickListener).isEqualTo(clickListener)
+    fun `store rating message text is set correctly into dialogOptions`() {
+        getBuilder().setStoreRatingMessageTextId(INT_RES_ID)
+        assertThat(dialogOptions.storeRatingMessageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `feedback title text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setFeedbackTitleTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.feedbackTitleTextId).isEqualTo(INT_RES_ID)
+    fun `rate now button text is set correctly into dialogOptions`() {
+        getBuilder().setRateNowButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.rateNowButton.textId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `no feedback button is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setNoFeedbackButton(INT_RES_ID, clickListener)
-        DialogOptions.noFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
-        }
+    fun `rate now button click listener is set correctly into dialogOptions`() {
+        getBuilder().overwriteRateNowButtonClickListener(clickListener)
+        assertThat(dialogOptions.rateNowButton.rateDialogClickListener)
+            .isEqualTo(clickListener)
     }
 
     @Test
-    fun `mail feedback message text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setMailFeedbackMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.mailFeedbackMessageTextId).isEqualTo(INT_RES_ID)
+    fun `additional rate now button click listener is set correctly into dialogOptions`() {
+        getBuilder().setAdditionalRateNowButtonClickListener(clickListener)
+        assertThat(dialogOptions.additionalRateNowButtonClickListener)
+            .isEqualTo(clickListener)
     }
 
     @Test
-    fun `mail settings are set correctly into DialogOptions`() {
-        val mailSettings = MailSettings("address", "subject", "body", "chooserTitle")
-        AppRating.Builder(activity).setMailSettingsForFeedbackDialog(mailSettings)
-        Assertions.assertThat(DialogOptions.mailSettings).isEqualTo(mailSettings)
+    fun `feedback title text is set correctly into dialogOptions`() {
+        getBuilder().setFeedbackTitleTextId(INT_RES_ID)
+        assertThat(dialogOptions.feedbackTitleTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `mail feedback button is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setMailFeedbackButton(INT_RES_ID, clickListener)
-        DialogOptions.mailFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.rateDialogClickListener).isEqualTo(clickListener)
-        }
+    fun `no feedback button text is set correctly into dialogOptions`() {
+        getBuilder().setNoFeedbackButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.noFeedbackButton.textId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `custom feedback enabled set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setUseCustomFeedback(true)
-        Assertions.assertThat(DialogOptions.useCustomFeedback).isEqualTo(true)
+    fun `no feedback button click listener is set correctly into dialogOptions`() {
+        getBuilder().setNoFeedbackButtonClickListener(clickListener)
+        assertThat(dialogOptions.noFeedbackButton.rateDialogClickListener).isEqualTo(clickListener)
     }
 
     @Test
-    fun `custom feedback message text is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setCustomFeedbackMessageTextId(INT_RES_ID)
-        Assertions.assertThat(DialogOptions.customFeedbackMessageTextId).isEqualTo(INT_RES_ID)
+    fun `mail feedback message text is set correctly into dialogOptions`() {
+        getBuilder().setMailFeedbackMessageTextId(INT_RES_ID)
+        assertThat(dialogOptions.mailFeedbackMessageTextId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `custom feedback button is set correctly into DialogOptions`() {
-        val clickListener = object : CustomFeedbackButtonClickListener {
-            override fun onClick(userFeedbackText: String) {
-            }
-        }
-        AppRating.Builder(activity).setCustomFeedbackButton(INT_RES_ID, clickListener)
-        DialogOptions.customFeedbackButton.let { button ->
-            Assertions.assertThat(button.textId).isEqualTo(INT_RES_ID)
-            Assertions.assertThat(button.customFeedbackButtonClickListener).isEqualTo(clickListener)
-        }
+    fun `mail settings are set correctly into dialogOptions`() {
+        getBuilder().setMailSettingsForFeedbackDialog(mailSettings)
+        assertThat(dialogOptions.mailSettings).isEqualTo(mailSettings)
     }
 
     @Test
-    fun `rating threshold is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
-        Assertions.assertThat(DialogOptions.ratingThreshold).isEqualTo(RatingThreshold.FOUR_AND_A_HALF)
+    fun `mail feedback button text is set correctly into dialogOptions`() {
+        getBuilder().setMailFeedbackButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.mailFeedbackButton.textId).isEqualTo(INT_RES_ID)
     }
 
     @Test
-    fun `cancelable is set correctly into DialogOptions`() {
-        AppRating.Builder(activity).setCancelable(true)
-        Assertions.assertThat(DialogOptions.cancelable).isEqualTo(true)
+    fun `mail feedback button click listener is set correctly into dialogOptions`() {
+        getBuilder().overwriteMailFeedbackButtonClickListener(clickListener)
+        assertThat(dialogOptions.mailFeedbackButton.rateDialogClickListener).isEqualTo(clickListener)
+    }
+
+    @Test
+    fun `additional mail feedback button click listener is set correctly into dialogOptions`() {
+        getBuilder().setAdditionalMailFeedbackButtonClickListener(clickListener)
+        assertThat(dialogOptions.additionalMailFeedbackButtonClickListener)
+            .isEqualTo(clickListener)
+    }
+
+    @Test
+    fun `custom feedback enabled set correctly into dialogOptions`() {
+        getBuilder().setUseCustomFeedback(true)
+        assertThat(dialogOptions.useCustomFeedback).isEqualTo(true)
+    }
+
+    @Test
+    fun `custom feedback message text is set correctly into dialogOptions`() {
+        getBuilder().setCustomFeedbackMessageTextId(INT_RES_ID)
+        assertThat(dialogOptions.customFeedbackMessageTextId).isEqualTo(INT_RES_ID)
+    }
+
+    @Test
+    fun `custom feedback button text is set correctly into dialogOptions`() {
+        getBuilder().setCustomFeedbackButtonTextId(INT_RES_ID)
+        assertThat(dialogOptions.customFeedbackButton.textId).isEqualTo(INT_RES_ID)
+    }
+
+    @Test
+    fun `custom feedback button click listener is set correctly into dialogOptions`() {
+        getBuilder()
+            .setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener)
+        assertThat(dialogOptions.customFeedbackButton.customFeedbackButtonClickListener)
+            .isEqualTo(customFeedbackButtonClickListener)
+    }
+
+    @Test
+    fun `rating threshold is set correctly into dialogOptions`() {
+        getBuilder().setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
+        assertThat(dialogOptions.ratingThreshold).isEqualTo(RatingThreshold.FOUR_AND_A_HALF)
+    }
+
+    @Test
+    fun `cancelable is set correctly into dialogOptions`() {
+        getBuilder().setCancelable(true)
+        assertThat(dialogOptions.cancelable).isEqualTo(true)
+    }
+
+    @Test
+    fun `custom condition is set correctly into dialogOptions`() {
+        getBuilder().setCustomCondition(customCondition)
+        assertThat(dialogOptions.customCondition?.invoke()).isEqualTo(customCondition())
+    }
+
+    @Test
+    fun `custom condition to show again is set correctly into dialogOptions`() {
+        getBuilder().setCustomConditionToShowAgain(customCondition)
+        assertThat(dialogOptions.customConditionToShowAgain?.invoke()).isEqualTo(customCondition())
+    }
+
+    @Test
+    fun `countAppLaunch is set correctly into dialogOptions`() {
+        assertThat(dialogOptions.countAppLaunch).isTrue()
+        getBuilder().dontCountThisAsAppLaunch()
+        assertThat(dialogOptions.countAppLaunch).isFalse()
     }
 
     @Nested
-    inner class PreferenceUtilChanges {
-        @MockK
+    inner class PreferenceUtilCalls {
+        @MockK(relaxed = true)
         lateinit var sharedPreferences: SharedPreferences
 
         @BeforeEach
         fun setup() {
             mockkObject(PreferenceUtil)
             every { PreferenceUtil.getPreferences(activity) } returns sharedPreferences
-            every { sharedPreferences.edit() } returns mockk(relaxed = true)
         }
 
         @Test
@@ -203,40 +269,64 @@ class AppRatingTest {
 
         @Test
         fun `minimum launch times is set correctly into PreferenceUtil`() {
-            AppRating.Builder(activity).setMinimumLaunchTimes(10)
+            getBuilder().setMinimumLaunchTimes(10)
             verify { PreferenceUtil.setMinimumLaunchTimes(activity, 10) }
         }
 
         @Test
         fun `minimum launch times to show again is set correctly into PreferenceUtil`() {
-            AppRating.Builder(activity).setMinimumDaysToShowAgain(10)
+            getBuilder().setMinimumDaysToShowAgain(10)
             verify { PreferenceUtil.setMinimumDaysToShowAgain(activity, 10) }
         }
 
         @Test
         fun `minimum days is set correctly into PreferenceUtil`() {
-            AppRating.Builder(activity).setMinimumDays(10)
+            getBuilder().setMinimumDays(10)
             verify { PreferenceUtil.setMinimumDays(activity, 10) }
         }
 
         @Test
         fun `minimum days to show again is set correctly into PreferenceUtil`() {
-            AppRating.Builder(activity).setMinimumDaysToShowAgain(10)
+            getBuilder().setMinimumDaysToShowAgain(10)
             verify { PreferenceUtil.setMinimumDaysToShowAgain(activity, 10) }
+        }
+
+        @Test
+        fun `is dialog agreed calls correct method of PreferenceUtil`() {
+            AppRating.isDialogAgreed(activity)
+            verify { PreferenceUtil.isDialogAgreed(activity) }
+        }
+
+        @Test
+        fun `was later button clicked calls correct method of PreferenceUtil`() {
+            AppRating.wasLaterButtonClicked(activity)
+            verify { PreferenceUtil.wasLaterButtonClicked(activity) }
+        }
+
+        @Test
+        fun `was never button clicked calls correct method of PreferenceUtil`() {
+            AppRating.wasNeverButtonClicked(activity)
+            verify { PreferenceUtil.isDoNotShowAgain(activity) }
+        }
+
+        @Test
+        fun `get number of later button clicks calls correct method of PreferenceUtil`() {
+            AppRating.getNumberOfLaterButtonClicks(activity)
+            verify { PreferenceUtil.getNumberOfLaterButtonClicks(activity) }
         }
     }
 
     @Test
     fun `logging enabled is set correctly into RatingLogger`() {
-        AppRating.Builder(activity).setLoggingEnabled(false)
-        Assertions.assertThat(RatingLogger.isLoggingEnabled).isEqualTo(false)
+        getBuilder().setLoggingEnabled(false)
+        assertThat(RatingLogger.isLoggingEnabled).isEqualTo(false)
     }
 
     @Test
     fun `debug is set correctly into RatingLogger`() {
-        val builder = AppRating.Builder(activity)
+        val builder = getBuilder()
         builder.setDebug(true)
-        Assertions.assertThat(builder.isDebug).isEqualTo(true)
+        assertThat(builder.isDebug).isEqualTo(true)
     }
 
     @Nested
@@ -246,11 +336,22 @@ class AppRatingTest {
             mockkConstructor(RateDialogFragment::class)
             mockkConstructor(Bundle::class)
             every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
-            every { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) } just Runs
+            every {
+                anyConstructed<RateDialogFragment>().show(
+                    any<FragmentManager>(),
+                    any()
+                )
+            } just Runs
             every { activity.supportFragmentManager } returns mockk()
 
-            AppRating.Builder(activity).showNow()
-            verify(exactly = 1) { anyConstructed<RateDialogFragment>().show(any<FragmentManager>(), any()) }
+            getBuilder().showNow()
+            verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(any(), any()) }
+            verify(exactly = 1) {
+                anyConstructed<RateDialogFragment>().show(
+                    any<FragmentManager>(),
+                    any()
+                )
+            }
         }
 
         @Test
@@ -259,9 +360,9 @@ class AppRatingTest {
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
-            every { ConditionsChecker.shouldShowDialog(activity) } returns false
+            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
 
-            AppRating.Builder(activity).showIfMeetsConditions()
+            getBuilder().showIfMeetsConditions()
             verify(exactly = 1) { PreferenceUtil.increaseLaunchTimes(activity) }
         }
 
@@ -271,12 +372,12 @@ class AppRatingTest {
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
-            every { ConditionsChecker.shouldShowDialog(activity) } returns true
+            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns true
 
             mockkConstructor(AppRating.Builder::class)
             every { anyConstructed<AppRating.Builder>().showNow() } just Runs
 
-            AppRating.Builder(activity).showIfMeetsConditions()
+            getBuilder().showIfMeetsConditions()
             verify(exactly = 1) { anyConstructed<AppRating.Builder>().showNow() }
         }
 
@@ -286,23 +387,35 @@ class AppRatingTest {
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
 
             mockkObject(ConditionsChecker)
-            every { ConditionsChecker.shouldShowDialog(activity) } returns false
+            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
 
             mockkConstructor(AppRating.Builder::class)
             every { anyConstructed<AppRating.Builder>().showNow() } just Runs
 
-            AppRating.Builder(activity).showIfMeetsConditions()
+            getBuilder().showIfMeetsConditions()
             verify(exactly = 0) { anyConstructed<AppRating.Builder>().showNow() }
         }
     }
 
     @Test
-    fun `initialize rate now button sets text and click listener correctly into DialogOptions`() {
-        AppRating.Builder(activity).initializeRateNowButton()
-
-        assertThat(DialogOptions.rateNowButton.textId).isEqualTo(R.string.rating_dialog_store_button_rate_now)
-        assertThat(DialogOptions.rateNowButton.rateDialogClickListener).isNotNull
+    fun `open mail feedback calls correct function of FeedbackUtils`() {
+        mockkObject(FeedbackUtils)
+        every { FeedbackUtils.openMailFeedback(any(), any()) } just Runs
+        val context = mockk<Context>()
+        AppRating.openMailFeedback(context, mailSettings)
+        verify(exactly = 1) { FeedbackUtils.openMailFeedback(context, mailSettings) }
     }
+
+    @Test
+    fun `open play store listing calls correct function of FeedbackUtils`() {
+        mockkObject(FeedbackUtils)
+        every { FeedbackUtils.openPlayStoreListing(any()) } just Runs
+        val context = mockk<Context>()
+        AppRating.openPlayStoreListing(context)
+        verify(exactly = 1) { FeedbackUtils.openPlayStoreListing(context) }
+    }
+
+    private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 
     companion object {
         private const val INT_RES_ID = 42
@@ -310,5 +423,15 @@ class AppRatingTest {
             override fun onClick() {
             }
         }
+        private val confirmButtonClickListener = object : ConfirmButtonClickListener {
+            override fun onClick(userRating: Float) {
+            }
+        }
+        private val customFeedbackButtonClickListener = object : CustomFeedbackButtonClickListener {
+            override fun onClick(userFeedbackText: String) {
+            }
+        }
+        private val customCondition: () -> Boolean = { true }
+        private val mailSettings = MailSettings("mailAddress", "subject", "message", "errorToast")
     }
 }

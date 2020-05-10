@@ -8,12 +8,12 @@ A highly customizable Android library providing a dialog, which asks the user to
 
 ## Features
 - Auto fetches the app icon to use it in the dialog
-- Let the dialog show up on a defined app session or after n days of usage
+- Let the dialog show up at a defined app session, after n days of usage and/or if your custom conditions meet
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
-- You can override all click listeners to fit your needs
+- You can override all click listeners to fit your needs (or to implement extensive tracking)
 - The dialog handles orientation changes correctly
-- Extracts the accent color of your app's theme
+- Extracts the accent color of your app's theme and works with dark/night theme out of the box
 
 This library:
 - is completely written in Kotlin
@@ -31,20 +31,20 @@ The library supports API level 14 and higher. You can simply include it in your 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:1.2.0'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.0.0'
 }
 ```
 
 ### Builder usage
 This library provides a builder to configure its behavior. 
 ```kotlin
-AppRating.Builder(this)
-	.setMinimumLaunchTimes(5)
-	.setMinimumDays(7)
-	.setMinimumLaunchTimesToShowAgain(5)
-	.setMinimumDaysToShowAgain(10)
-	.setRatingThreshold(RatingThreshold.FOUR)
-	.showIfMeetsConditions()
+ AppRating.Builder(this)
+            .setMinimumLaunchTimes(5)
+            .setMinimumDays(7)
+            .setMinimumLaunchTimesToShowAgain(5)
+            .setMinimumDaysToShowAgain(10)
+            .setRatingThreshold(RatingThreshold.FOUR)
+            .showIfMeetsConditions()
 ```
 You should call the builder only in the `onCreate()` method of your main Activity class, because every call of the method `showIfMeetsConditions` will increase the launch times.
 
@@ -58,7 +58,7 @@ Furthermore the dialog will show up again if the user has clicked the `later` bu
 - The button click happened at least 10 days ago and 
 - the app is launched again for a minimum of 5 times.
 
-If the rate or never button is clicked once or if the user rates below the defined minimum threshold, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but this is not recommended.
+If the rate or never button is clicked once or if the user rates below the defined minimum threshold, the dialog will never be shown again unless you reset the library settings with `AppRating.reset(this)`  - but doing this is not recommended.
 
 If you have adjusted the dialog to suit your preferences, you have multiple possibilities to show it. Usually you want to show the dialog if the configured conditions are met:
 
@@ -108,6 +108,24 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) // default is 5
 ```
 
+- Set a custom condition which will be evaluated before showing the dialog. See below for more information.
+
+```kotlin
+.setCustomCondition(customCondition: () -> Boolean)
+```
+
+- Set a custom condition which will be evaluated before showing the dialog after the `later` button has been clicked. See below for more information.
+
+```kotlin
+.setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean)
+```
+
+- Disable app launch counting for this time. It makes sense to combine this option with the custom condition(s).
+
+```kotlin
+.dontCountThisAsAppLaunch()
+```
+
 #### Design
 
 ##### General
@@ -118,16 +136,28 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
 ```
 
-- Change the rate later button text and add a click listener
+- Change the rate later button text
 
 ```kotlin
-.setRateLaterButton(rateLaterButtonTextId: Int, onRateLaterButtonClickListener: RateDialogClickListener)
+.setRateLaterButtonTextId(rateLaterButtonTextId: Int)
+```
+
+- Add a click listener to the rate later button
+
+```kotlin
+.setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener)
 ```
 
 - Show the rate never button, change the button text and add a click listener
 
 ```kotlin
-.showRateNeverButton(rateNeverButtonTextId: Int, onRateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+.showRateNeverButton(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener) // by default the button is hidden
+```
+
+- Show the rate never button after n times(, change the button text and add a click listener). This means the user has to click the later button for at least n times to see the never button.
+
+```kotlin
+.showRateNeverButtonAfterNTimes(rateNeverButtonTextId: Int, rateNeverButtonClickListener: RateDialogClickListener, countOfLaterButtonClicks: Int)
 ```
 
 ##### Rating Overview
@@ -150,6 +180,18 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setConfirmButtonTextId(confirmButtonTextId: Int)
 ```
 
+- Add a click listener to the confirm button
+
+```kotlin
+.setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener)
+```
+
+- Show only full star ratings
+
+```kotlin
+.setShowOnlyFullStars(showOnlyFullStars: Boolean)  // default is false
+```
+
 ##### Store Rating
 
 - Change the title of the store rating dialog
@@ -170,10 +212,16 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setRateNowButtonTextId(rateNowButtonTextId: Int)
 ```
 
-- Override the rate now button click listener
+- Overwrite the default rate now button click listener
 
 ````kotlin
-.setRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the play store listing of your app
+.overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) // by default it opens the Play Store listing of your app
+````
+
+- Add an additional click listener to the rate now button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener)
 ````
 
 ##### Feedback
@@ -184,10 +232,16 @@ Between the constructor and the show or create method you can adjust the dialog 
 .setFeedbackTitleTextId(feedbackTitleTextId: Int)
 ```
 
-- Change the no feedback button text and add a click listener
+- Change the no feedback button text
 
 ```kotlin
-.setNoFeedbackButton(noFeedbackButtonTextId: Int, noFeedbackButtonClickListener: RateDialogClickListener)
+.setNoFeedbackButtonTextId(noFeedbackButtonTextId: Int)
+```
+
+- Add a click listener to the no feedback button
+
+```kotlin
+.setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener)
 ```
 
 - Use the custom feedback dialog instead of the mail feedback dialog
@@ -206,17 +260,29 @@ If custom feedback is enabled, these settings will be ignored:
 .setMailFeedbackMessageTextId(feedbackMailMessageTextId: Int)
 ```
 
-- Set the mail settings for the mail feedback dialog (mail address, subject, text and app chooser title)
+- Set the mail settings for the mail feedback dialog (mail address, subject, text and error toast message)
 
 ```kotlin
-setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
+.setMailSettingsForFeedbackDialog(mailSettings: MailSettings)
 ```
 
-- Change the mail feedback button text and add a click listener (setting a click listener will overwrite the mail settings)
+- Change the mail feedback button text
 
 ```kotlin
-.setMailFeedbackButton(mailFeedbackButtonTextId: Int, mailFeedbackButtonClickListener: RateDialogClickListener)
+.setMailFeedbackButtonTextId(mailFeedbackButtonTextId: Int)
 ```
+
+- Overwrite the mail settings with a custom click listener
+
+```kotlin
+.overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener)
+```
+
+- Add an additional click listener to the mail feedback button (e.g. for extensive tracking while still using the default library behaviour)
+
+````kotlin
+.setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener)
+````
 
 ##### Custom Feedback
 
@@ -228,10 +294,16 @@ These settings will only apply if custom feedback is enabled:
 .setCustomFeedbackMessageTextId(feedbackCustomMessageTextId: Int)
 ```
 
-- Change the custom feedback button text and add a click listener
+- Change the custom feedback button text
 
 ```kotlin
-.setCustomFeedbackButton(customFeedbackButtonTextId: Int, customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
+.setCustomFeedbackButtonTextId(customFeedbackButtonTextId: Int)
+```
+
+- Add a click listener to the custom feedback button
+
+```kotlin
+.setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener)
 ```
 
 #### Other settings
@@ -260,6 +332,50 @@ These settings will only apply if custom feedback is enabled:
 .setDebug(isDebug: Boolean) // default is false
 ```
 
+#### Other methods
+
+- Open the mail feedback directly without showing up the rating dialog
+
+```kotlin
+AppRating.openMailFeedback(context: Context, mailSettings: MailSettings)
+```
+
+- Open your app's Play Store listing without showing up the rating dialog
+
+```kotlin
+AppRating.openPlayStoreListing(context: Context)
+```
+
+- Check if the dialog has been agreed. This is true if the user has clicked the rate now button or if he gave you a rating below the defined threshold.
+
+```kotlin
+AppRating.isDialogAgreed(context: Context)
+```
+
+- Check if the later button has already been clicked
+
+```kotlin
+AppRating.wasLaterButtonClicked(context: Context)
+```
+
+- Check if the never button has already been clicked
+
+```kotlin
+AppRating.wasNeverButtonClicked(context: Context)
+```
+
+- Get the number of later button clicks
+
+```kotlin
+AppRating.getNumberOfLaterButtonClicks(context: Context)
+```
+
+- Reset all library settings to factory default
+
+```kotlin
+AppRating.reset(context: Context)
+```
+
 ### Orientation Change
 
 If the orientation is changed, the `onCreate()` method will be called again and so does the Builder. These additional calls will distort the library behavior because each call of `showIfMeetsConditions()` will increase the counted app launches. To guarantee the correct behavior, you have to check for the `savedInstanceState` like this:
@@ -277,13 +393,29 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+### Custom Conditions
+
+You can easily use custom conditions to show the dialog not (only) on app start but e.g. directly after the nth user interaction. Just call the Builder with your conditions and `dontCountThisAsAppLaunch()`:
+
+```kotlin
+AppRating.Builder(this)
+    // your other settings
+    .setCustomCondition { buttonClicks > 10 }
+    .setCustomConditionToShowAgain { buttonClicks > 20 }
+    .dontCountThisAsAppLaunch()
+    .showIfMeetsConditions()
+```
+
+If you want to show the dialog on app start, but with your custom conditions, you can of course just call the Builder in your `onCreate()` method of your main Activity class. If so, don't forget to remove the `dontCountThisAsAppLaunch()` method from the example above.
+
 ## Note
 
 * Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
-* If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButton()`)
+* If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButtonClickListener()`)
 * If the user rates below the defined minimum threshold, the feedback dialog will be displayed and then the dialog will not show up again
 * If you don't want to customize anything, you can just use `AppRating.Builder(this).showIfMeetsConditions()` without any settings
+* App launches will only get counted if you call `showIfMeetsConditions()` and `dontCountThisAsAppLaunch()` hasn't been called
 * If you have any problems, check out the logs in Logcat (You can filter by `awesome_app_rating`)
 * Look at the example app to get first impressions
 
@@ -292,7 +424,8 @@ The following things are highly recommended to not annoy the user, which in turn
 
 - Don't show the dialog immediately after install
 - Don't set the rating threshold to 5
-- Show the `Never` button so the user can decide whether or not to rate your app
+- Show the `Never` button (after n times) so the user can decide whether or not to rate your app
+- Use the methods `openPlayStoreListing()` and `openMailFeedback()` in your app settings to give the user the ability of unprompted feedback
 - Don't use `AppRating.reset(this)` in your production app
 
 ## License
@@ -300,11 +433,11 @@ The following things are highly recommended to not annoy the user, which in turn
 ```
 Copyright (C) 2019 SuddenH4X
 
-Licensed under the GNU General Public License v3.0. 
-You may not use this file except in compliance with the License. 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
 You may obtain a copy of the License at:
 
-https://www.gnu.org/licenses/gpl-3.0.en.html
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
