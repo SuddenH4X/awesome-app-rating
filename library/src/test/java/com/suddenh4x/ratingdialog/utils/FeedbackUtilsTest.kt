@@ -25,6 +25,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class FeedbackUtilsTest {
     @MockK
     lateinit var context: Context
+
     @MockK
     lateinit var uri: Uri
 
@@ -77,6 +78,7 @@ class FeedbackUtilsTest {
             every { anyConstructed<Intent>().setAction(any()) } returns intent
             every { anyConstructed<Intent>().setData(any()) } returns intent
             every { anyConstructed<Intent>().putExtra(any(), any<String>()) } returns intent
+            every { anyConstructed<Intent>().putExtra(any(), any<Array<String>>()) } returns intent
             every { context.packageManager } returns mockk()
         }
 
@@ -86,21 +88,18 @@ class FeedbackUtilsTest {
             every { context.startActivity(any()) } just Runs
             FeedbackUtils.openMailFeedback(context, mailSettings)
 
-            verify(exactly = 1) { anyConstructed<Intent>().action = Intent.ACTION_SENDTO }
             verify(exactly = 1) { Uri.parse(any()) }
-            verify(exactly = 1) { Uri.parse("${FeedbackUtils.URI_SCHEME_MAIL_TO} ${mailSettings.mailAddress}") }
+            verify(exactly = 1) { Uri.parse(FeedbackUtils.URI_SCHEME_MAIL_TO) }
             verify(exactly = 1) { anyConstructed<Intent>().data = uri }
             verify(exactly = 1) {
-                anyConstructed<Intent>().putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    mailSettings.subject
-                )
+                anyConstructed<Intent>()
+                    .putExtra(Intent.EXTRA_EMAIL, arrayOf(mailSettings.mailAddress))
             }
             verify(exactly = 1) {
-                anyConstructed<Intent>().putExtra(
-                    Intent.EXTRA_TEXT,
-                    mailSettings.text
-                )
+                anyConstructed<Intent>().putExtra(Intent.EXTRA_SUBJECT, mailSettings.subject)
+            }
+            verify(exactly = 1) {
+                anyConstructed<Intent>().putExtra(Intent.EXTRA_TEXT, mailSettings.text)
             }
             verify(exactly = 1) { context.startActivity(any()) }
         }
