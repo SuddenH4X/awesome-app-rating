@@ -18,6 +18,7 @@ A highly customizable Android library providing a dialog, which asks the user to
 This library:
 - is completely written in Kotlin
 - is Unit tested
+- is optimized for MaterialComponent themes
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
@@ -410,6 +411,7 @@ If you want to show the dialog on app start, but with your custom conditions, yo
 
 ## Note
 
+* Use a MaterialComponent theme for better design
 * Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
 * If you set  `setUseCustomFeedback()` to `true`, you have to handle the feedback text by yourself by adding a click listener (`setCustomFeedbackButtonClickListener()`)
@@ -431,7 +433,7 @@ The following things are highly recommended to not annoy the user, which in turn
 ## License
 
 ```
-Copyright (C) 2019 SuddenH4X
+Copyright (C) 2020 SuddenH4X
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
