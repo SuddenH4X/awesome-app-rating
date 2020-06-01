@@ -1,8 +1,8 @@
 package com.suddenh4x.ratingdialog.dialog
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 
 internal class RateDialogFragment : DialogFragment() {

@@ -10,6 +10,7 @@ buildscript {
         }
     }
     dependencies {
+        // can't update because of incompatibility with bintray-release: https://github.com/novoda/bintray-release/issues/298
         classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.novoda:bintray-release:0.9.1'
