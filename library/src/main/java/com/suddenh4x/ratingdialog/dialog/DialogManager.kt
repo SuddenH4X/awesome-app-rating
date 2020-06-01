@@ -1,7 +1,6 @@
 package com.suddenh4x.ratingdialog.dialog
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +9,9 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.logging.RatingLogger
@@ -33,7 +34,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating rating overview dialog.")
-        val builder = AlertDialog.Builder(activity)
+        val builder = getDialogBuilder(activity)
 
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingOverviewDialogView = inflater.inflate(R.layout.dialog_rating_overview, null)
@@ -124,7 +125,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
-        val builder = AlertDialog.Builder(context)
+        val builder = getDialogBuilder(context)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingStoreDialogView = inflater.inflate(R.layout.dialog_rating_store, null)
@@ -161,7 +162,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
-        val builder = AlertDialog.Builder(context)
+        val builder = getDialogBuilder(context)
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
@@ -201,7 +202,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
-        val builder = AlertDialog.Builder(context)
+        val builder = getDialogBuilder(context)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingCustomFeedbackDialogView =
@@ -318,6 +319,15 @@ internal object DialogManager {
                 button.rateDialogClickListener?.onClick()
                     ?: RatingLogger.info("No feedback button has no click listener.")
             }
+        }
+    }
+
+    private fun getDialogBuilder(context: Context): AlertDialog.Builder {
+        return try {
+            MaterialAlertDialogBuilder(context)
+        } catch (ex: IllegalArgumentException) {
+            RatingLogger.debug("This app doesn't use a MaterialComponents theme. Using normal AlertDialog instead.")
+            AlertDialog.Builder(context)
         }
     }
 }
