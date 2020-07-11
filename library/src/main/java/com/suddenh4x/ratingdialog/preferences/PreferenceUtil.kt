@@ -73,7 +73,7 @@ internal object PreferenceUtil {
         getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
     fun onLaterButtonClicked(context: Context) {
-        RatingLogger.verbose("Update remind timestamp because later button was clicked. Set launch times to 0.")
+        RatingLogger.verbose("Later button was clicked. Update remind timestamp and set launch times to 0.")
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
