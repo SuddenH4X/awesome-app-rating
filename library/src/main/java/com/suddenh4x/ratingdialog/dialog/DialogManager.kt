@@ -278,7 +278,7 @@ internal object DialogManager {
     ) {
         dialogBuilder.setNeutralButton(rateLaterButton.textId) { _, _ ->
             RatingLogger.info("Rate later button clicked.")
-            PreferenceUtil.updateRemindTimestamp(context)
+            PreferenceUtil.onLaterButtonClicked(context)
             rateLaterButton.rateDialogClickListener?.onClick()
                 ?: RatingLogger.info("Rate later button has no click listener.")
         }
