@@ -72,8 +72,8 @@ internal object PreferenceUtil {
     fun getMinimumDaysToShowAgain(context: Context) =
         getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
-    fun updateRemindTimestamp(context: Context) {
-        RatingLogger.verbose("Update remind timestamp. Set launch times to 0.")
+    fun onLaterButtonClicked(context: Context) {
+        RatingLogger.verbose("Update remind timestamp because later button was clicked. Set launch times to 0.")
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
@@ -82,8 +82,22 @@ internal object PreferenceUtil {
         increaseNumberOfLaterButtonClicks(context)
     }
 
-    fun getRemindTimestamp(context: Context) =
-        getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
+    fun getRemindTimestamp(context: Context): Long {
+        val remindTimestamp = getPreferences(context).getLong(PREF_KEY_REMIND_TIMESTAMP, -1)
+        if (remindTimestamp == -1L) {
+            return setInitialRemindTimestamp(context)
+        }
+        return remindTimestamp
+    }
+
+    private fun setInitialRemindTimestamp(context: Context): Long {
+        RatingLogger.debug("First app start. Set initial remind timestamp.")
+        val currentTime = System.currentTimeMillis()
+        getPreferences(context).edit {
+            putLong(PREF_KEY_REMIND_TIMESTAMP, currentTime)
+        }
+        return currentTime
+    }
 
     fun setDialogAgreed(context: Context) {
         RatingLogger.debug("Set dialog agreed.")
