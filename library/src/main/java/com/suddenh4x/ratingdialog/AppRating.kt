@@ -314,6 +314,7 @@ object AppRating {
                     val flow = reviewManger?.launchReviewFlow(activity, reviewInfo)
                     flow?.addOnCompleteListener { task ->
                         RatingLogger.info("Google in-app review request completed.")
+                        PreferenceUtil.onGoogleInAppReviewFlowCompleted(activity)
                         dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
                             ?: RatingLogger.warn("There's no completeListener for Google's in-app review dialog.")
                     }
