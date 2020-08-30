@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
@@ -25,9 +27,12 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkConstructor
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -248,6 +253,44 @@ class AppRatingTest {
         assertThat(dialogOptions.countAppLaunch).isTrue()
         getBuilder().dontCountThisAsAppLaunch()
         assertThat(dialogOptions.countAppLaunch).isFalse()
+    }
+
+    @Nested
+    inner class UseGoogleInAppReview {
+        @MockK
+        lateinit var reviewManger: ReviewManager
+
+        @BeforeEach
+        fun setup() {
+            mockkStatic(ReviewManagerFactory::class)
+            every { ReviewManagerFactory.create(any()) } returns reviewManger
+        }
+
+        @Test
+        fun `sets useGoogleInAppReview to true within dialogOptions`() {
+            assertFalse(dialogOptions.useGoogleInAppReview)
+
+            getBuilder().useGoogleInAppReview()
+
+            assertTrue(dialogOptions.useGoogleInAppReview)
+        }
+
+        @Test
+        fun `creates review manager`() {
+            val builder = getBuilder()
+            assertThat(builder.reviewManger).isNull()
+
+            builder.useGoogleInAppReview()
+
+            assertThat(builder.reviewManger).isEqualTo(reviewManger)
+        }
+    }
+
+    @Test
+    fun `google in-app review complete listener is set correctly into dialogOptions`() {
+        val completeListener: (Boolean) -> Unit = mockk()
+        getBuilder().setGoogleInAppReviewCompleteListener(completeListener)
+        assertThat(dialogOptions.googleInAppReviewCompleteListener).isEqualTo(completeListener)
     }
 
     @Nested

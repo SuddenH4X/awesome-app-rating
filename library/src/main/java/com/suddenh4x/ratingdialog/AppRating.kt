@@ -43,8 +43,8 @@ object AppRating {
 
     data class Builder(var activity: AppCompatActivity) {
         internal var isDebug = false
+        internal var reviewManger: ReviewManager? = null
         private var dialogOptions = DialogOptions()
-        private var reviewManger: ReviewManager? = null
 
         internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) :
             this(activity) {
