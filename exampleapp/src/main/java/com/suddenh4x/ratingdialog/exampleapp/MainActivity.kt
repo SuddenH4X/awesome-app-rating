@@ -23,6 +23,20 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.toast_reset, Toast.LENGTH_SHORT).show()
     }
 
+    fun onGoogleInAppReviewExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .useGoogleInAppReview()
+            .setGoogleInAppReviewCompleteListener { successful ->
+                Toast.makeText(
+                    this@MainActivity,
+                    "Google in-app review completed (successful: $successful)",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            .setDebug(true)
+            .showIfMeetsConditions()
+    }
+
     fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setDebug(true)

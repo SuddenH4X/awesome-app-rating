@@ -27,6 +27,18 @@
             style="@style/ExampleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/text_example_google_in_app_review" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onGoogleInAppReviewExampleButtonClicked"
+            android:text="@string/button_example_google_in_app_review" />
+
+        <TextView
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/text_example_default" />
 
         <Button
