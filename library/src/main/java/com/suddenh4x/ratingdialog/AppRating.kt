@@ -248,19 +248,19 @@ object AppRating {
 
         // Google in-app review
         /**
-         * If this method is called, the in-app review dialog from Google will be used instead
-         * of the library dialog.
+         * If this method is called, the in-app review from Google will be used instead of
+         * the library dialog.
          */
         fun useGoogleInAppReview() = apply {
             reviewManger = ReviewManagerFactory.create(activity)
             dialogOptions.useGoogleInAppReview = true
-            RatingLogger.info("Use in-app review dialog from Google instead of the library dialog.")
+            RatingLogger.info("Use in-app review from Google instead of the library dialog.")
         }
 
         /**
          * The completion listener will be invoked with true if the in-app review flow started
          * correctly (otherwise false).
-         * Note: true doesn't mean that the in-app review dialog from Google was displayed.
+         * Note: true doesn't mean that the in-app review from Google was displayed.
          */
         fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) =
             apply {
@@ -268,11 +268,11 @@ object AppRating {
             }
 
         /**
-         * This method will return null if the Google in-app review dialog is used.
+         * This method will return null if the in-app review from Google is used.
          */
         fun create(): DialogFragment? {
             return if (dialogOptions.useGoogleInAppReview) {
-                RatingLogger.warn("In-app review dialog from Google will be used. Can't create the library dialog.")
+                RatingLogger.warn("In-app review from Google will be used. Can't create the library dialog.")
                 null
             } else {
                 RateDialogFragment.newInstance(dialogOptions)
@@ -281,10 +281,10 @@ object AppRating {
 
         fun showNow() {
             if (dialogOptions.useGoogleInAppReview) {
-                RatingLogger.info("In-app review dialog from Google will be displayed now.")
+                RatingLogger.info("In-app review from Google will be displayed now.")
                 showGoogleInAppReview()
             } else {
-                RatingLogger.debug("In-app review dialog from Google hasn't been activated. Showing library dialog now.")
+                RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
                 RateDialogFragment.newInstance(dialogOptions)
                     .show(activity.supportFragmentManager, TAG)
             }
@@ -316,12 +316,12 @@ object AppRating {
                         RatingLogger.info("Google in-app review request completed.")
                         PreferenceUtil.onGoogleInAppReviewFlowCompleted(activity)
                         dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
-                            ?: RatingLogger.warn("There's no completeListener for Google's in-app review dialog.")
+                            ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
                     }
                 } else {
                     RatingLogger.info("Google in-app review request wasn't successful.")
                     dialogOptions.googleInAppReviewCompleteListener?.invoke(false)
-                        ?: RatingLogger.warn("There's no completeListener for Google's in-app review dialog.")
+                        ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
                 }
             }
         }
