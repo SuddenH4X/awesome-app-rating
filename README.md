@@ -4,11 +4,13 @@
 
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
+You can also use this library to show the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review) easily under certain conditions.
+
 ![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/develop/preview/showcase.png)
 
 ## Features
+- Let the dialog (or the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review)) show up at a defined app session, after n days of usage and/or if your custom conditions meet
 - Auto fetches the app icon to use it in the dialog
-- Let the dialog show up at a defined app session, after n days of usage and/or if your custom conditions meet
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
 - You can override all click listeners to fit your needs (or to implement extensive tracking)
@@ -83,6 +85,22 @@ ratingBuilder.showNow()
 
 Between the constructor and the show or create method you can adjust the dialog to suit your preferences. You have the following options:
 
+#### Google in-app review
+
+If you want to use the in-app review from Google instead of the library dialog, call the following function:
+
+```kotlin
+.useGoogleInAppReview()
+```
+
+You should also add a `completeListener` which gets called if the in-app review flow has been completed. The boolean indicates if the flow started correctly, but not if the in-app review was displayed to the user.
+
+```kotlin
+.setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit)
+```
+
+Note: After the first in-app review flow was completed successfully the `toShowAgain` conditions will be used. For example `.setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int)` instead of  `.setMinimumLaunchTimes(launchTimes: Int)`.
+
 #### When to show up
 
 - Change the number of days the app has to be installed
@@ -128,6 +146,8 @@ Between the constructor and the show or create method you can adjust the dialog 
 ```
 
 #### Design
+
+The following settings will only take effect if the library dialog is used (and not the Google in-app review).
 
 ##### General
 
@@ -411,6 +431,7 @@ If you want to show the dialog on app start, but with your custom conditions, yo
 
 ## Note
 
+* If the in-app review from Google will be used: After the first in-app review flow was completed successfully the `toShowAgain` conditions will be used. For example `.setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int)` instead of  `.setMinimumLaunchTimes(launchTimes: Int)`
 * Use a MaterialComponent theme for better design
 * Don't forget to set up the mail settings if you want to use the mail feedback dialog (otherwise nothing will happen)
 * Use `setRatingThreshold(RatingThreshold.NONE)` if you don't want to show the feedback form to the user
