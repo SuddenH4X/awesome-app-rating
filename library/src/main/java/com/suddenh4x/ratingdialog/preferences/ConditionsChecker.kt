@@ -20,8 +20,6 @@ internal object ConditionsChecker {
         RatingLogger.verbose("Is dialog agreed: $isDialogAgreed.")
         RatingLogger.verbose("Do not show again: $isDoNotShowAgain.")
 
-        if (!checkCustomCondition(dialogOptions)) return false
-
         if (wasLaterButtonClicked) {
             RatingLogger.debug("Show later button has already been clicked.")
             RatingLogger.verbose("Days between later button click and now: $daysBetween.")
@@ -33,6 +31,8 @@ internal object ConditionsChecker {
                 (PreferenceUtil.getLaunchTimes(context) >=
                     PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)))
         }
+
+        if (!checkCustomCondition(dialogOptions)) return false
 
         RatingLogger.verbose("Days between first app start and now: $daysBetween.")
         RatingLogger.debug("Show later button hasn't been clicked until now.")

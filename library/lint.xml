@@ -1,0 +1,6 @@
+<lint>
+    <!-- Temporary until https://github.com/Kotlin/kotlinx.coroutines/issues/2004 is resolved. -->
+    <issue id="InvalidPackage">
+        <ignore path="**/kotlinx-coroutines-core-*.jar"/>
+    </issue>
+</lint>

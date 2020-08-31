@@ -3,9 +3,10 @@ package com.suddenh4x.ratingdialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
@@ -18,16 +19,20 @@ import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 import io.mockk.Runs
+import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
-import io.mockk.mockkConstructor
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
+import io.mockk.spyk
 import io.mockk.unmockkAll
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -330,70 +335,164 @@ class AppRatingTest {
     }
 
     @Nested
-    inner class DialogFragmentTestCalls {
-        @Test
-        fun `show now calls show function of RateDialogFragment`() {
-            mockkConstructor(RateDialogFragment::class)
-            mockkConstructor(Bundle::class)
-            every { anyConstructed<Bundle>().putSerializable(any(), any()) } just Runs
-            every {
-                anyConstructed<RateDialogFragment>().show(
-                    any<FragmentManager>(),
-                    any()
-                )
-            } just Runs
-            every { activity.supportFragmentManager } returns mockk()
+    inner class UseGoogleInAppReview {
+        @MockK
+        lateinit var reviewManger: ReviewManager
 
-            getBuilder().showNow()
-            verify(exactly = 1) { anyConstructed<Bundle>().putSerializable(any(), any()) }
-            verify(exactly = 1) {
-                anyConstructed<RateDialogFragment>().show(
-                    any<FragmentManager>(),
-                    any()
-                )
-            }
+        @BeforeEach
+        fun setup() {
+            mockkStatic(ReviewManagerFactory::class)
+            every { ReviewManagerFactory.create(any()) } returns reviewManger
         }
 
         @Test
-        fun `show if meets conditions increases launch times`() {
+        fun `sets useGoogleInAppReview to true within dialogOptions`() {
+            assertFalse(dialogOptions.useGoogleInAppReview)
+
+            getBuilder().useGoogleInAppReview()
+
+            assertTrue(dialogOptions.useGoogleInAppReview)
+        }
+
+        @Test
+        fun `creates review manager`() {
+            val builder = getBuilder()
+            assertThat(builder.reviewManger).isNull()
+
+            builder.useGoogleInAppReview()
+
+            assertThat(builder.reviewManger).isEqualTo(reviewManger)
+        }
+    }
+
+    @Test
+    fun `google in-app review complete listener is set correctly into dialogOptions`() {
+        val completeListener: (Boolean) -> Unit = mockk()
+        getBuilder().setGoogleInAppReviewCompleteListener(completeListener)
+        assertThat(dialogOptions.googleInAppReviewCompleteListener).isEqualTo(completeListener)
+    }
+
+    @Nested
+    inner class Create {
+
+        @Test
+        fun `returns null if useGoogleInAppReview is true`() {
+            dialogOptions.useGoogleInAppReview = true
+
+            val result = getBuilder().create()
+
+            assertThat(result).isNull()
+        }
+
+        @Test
+        fun `returns new RatingDialogFragment if useGoogleInAppReview is false`() {
+            dialogOptions.useGoogleInAppReview = false
+            mockkObject(RateDialogFragment)
+            val ratingDialogFragment: RateDialogFragment = mockk()
+            every { RateDialogFragment.newInstance(any()) } returns ratingDialogFragment
+
+            val result = getBuilder().create()
+
+            assertThat(result).isEqualTo(ratingDialogFragment)
+        }
+    }
+
+    @Nested
+    inner class ShowNow {
+
+        lateinit var appRatingBuilder: AppRating.Builder
+
+        @BeforeEach
+        fun setup() {
+            appRatingBuilder = spyk(getBuilder())
+        }
+
+        @Test
+        fun `calls showGoogleInAppReview if useGoogleInAppReview is true`() {
+            dialogOptions.useGoogleInAppReview = true
+
+            appRatingBuilder.showNow()
+
+            verify(exactly = 1) { appRatingBuilder.showGoogleInAppReview() }
+        }
+
+        @Test
+        fun `creates and shows new RatingDialogFragment if useGoogleInAppReview is false`() {
+            dialogOptions.useGoogleInAppReview = false
+            mockkObject(RateDialogFragment)
+            val ratingDialogFragment: RateDialogFragment = mockk(relaxed = true)
+            val supportFragmentManager: FragmentManager = mockk()
+            every { RateDialogFragment.newInstance(any()) } returns ratingDialogFragment
+            every { activity.supportFragmentManager } returns supportFragmentManager
+
+            appRatingBuilder.showNow()
+
+            verify(exactly = 1) {
+                ratingDialogFragment.show(
+                    supportFragmentManager,
+                    any()
+                )
+            }
+            verify(exactly = 0) { appRatingBuilder.showGoogleInAppReview() }
+            confirmVerified(ratingDialogFragment)
+        }
+    }
+
+    @Nested
+    inner class ShowIfMeetsConditions {
+
+        @BeforeEach
+        fun setup() {
             mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
-
             mockkObject(ConditionsChecker)
+            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
             every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
+        }
 
+        @Test
+        fun `increases launch times`() {
             getBuilder().showIfMeetsConditions()
+
             verify(exactly = 1) { PreferenceUtil.increaseLaunchTimes(activity) }
         }
 
         @Test
-        fun `show if meets conditions calls show now if conditions are met`() {
-            mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
-
-            mockkObject(ConditionsChecker)
-            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns true
-
-            mockkConstructor(AppRating.Builder::class)
-            every { anyConstructed<AppRating.Builder>().showNow() } just Runs
+        fun `doesn't increase launch times if countAppLaunch is false`() {
+            dialogOptions.countAppLaunch = false
 
             getBuilder().showIfMeetsConditions()
-            verify(exactly = 1) { anyConstructed<AppRating.Builder>().showNow() }
+
+            verify(exactly = 0) { PreferenceUtil.increaseLaunchTimes(activity) }
         }
 
         @Test
-        fun `show if meets conditions doesn't call show now if conditions are met`() {
-            mockkObject(PreferenceUtil)
-            every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
+        fun `calls show now if conditions are met`() {
+            val appRatingBuilder = spyk(getBuilder())
+            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns true
+            every { appRatingBuilder.showNow() } just Runs
 
-            mockkObject(ConditionsChecker)
-            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
+            appRatingBuilder.showIfMeetsConditions()
 
-            mockkConstructor(AppRating.Builder::class)
-            every { anyConstructed<AppRating.Builder>().showNow() } just Runs
+            verify(exactly = 1) { appRatingBuilder.showNow() }
+        }
 
-            getBuilder().showIfMeetsConditions()
-            verify(exactly = 0) { anyConstructed<AppRating.Builder>().showNow() }
+        @Test
+        fun `calls show now if isDebug is true`() {
+            val appRatingBuilder = spyk(getBuilder()).apply { isDebug = true }
+            every { appRatingBuilder.showNow() } just Runs
+
+            appRatingBuilder.showIfMeetsConditions()
+
+            verify(exactly = 1) { appRatingBuilder.showNow() }
+        }
+
+        @Test
+        fun `doesn't call show now if conditions aren't met`() {
+            val appRatingBuilder = spyk(getBuilder())
+
+            appRatingBuilder.showIfMeetsConditions()
+
+            verify(exactly = 0) { appRatingBuilder.showNow() }
         }
     }
 
