@@ -317,7 +317,7 @@ object AppRating {
             }
         }
 
-        private fun showGoogleInAppReview() {
+        internal fun showGoogleInAppReview() {
             val requestTask = reviewManger?.requestReviewFlow()
             requestTask?.addOnCompleteListener { request ->
                 if (request.isSuccessful) {
