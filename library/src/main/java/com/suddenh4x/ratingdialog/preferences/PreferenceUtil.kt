@@ -83,7 +83,10 @@ internal object PreferenceUtil {
     }
 
     fun onGoogleInAppReviewFlowCompleted(context: Context) {
-        RatingLogger.verbose("Google in-app review flow has been completed. Update remind timestamp and set launch times to 0.")
+        RatingLogger.verbose(
+            "Google in-app review flow has been completed. Update remind timestamp " +
+                "and set launch times to 0."
+        )
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
             putInt(PREF_KEY_LAUNCH_TIMES, 0)

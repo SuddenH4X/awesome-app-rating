@@ -166,7 +166,9 @@ object AppRating {
                     mailFeedbackButtonClickListener
             }
 
-        fun setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener) =
+        fun setAdditionalMailFeedbackButtonClickListener(
+            additionalMailFeedbackButtonClickListener: RateDialogClickListener
+        ) =
             apply {
                 dialogOptions.additionalMailFeedbackButtonClickListener =
                     additionalMailFeedbackButtonClickListener
@@ -224,17 +226,26 @@ object AppRating {
 
         fun setCustomCondition(customCondition: () -> Boolean) = apply {
             dialogOptions.customCondition = customCondition
-            RatingLogger.debug("Custom condition set. This condition will be removed next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "Custom condition set. This condition will be removed next" +
+                    " time you call the Builder constructor."
+            )
         }
 
         fun setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean) = apply {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
-            RatingLogger.debug("Custom condition to show again set. This condition will be removed next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "Custom condition to show again set. This condition will" +
+                    "be removed next time you call the Builder constructor."
+            )
         }
 
         fun dontCountThisAsAppLaunch() = apply {
             dialogOptions.countAppLaunch = false
-            RatingLogger.debug("countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "countAppLaunch is now set to false. This setting will be " +
+                    "reset next time you call the Builder constructor."
+            )
         }
 
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {

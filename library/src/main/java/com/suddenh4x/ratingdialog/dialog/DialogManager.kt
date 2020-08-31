@@ -294,7 +294,10 @@ internal object DialogManager {
         val numberOfLaterButtonClicks = PreferenceUtil.getNumberOfLaterButtonClicks(context)
         RatingLogger.debug("Rate later button was clicked $numberOfLaterButtonClicks times.")
         if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
-            RatingLogger.info("Less than $countOfLaterButtonClicksToShowNeverButton later button clicks. Rate never button won't be displayed.")
+            RatingLogger.info(
+                "Less than $countOfLaterButtonClicksToShowNeverButton later " +
+                    "button clicks. Rate never button won't be displayed."
+            )
             return
         }
 
