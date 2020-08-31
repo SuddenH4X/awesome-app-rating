@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateButton
@@ -41,6 +43,7 @@ object AppRating {
 
     data class Builder(var activity: AppCompatActivity) {
         internal var isDebug = false
+        internal var reviewManger: ReviewManager? = null
         private var dialogOptions = DialogOptions()
 
         internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) :
@@ -163,7 +166,9 @@ object AppRating {
                     mailFeedbackButtonClickListener
             }
 
-        fun setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener) =
+        fun setAdditionalMailFeedbackButtonClickListener(
+            additionalMailFeedbackButtonClickListener: RateDialogClickListener
+        ) =
             apply {
                 dialogOptions.additionalMailFeedbackButtonClickListener =
                     additionalMailFeedbackButtonClickListener
@@ -221,17 +226,26 @@ object AppRating {
 
         fun setCustomCondition(customCondition: () -> Boolean) = apply {
             dialogOptions.customCondition = customCondition
-            RatingLogger.debug("Custom condition set. This condition will be removed next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "Custom condition set. This condition will be removed next" +
+                    " time you call the Builder constructor."
+            )
         }
 
         fun setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean) = apply {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
-            RatingLogger.debug("Custom condition to show again set. This condition will be removed next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "Custom condition to show again set. This condition will" +
+                    "be removed next time you call the Builder constructor."
+            )
         }
 
         fun dontCountThisAsAppLaunch() = apply {
             dialogOptions.countAppLaunch = false
-            RatingLogger.debug("countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.")
+            RatingLogger.debug(
+                "countAppLaunch is now set to false. This setting will be " +
+                    "reset next time you call the Builder constructor."
+            )
         }
 
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {
@@ -243,10 +257,49 @@ object AppRating {
             RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
         }
 
-        fun create(): DialogFragment = RateDialogFragment.newInstance(dialogOptions)
+        // Google in-app review
+        /**
+         * If this method is called, the in-app review from Google will be used instead of
+         * the library dialog.
+         */
+        fun useGoogleInAppReview() = apply {
+            reviewManger = ReviewManagerFactory.create(activity)
+            dialogOptions.useGoogleInAppReview = true
+            RatingLogger.info("Use in-app review from Google instead of the library dialog.")
+        }
 
-        fun showNow() =
-            RateDialogFragment.newInstance(dialogOptions).show(activity.supportFragmentManager, TAG)
+        /**
+         * The completion listener will be invoked with true if the in-app review flow started
+         * correctly (otherwise false).
+         * Note: true doesn't mean that the in-app review from Google was displayed.
+         */
+        fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) =
+            apply {
+                dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
+            }
+
+        /**
+         * This method will return null if the in-app review from Google is used.
+         */
+        fun create(): DialogFragment? {
+            return if (dialogOptions.useGoogleInAppReview) {
+                RatingLogger.warn("In-app review from Google will be used. Can't create the library dialog.")
+                null
+            } else {
+                RateDialogFragment.newInstance(dialogOptions)
+            }
+        }
+
+        fun showNow() {
+            if (dialogOptions.useGoogleInAppReview) {
+                RatingLogger.info("In-app review from Google will be displayed now.")
+                showGoogleInAppReview()
+            } else {
+                RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
+                RateDialogFragment.newInstance(dialogOptions)
+                    .show(activity.supportFragmentManager, TAG)
+            }
+        }
 
         fun showIfMeetsConditions() {
             if (dialogOptions.countAppLaunch) {
@@ -261,6 +314,26 @@ object AppRating {
                 showNow()
             } else {
                 RatingLogger.info("Don't show rating dialog: Conditions not met.")
+            }
+        }
+
+        internal fun showGoogleInAppReview() {
+            val requestTask = reviewManger?.requestReviewFlow()
+            requestTask?.addOnCompleteListener { request ->
+                if (request.isSuccessful) {
+                    val reviewInfo = request.result
+                    val flow = reviewManger?.launchReviewFlow(activity, reviewInfo)
+                    flow?.addOnCompleteListener { task ->
+                        RatingLogger.info("Google in-app review request completed.")
+                        PreferenceUtil.onGoogleInAppReviewFlowCompleted(activity)
+                        dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
+                            ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                    }
+                } else {
+                    RatingLogger.info("Google in-app review request wasn't successful.")
+                    dialogOptions.googleInAppReviewCompleteListener?.invoke(false)
+                        ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                }
             }
         }
 

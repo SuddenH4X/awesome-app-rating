@@ -4,6 +4,10 @@
     <!-- Example Buttons and Descriptions -->
     <string name="text_example_note_app_reset">Note: Use the reset button below or restart the app to clear all settings.</string>
     <string name="button_example_reset">Reset</string>
+    <string name="text_example_google_in_app_review">This example uses the Google in-app review instead of the library
+        dialog. Debug is enabled. (note: this example doesn\'t work at the moment because the example app hasn\'t been uploaded
+        to the Google Play Store)</string>
+    <string name="button_example_google_in_app_review">Google In-App Review</string>
     <string name="text_example_default">This example has no customizations. Debug is enabled.</string>
     <string name="button_example_default">Default</string>
     <string name="text_example_custom_icon">In this example the default icon (app icon) has been replaced with a cusom icon.
