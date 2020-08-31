@@ -4,9 +4,15 @@
 
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
-You can also use this library to show the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review) easily under certain conditions.
-
 ![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/develop/preview/showcase.png)
+
+
+
+You can also use this library to show the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review) easily under certain conditions:
+
+<img src="https://developer.android.com/images/google/play/in-app-review/iar-flow.jpg" alt="In app review workflow for a user"  />
+
+(Source: https://developer.android.com/guide/playcore/in-app-review)
 
 ## Features
 - Let the dialog (or the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review)) show up at a defined app session, after n days of usage and/or if your custom conditions meet
