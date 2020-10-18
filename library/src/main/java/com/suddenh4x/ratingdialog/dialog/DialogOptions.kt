@@ -12,6 +12,8 @@ import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import java.io.Serializable
 
 internal class DialogOptions : Serializable {
+
+    @Transient
     var iconDrawable: Drawable? = null
     var rateLaterButton: RateButton = RateButton(R.string.rating_dialog_button_rate_later, null)
     var rateNeverButton: RateButton? = null
@@ -40,7 +42,8 @@ internal class DialogOptions : Serializable {
     // rating dialog feedback
     @StringRes
     var feedbackTitleTextId = R.string.rating_dialog_feedback_title
-    var noFeedbackButton: RateButton = RateButton(R.string.rating_dialog_feedback_button_cancel, null)
+    var noFeedbackButton: RateButton =
+        RateButton(R.string.rating_dialog_feedback_button_cancel, null)
 
     // rating dialog mail feedback
     @StringRes
