@@ -1,13 +1,15 @@
 package com.suddenh4x.ratingdialog.buttons
 
-interface RateDialogClickListener {
+import java.io.Serializable
+
+interface RateDialogClickListener : Serializable {
     fun onClick()
 }
 
-interface ConfirmButtonClickListener {
+interface ConfirmButtonClickListener : Serializable {
     fun onClick(userRating: Float)
 }
 
-interface CustomFeedbackButtonClickListener {
+interface CustomFeedbackButtonClickListener : Serializable {
     fun onClick(userFeedbackText: String)
 }
