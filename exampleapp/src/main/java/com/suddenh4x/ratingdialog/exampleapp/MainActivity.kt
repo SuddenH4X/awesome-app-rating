@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.MutableLiveData
 import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
@@ -16,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppRating.reset(this)
+
+        toastLiveData.observe(this) { toastString ->
+            Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+        }
     }
 
     fun onResetButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
@@ -27,11 +32,7 @@ class MainActivity : AppCompatActivity() {
         AppRating.Builder(this)
             .useGoogleInAppReview()
             .setGoogleInAppReviewCompleteListener { successful ->
-                Toast.makeText(
-                    this@MainActivity,
-                    "Google in-app review completed (successful: $successful)",
-                    Toast.LENGTH_LONG
-                ).show()
+                toastLiveData.postValue("Google in-app review completed (successful: $successful)")
             }
             .setDebug(true)
             .showIfMeetsConditions()
@@ -71,11 +72,7 @@ class MainActivity : AppCompatActivity() {
             .setUseCustomFeedback(true)
             .setCustomFeedbackButtonClickListener(object : CustomFeedbackButtonClickListener {
                 override fun onClick(userFeedbackText: String) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Feedback: $userFeedbackText",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    toastLiveData.postValue("Feedback: $userFeedbackText")
                 }
             })
             .showIfMeetsConditions()
@@ -135,5 +132,10 @@ class MainActivity : AppCompatActivity() {
             .setMailFeedbackButtonTextId(R.string.button_mail_feedback)
             .setNoFeedbackButtonTextId(R.string.button_no_feedback)
             .showIfMeetsConditions()
+    }
+
+    companion object {
+        // The livedata is used so that no context is given into the click listeners. (NotSerializableException)
+        private val toastLiveData: MutableLiveData<String> = MutableLiveData()
     }
 }
