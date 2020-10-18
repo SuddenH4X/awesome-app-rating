@@ -107,6 +107,27 @@ You should also add a `completeListener` which gets called if the in-app review 
 
 Note: After the first in-app review flow was completed successfully the `toShowAgain` conditions will be used. For example `.setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int)` instead of  `.setMinimumLaunchTimes(launchTimes: Int)`.
 
+##### Current issues with in-app review
+
+Testing the Google in-app review isn't as easy as it should be. There is an open issue in the issuetracker of Google: https://issuetracker.google.com/issues/167352813
+
+Follow these tips on stackoverflow to maximize your chance of testing it successfully:
+
+```
+- Use only one account in the device
+- Ensure that account has installed the app (appears in the app & games > Library section in Play Store)
+- The account is a GMAIL one, not a GSuit
+- You can review with the account if you go to the app play listing page.
+- The account has not reviewed
+- If you intend to use the Internal Test Track ensure the account has joined the test track.
+- When switching between different accounts and testing things out, sometimes might be helpful to "Clear Data" from the Play Store app.
+- Try all the above with different account
+
+Source: https://stackoverflow.com/a/63950373
+```
+
+You should consider to wait with implementing it and use the normal rating dialog instead until Google has fixed the issue(s).
+
 #### When to show up
 
 - Change the number of days the app has to be installed
