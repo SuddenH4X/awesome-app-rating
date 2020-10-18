@@ -30,7 +30,7 @@ This library:
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
-- is Android Q (API 29) ready
+- is Android 11 (API 30) ready
 - is easy to use
 
 ## How to use
