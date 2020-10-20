@@ -9,9 +9,12 @@ import android.view.View
 import android.widget.EditText
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.logging.RatingLogger
@@ -145,7 +148,18 @@ internal object DialogManager {
                     button.rateDialogClickListener?.onClick()
                         ?: run {
                             RatingLogger.info("Default rate now button click listener called.")
-                            FeedbackUtils.openPlayStoreListing(context)
+                            if (dialogOptions.useGoogleInAppReview) {
+                                AppRating.Builder(context as AppCompatActivity)
+                                    .useGoogleInAppReview()
+                                    .setGoogleInAppReviewCompleteListener { successful ->
+                                        Toast.makeText(context,"Google in-app review completed (successful: $successful)",Toast.LENGTH_LONG).show();
+                                    }
+                                    .showGoogleInAppReview()
+                            }
+                            else
+                            {
+                                FeedbackUtils.openPlayStoreListing(context)
+                            }
                         }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional rate now button click listener not set.")

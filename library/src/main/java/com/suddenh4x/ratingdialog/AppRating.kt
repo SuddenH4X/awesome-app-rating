@@ -291,14 +291,8 @@ object AppRating {
         }
 
         fun showNow() {
-            if (dialogOptions.useGoogleInAppReview) {
-                RatingLogger.info("In-app review from Google will be displayed now.")
-                showGoogleInAppReview()
-            } else {
-                RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
-                RateDialogFragment.newInstance(dialogOptions)
-                    .show(activity.supportFragmentManager, TAG)
-            }
+            RateDialogFragment.newInstance(dialogOptions)
+                .show(activity.supportFragmentManager, TAG)
         }
 
         fun showIfMeetsConditions() {
