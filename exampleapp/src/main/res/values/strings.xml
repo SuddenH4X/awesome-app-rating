@@ -41,6 +41,9 @@
         is enabled.</string>
     <string name="button_example_custom_texts">Custom texts</string>
 
+    <string name="text_custom_theme">In this example is used a custom theme for the Rating Alert.</string>
+    <string name="button_custom_theme">Custom Theme</string>
+
     <!-- Custom Button Texts -->
     <string name="button_rate_now">Foo</string>
     <string name="button_rate_never">Doe</string>

@@ -34,7 +34,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating rating overview dialog.")
-        val builder = getDialogBuilder(activity)
+        val builder = getDialogBuilder(activity, dialogOptions.theme)
 
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingOverviewDialogView = inflater.inflate(R.layout.dialog_rating_overview, null)
@@ -125,7 +125,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
-        val builder = getDialogBuilder(context)
+        val builder = getDialogBuilder(context, dialogOptions.theme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingStoreDialogView = inflater.inflate(R.layout.dialog_rating_store, null)
@@ -162,7 +162,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
-        val builder = getDialogBuilder(context)
+        val builder = getDialogBuilder(context, dialogOptions.theme)
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
@@ -202,7 +202,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
-        val builder = getDialogBuilder(context)
+        val builder = getDialogBuilder(context, dialogOptions.theme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingCustomFeedbackDialogView =
@@ -211,8 +211,10 @@ internal object DialogManager {
         ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
         customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
 
+
         builder.apply {
             setView(ratingCustomFeedbackDialogView)
+
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.customFeedbackButton.let { button ->
@@ -325,12 +327,12 @@ internal object DialogManager {
         }
     }
 
-    private fun getDialogBuilder(context: Context): AlertDialog.Builder {
+    private fun getDialogBuilder(context: Context, theme: Int): AlertDialog.Builder {
         return try {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(context, theme)
         } catch (ex: IllegalArgumentException) {
             RatingLogger.debug("This app doesn't use a MaterialComponents theme. Using normal AlertDialog instead.")
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(context, theme)
         }
     }
 }
