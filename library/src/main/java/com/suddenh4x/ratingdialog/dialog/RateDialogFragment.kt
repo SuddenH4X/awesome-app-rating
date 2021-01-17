@@ -9,15 +9,16 @@ import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 
 internal class RateDialogFragment : DialogFragment() {
-    private val dialogType: DialogType by lazy {
-        arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
-    }
-    private val dialogOptions: DialogOptions by lazy {
-        arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
-    }
+
+    // cannot use by lazy because of mocking limitations of mockk
+    private lateinit var dialogType: DialogType
+    private lateinit var dialogOptions: DialogOptions
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
+        dialogOptions = arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
+        dialogType =
+            arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         isCancelable = dialogOptions.cancelable
 
         return when (dialogType) {
