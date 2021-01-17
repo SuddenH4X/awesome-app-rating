@@ -2,10 +2,13 @@ package com.suddenh4x.ratingdialog.dialog
 
 import android.os.Bundle
 import com.suddenh4x.ratingdialog.logging.RatingLogger
+import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
+import io.mockk.Runs
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
 import io.mockk.spyk
@@ -13,6 +16,7 @@ import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
@@ -105,6 +109,36 @@ class RateDialogFragmentTest {
         rateDialogFragmentSpy.onCreateDialog(mockk())
 
         verify(exactly = 1) { rateDialogFragmentSpy.isCancelable = isCancelable }
+    }
+
+    @Nested
+    inner class OnCancel {
+
+        @BeforeEach
+        fun setup() {
+            mockkObject(PreferenceUtil)
+            rateDialogFragmentSpy.dialogOptions = dialogOptions
+            every { PreferenceUtil.onLaterButtonClicked(any()) } just Runs
+            every { dialogOptions.dialogCancelListener } returns null
+        }
+
+        @Test
+        fun `calls PreferenceUtils_onLaterButtonClicked`() {
+            rateDialogFragmentSpy.onCancel(mockk())
+
+            verify(exactly = 1) { PreferenceUtil.onLaterButtonClicked(any()) }
+        }
+
+        @Test
+        fun `invokes dialogCancelListener`() {
+            val dialogCancelListener: () -> Unit = mockk()
+            every { dialogCancelListener() } just Runs
+            every { dialogOptions.dialogCancelListener } returns dialogCancelListener
+
+            rateDialogFragmentSpy.onCancel(mockk())
+
+            verify(exactly = 1) { dialogCancelListener.invoke() }
+        }
     }
 
     /* fixme: getProperty on spyk object is currently not working: https://github.com/mockk/mockk/issues/263

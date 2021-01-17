@@ -3,6 +3,7 @@ package com.suddenh4x.ratingdialog.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.suddenh4x.ratingdialog.logging.RatingLogger
@@ -12,7 +13,9 @@ internal class RateDialogFragment : DialogFragment() {
 
     // cannot use by lazy because of mocking limitations of mockk
     private lateinit var dialogType: DialogType
-    private lateinit var dialogOptions: DialogOptions
+
+    @VisibleForTesting
+    internal lateinit var dialogOptions: DialogOptions
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
