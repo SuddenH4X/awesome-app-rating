@@ -1,21 +1,25 @@
 package com.suddenh4x.ratingdialog.dialog
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.suddenh4x.ratingdialog.logging.RatingLogger
+import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 
 internal class RateDialogFragment : DialogFragment() {
-    private lateinit var dialogType: DialogType
+    private val dialogType: DialogType by lazy {
+        arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
+    }
+    private val dialogOptions: DialogOptions by lazy {
+        arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        val dialogOptions: DialogOptions =
-            arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
         isCancelable = dialogOptions.cancelable
 
-        dialogType =
-            arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         return when (dialogType) {
             DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(
                 requireActivity(),
@@ -41,6 +45,12 @@ internal class RateDialogFragment : DialogFragment() {
         if (dialogType == DialogType.FEEDBACK_CUSTOM) {
             (dialog as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
         }
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+        RatingLogger.info("Dialog was canceled.")
+        PreferenceUtil.onLaterButtonClicked(requireContext())
     }
 
     companion object {
