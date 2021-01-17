@@ -19,7 +19,11 @@ class MainActivity : AppCompatActivity() {
         AppRating.reset(this)
 
         toastLiveData.observe(this) { toastString ->
-            Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+            if (toastString.isNotBlank()) {
+                Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+                // This is a workaround so that the toast isn't shown again on orientation change
+                toastLiveData.postValue("")
+            }
         }
     }
 
@@ -131,6 +135,14 @@ class MainActivity : AppCompatActivity() {
             .setMailFeedbackMessageTextId(R.string.message_feedback)
             .setMailFeedbackButtonTextId(R.string.button_mail_feedback)
             .setNoFeedbackButtonTextId(R.string.button_no_feedback)
+            .showIfMeetsConditions()
+    }
+
+    fun onCancelableButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setCancelable(true)
+            .setDialogCancelListener { toastLiveData.postValue("Dialog was canceled.") }
             .showIfMeetsConditions()
     }
 
