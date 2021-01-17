@@ -205,6 +205,10 @@ object AppRating {
             RatingLogger.debug("Set cancelable to $cancelable.")
         }
 
+        fun setDialogCancelListener(dialogCancelListener: () -> Unit) = apply {
+            dialogOptions.dialogCancelListener = dialogCancelListener
+        }
+
         fun setMinimumLaunchTimes(launchTimes: Int) = apply {
             PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes)
         }

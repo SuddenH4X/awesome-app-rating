@@ -51,6 +51,8 @@ internal class RateDialogFragment : DialogFragment() {
         super.onCancel(dialog)
         RatingLogger.info("Dialog was canceled.")
         PreferenceUtil.onLaterButtonClicked(requireContext())
+        dialogOptions.dialogCancelListener?.invoke()
+            ?: RatingLogger.info("Dialog cancel listener isn't set.")
     }
 
     companion object {
