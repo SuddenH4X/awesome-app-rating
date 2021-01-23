@@ -362,10 +362,16 @@ These settings will only apply if custom feedback is enabled:
 .setRatingThreshold(ratingThreshold: RatingThreshold) // default is RatingThreshold.THREE
 ```
 
-- Choose if the dialogs should be cancelable (by clicking outside or using the back button)
+- Choose if the dialogs should be cancelable (by clicking outside or using the back button). This case is treated the same as a click on the `later` button.
 
 ```kotlin
 .setCancelable(cancelable: Boolean) // default is false
+```
+
+- Add a cancel listener to the dialog
+
+```kotlin
+.setDialogCancelListener(dialogCancelListener: () -> Unit)
 ```
 
 - Disable all library logs
