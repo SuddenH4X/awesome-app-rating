@@ -447,6 +447,9 @@ class AppRatingTest {
             mockkObject(ConditionsChecker)
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
             every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
+            every {
+                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+            } returns null
         }
 
         @Test
