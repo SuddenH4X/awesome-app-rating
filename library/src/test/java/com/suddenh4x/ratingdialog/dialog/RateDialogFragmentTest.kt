@@ -1,6 +1,7 @@
 package com.suddenh4x.ratingdialog.dialog
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import io.mockk.Runs
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.EnumSource
 import org.junit.jupiter.params.provider.ValueSource
 
 @ExtendWith(MockKExtension::class)
@@ -141,13 +143,38 @@ class RateDialogFragmentTest {
         }
     }
 
-    /* fixme: getProperty on spyk object is currently not working: https://github.com/mockk/mockk/issues/263
-    @Test
-    fun `on start with argument FEEDBACK_CUSTOM disables button`() {
-        val dialog = mockk<AlertDialog>(relaxed = true)
-        every { rateDialogFragment getProperty ("dialogType") } returns DialogType.FEEDBACK_CUSTOM
-        every { rateDialogFragment.dialog } returns dialog
-        rateDialogFragment.onStart()
-        verify(exactly = 1) { dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false }
-    }*/
+    @Nested
+    inner class OnStart {
+
+        @MockK
+        lateinit var dialog: AlertDialog
+
+        @BeforeEach
+        fun setup() {
+            every { rateDialogFragmentSpy.dialog } returns dialog
+        }
+
+        @Test
+        fun `with argument FEEDBACK_CUSTOM disables positive button`() {
+            every { dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false } just Runs
+            rateDialogFragmentSpy.dialogType = DialogType.FEEDBACK_CUSTOM
+
+            rateDialogFragmentSpy.onStart()
+
+            verify(exactly = 1) { dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false }
+        }
+
+        @ParameterizedTest
+        @EnumSource(
+            value = DialogType::class,
+            names = ["FEEDBACK_MAIL", "RATING_OVERVIEW", "RATING_STORE"]
+        )
+        fun `with other arguments doesn't disable positive button`(dialogType: DialogType) {
+            rateDialogFragmentSpy.dialogType = dialogType
+
+            rateDialogFragmentSpy.onStart()
+
+            verify(exactly = 0) { dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false }
+        }
+    }
 }

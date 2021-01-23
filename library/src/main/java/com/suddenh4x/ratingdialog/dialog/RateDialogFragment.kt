@@ -12,8 +12,10 @@ import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 internal class RateDialogFragment : DialogFragment() {
 
     // cannot use by lazy because of mocking limitations of mockk
-    private lateinit var dialogType: DialogType
+    @VisibleForTesting
+    internal lateinit var dialogType: DialogType
 
+    // cannot use by lazy because of mocking limitations of mockk
     @VisibleForTesting
     internal lateinit var dialogOptions: DialogOptions
 
