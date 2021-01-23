@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: 'com.novoda.bintray-release'
 
-def version = "2.2.0"
+def version = "2.2.1"
 
 android {
     compileSdkVersion 30
