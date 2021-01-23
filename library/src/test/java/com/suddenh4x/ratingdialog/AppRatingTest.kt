@@ -447,6 +447,21 @@ class AppRatingTest {
             mockkObject(ConditionsChecker)
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
             every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
+            every {
+                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+            } returns null
+        }
+
+        @Test
+        fun `returns immediately if dialog is currently visible`() {
+            val appRatingBuilder = spyk(getBuilder())
+            every {
+                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+            } returns mockk()
+
+            getBuilder().showIfMeetsConditions()
+
+            verify(exactly = 0) { appRatingBuilder.showNow() }
         }
 
         @Test
