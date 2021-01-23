@@ -62,6 +62,7 @@ internal class DialogOptions : Serializable {
 
     // other settings
     var cancelable = false
+    var dialogCancelListener: (() -> Unit)? = null
 
     // Google in-app review
     var useGoogleInAppReview = false
