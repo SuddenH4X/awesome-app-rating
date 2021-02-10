@@ -171,14 +171,14 @@
             style="@style/ExampleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_custom_theme" />
+            android:text="@string/text_example_custom_theme" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_big"
-            android:onClick="onCustomThemeClicked"
-            android:text="@string/button_custom_theme" />
+            android:onClick="onCustomThemeButtonClicked"
+            android:text="@string/button_example_custom_theme" />
 
     </LinearLayout>
 </ScrollView>
