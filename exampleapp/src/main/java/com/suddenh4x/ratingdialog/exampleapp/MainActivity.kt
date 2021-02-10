@@ -19,7 +19,11 @@ class MainActivity : AppCompatActivity() {
         AppRating.reset(this)
 
         toastLiveData.observe(this) { toastString ->
-            Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+            if (toastString.isNotBlank()) {
+                Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+                // This is a workaround so that the toast isn't shown again on orientation change
+                toastLiveData.postValue("")
+            }
         }
     }
 
@@ -134,6 +138,14 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
+    fun onCancelableButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setCancelable(true)
+            .setDialogCancelListener { toastLiveData.postValue("Dialog was canceled.") }
+            .showIfMeetsConditions()
+    }
+
     fun onCustomThemeClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setCustomTheme(R.style.CustomTheme)
@@ -146,5 +158,4 @@ class MainActivity : AppCompatActivity() {
         // The livedata is used so that no context is given into the click listeners. (NotSerializableException)
         private val toastLiveData: MutableLiveData<String> = MutableLiveData()
     }
-
 }

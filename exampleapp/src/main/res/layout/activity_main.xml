@@ -47,8 +47,6 @@
             android:onClick="onDefaultExampleButtonClicked"
             android:text="@string/button_example_default" />
 
-
-
         <TextView
             style="@style/ExampleText"
             android:layout_width="match_parent"
@@ -154,8 +152,22 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_big"
             android:onClick="onCustomTextsButtonClicked"
             android:text="@string/button_example_custom_texts" />
+
+        <TextView
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_cancelable" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:onClick="onCancelableButtonClicked"
+            android:text="@string/button_example_cancelable" />
 
         <TextView
             style="@style/ExampleText"

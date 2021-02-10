@@ -40,6 +40,9 @@
     <string name="text_example_custom_texts">In this example the default texts has been replaced with dummy texts. Debug
         is enabled.</string>
     <string name="button_example_custom_texts">Custom texts</string>
+    <string name="text_example_cancelable">In this example the dialog is cancelable. A dialogCancelListener was set to show a toast. Debug
+        is enabled.</string>
+    <string name="button_example_cancelable">Cancelable</string>
 
     <string name="text_custom_theme">In this example is used a custom theme for the Rating Alert.</string>
     <string name="button_custom_theme">Custom Theme</string>

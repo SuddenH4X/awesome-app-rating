@@ -209,6 +209,10 @@ object AppRating {
             RatingLogger.debug("Set cancelable to $cancelable.")
         }
 
+        fun setDialogCancelListener(dialogCancelListener: () -> Unit) = apply {
+            dialogOptions.dialogCancelListener = dialogCancelListener
+        }
+
         fun setMinimumLaunchTimes(launchTimes: Int) = apply {
             PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes)
         }
@@ -306,6 +310,11 @@ object AppRating {
         }
 
         fun showIfMeetsConditions() {
+            if (activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName) != null) {
+                RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
+                return
+            }
+
             if (dialogOptions.countAppLaunch) {
                 RatingLogger.debug("App launch will be counted: countAppLaunch is true.")
                 PreferenceUtil.increaseLaunchTimes(activity)
