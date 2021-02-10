@@ -47,6 +47,8 @@
             android:onClick="onDefaultExampleButtonClicked"
             android:text="@string/button_example_default" />
 
+
+
         <TextView
             style="@style/ExampleText"
             android:layout_width="match_parent"
@@ -152,8 +154,21 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_big"
             android:onClick="onCustomTextsButtonClicked"
             android:text="@string/button_example_custom_texts" />
+
+        <TextView
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_custom_theme" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:onClick="onCustomThemeClicked"
+            android:text="@string/button_custom_theme" />
+
     </LinearLayout>
 </ScrollView>

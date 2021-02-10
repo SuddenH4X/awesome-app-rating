@@ -134,8 +134,17 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
+    fun onCustomThemeClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setCustomTheme(R.style.CustomTheme)
+            .setDebug(true)
+            .showIfMeetsConditions()
+    }
+
+
     companion object {
         // The livedata is used so that no context is given into the click listeners. (NotSerializableException)
         private val toastLiveData: MutableLiveData<String> = MutableLiveData()
     }
+
 }

@@ -66,4 +66,7 @@ internal class DialogOptions : Serializable {
     // Google in-app review
     var useGoogleInAppReview = false
     var googleInAppReviewCompleteListener: ((Boolean) -> Unit)? = null
+
+    // Custom Theme set as 0 to use default
+    var theme: Int = 0
 }
