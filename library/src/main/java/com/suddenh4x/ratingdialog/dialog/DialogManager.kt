@@ -34,7 +34,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating rating overview dialog.")
-        val builder = getDialogBuilder(activity, dialogOptions.theme)
+        val builder = getDialogBuilder(activity, dialogOptions.customTheme)
 
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingOverviewDialogView = inflater.inflate(R.layout.dialog_rating_overview, null)
@@ -125,7 +125,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.theme)
+        val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingStoreDialogView = inflater.inflate(R.layout.dialog_rating_store, null)
@@ -162,7 +162,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.theme)
+        val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
@@ -202,7 +202,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.theme)
+        val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingCustomFeedbackDialogView =

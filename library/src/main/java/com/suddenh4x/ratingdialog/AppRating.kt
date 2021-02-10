@@ -66,8 +66,8 @@ object AppRating {
                     rateLaterButtonClickListener
             }
 
-        fun setCustomTheme(theme: Int) = apply {
-            dialogOptions.theme = theme
+        fun setCustomTheme(customTheme: Int) = apply {
+            dialogOptions.customTheme = customTheme
         }
 
         fun showRateNeverButton(

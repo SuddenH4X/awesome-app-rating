@@ -15,6 +15,7 @@ internal class DialogOptions : Serializable {
 
     @Transient
     var iconDrawable: Drawable? = null
+    var customTheme: Int = 0
     var rateLaterButton: RateButton = RateButton(R.string.rating_dialog_button_rate_later, null)
     var rateNeverButton: RateButton? = null
     var ratingThreshold: RatingThreshold = RatingThreshold.THREE
@@ -67,7 +68,4 @@ internal class DialogOptions : Serializable {
     // Google in-app review
     var useGoogleInAppReview = false
     var googleInAppReviewCompleteListener: ((Boolean) -> Unit)? = null
-
-    // Custom Theme set as 0 to use default
-    var theme: Int = 0
 }
