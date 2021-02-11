@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
     fun onCustomThemeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setDebug(true)
-            .setCustomTheme(R.style.CustomTheme)
+            .setCustomTheme(R.style.AppTheme_CustomAlertDialog)
             .showIfMeetsConditions()
     }
 
