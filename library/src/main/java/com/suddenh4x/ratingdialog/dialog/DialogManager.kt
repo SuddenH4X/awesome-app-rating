@@ -211,10 +211,8 @@ internal object DialogManager {
         ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
         customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
 
-
         builder.apply {
             setView(ratingCustomFeedbackDialogView)
-
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.customFeedbackButton.let { button ->
