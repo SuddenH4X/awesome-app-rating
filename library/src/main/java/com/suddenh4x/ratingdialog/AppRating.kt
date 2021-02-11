@@ -56,6 +56,10 @@ object AppRating {
             RatingLogger.debug("Use custom icon drawable.")
         }
 
+        fun setCustomTheme(customTheme: Int) = apply {
+            dialogOptions.customTheme = customTheme
+        }
+
         fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
@@ -65,10 +69,6 @@ object AppRating {
                 dialogOptions.rateLaterButton.rateDialogClickListener =
                     rateLaterButtonClickListener
             }
-
-        fun setCustomTheme(customTheme: Int) = apply {
-            dialogOptions.customTheme = customTheme
-        }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,

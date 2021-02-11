@@ -92,7 +92,7 @@ class AppRatingTest {
     }
 
     @Test
-    fun `theme is set correctly`() {
+    fun `custom theme is set correctly into dialogOptions`() {
         getBuilder().setCustomTheme(INT_RES_ID)
         assertThat(dialogOptions.customTheme).isEqualTo(INT_RES_ID)
     }
