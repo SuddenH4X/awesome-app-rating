@@ -184,6 +184,12 @@ The following settings will only take effect if the library dialog is used (and 
 .setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
 ```
 
+- Change the theme of the dialog
+
+```kotlin
+.setCustomTheme(customTheme: Int)
+```
+
 - Change the rate later button text
 
 ```kotlin

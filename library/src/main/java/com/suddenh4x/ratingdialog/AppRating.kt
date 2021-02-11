@@ -56,6 +56,11 @@ object AppRating {
             RatingLogger.debug("Use custom icon drawable.")
         }
 
+        fun setCustomTheme(customTheme: Int) = apply {
+            dialogOptions.customTheme = customTheme
+            RatingLogger.debug("Use custom theme.")
+        }
+
         fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }

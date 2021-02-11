@@ -8,6 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FFC107</item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomPositiveButtonStyle</item>
+    </style>
+
+    <style name="CustomPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">#F00</item>
+        <item name="backgroundTint">#00F</item>
+    </style>
+
+
     <style name="ExampleText" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="android:gravity">center_horizontal</item>
