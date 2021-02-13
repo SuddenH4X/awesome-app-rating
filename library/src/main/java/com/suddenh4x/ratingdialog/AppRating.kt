@@ -310,10 +310,10 @@ object AppRating {
             }
         }
 
-        fun showIfMeetsConditions() {
-            if (activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName) != null) {
+        fun showIfMeetsConditions(): Boolean {
+            if (activity.supportFragmentManager.findFragmentByTag(TAG) != null) {
                 RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
-                return
+                return false
             }
 
             if (dialogOptions.countAppLaunch) {
@@ -323,11 +323,13 @@ object AppRating {
                 RatingLogger.info("App launch not counted this time: countAppLaunch has been set to false.")
             }
 
-            if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
+            return if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
                 RatingLogger.info("Show rating dialog now: Conditions met.")
                 showNow()
+                true
             } else {
                 RatingLogger.info("Don't show rating dialog: Conditions not met.")
+                false
             }
         }
 
@@ -352,7 +354,7 @@ object AppRating {
         }
 
         companion object {
-            private val TAG = AppRating::class.java.simpleName
+            private const val TAG = "AwesomeAppRatingDialog"
         }
     }
 }

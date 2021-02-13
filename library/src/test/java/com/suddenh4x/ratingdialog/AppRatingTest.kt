@@ -446,6 +446,7 @@ class AppRatingTest {
 
     @Nested
     inner class ShowIfMeetsConditions {
+        private val TAG = "AwesomeAppRatingDialog"
 
         @BeforeEach
         fun setup() {
@@ -454,20 +455,21 @@ class AppRatingTest {
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
             every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
             every {
-                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+                activity.supportFragmentManager.findFragmentByTag(TAG)
             } returns null
         }
 
         @Test
-        fun `returns immediately if dialog is currently visible`() {
+        fun `returns immediately false if dialog is currently visible`() {
             val appRatingBuilder = spyk(getBuilder())
             every {
-                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+                activity.supportFragmentManager.findFragmentByTag(TAG)
             } returns mockk()
 
-            getBuilder().showIfMeetsConditions()
+            val result = getBuilder().showIfMeetsConditions()
 
             verify(exactly = 0) { appRatingBuilder.showNow() }
+            assertThat(result).isFalse
         }
 
         @Test
@@ -498,6 +500,17 @@ class AppRatingTest {
         }
 
         @Test
+        fun `returns true if conditions are met`() {
+            val appRatingBuilder = spyk(getBuilder())
+            every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns true
+            every { appRatingBuilder.showNow() } just Runs
+
+            val result = appRatingBuilder.showIfMeetsConditions()
+
+            assertThat(result).isTrue
+        }
+
+        @Test
         fun `calls show now if isDebug is true`() {
             val appRatingBuilder = spyk(getBuilder()).apply { isDebug = true }
             every { appRatingBuilder.showNow() } just Runs
@@ -514,6 +527,15 @@ class AppRatingTest {
             appRatingBuilder.showIfMeetsConditions()
 
             verify(exactly = 0) { appRatingBuilder.showNow() }
+        }
+
+        @Test
+        fun `returns false if conditions aren't met`() {
+            val appRatingBuilder = spyk(getBuilder())
+
+            val result = appRatingBuilder.showIfMeetsConditions()
+
+            assertThat(result).isFalse
         }
     }
 
@@ -539,18 +561,9 @@ class AppRatingTest {
 
     companion object {
         private const val INT_RES_ID = 42
-        private val clickListener = object : RateDialogClickListener {
-            override fun onClick() {
-            }
-        }
-        private val confirmButtonClickListener = object : ConfirmButtonClickListener {
-            override fun onClick(userRating: Float) {
-            }
-        }
-        private val customFeedbackButtonClickListener = object : CustomFeedbackButtonClickListener {
-            override fun onClick(userFeedbackText: String) {
-            }
-        }
+        private val clickListener = RateDialogClickListener { }
+        private val confirmButtonClickListener = ConfirmButtonClickListener { }
+        private val customFeedbackButtonClickListener = CustomFeedbackButtonClickListener { }
         private val customCondition: () -> Boolean = { true }
         private val mailSettings = MailSettings("mailAddress", "subject", "message", "errorToast")
     }

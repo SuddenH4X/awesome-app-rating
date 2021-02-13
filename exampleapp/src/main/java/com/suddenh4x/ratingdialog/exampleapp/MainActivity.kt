@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import com.suddenh4x.ratingdialog.AppRating
-import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -74,11 +73,9 @@ class MainActivity : AppCompatActivity() {
         AppRating.Builder(this)
             .setDebug(true)
             .setUseCustomFeedback(true)
-            .setCustomFeedbackButtonClickListener(object : CustomFeedbackButtonClickListener {
-                override fun onClick(userFeedbackText: String) {
-                    toastLiveData.postValue("Feedback: $userFeedbackText")
-                }
-            })
+            .setCustomFeedbackButtonClickListener { userFeedbackText ->
+                toastLiveData.postValue("Feedback: $userFeedbackText")
+            }
             .showIfMeetsConditions()
     }
 
