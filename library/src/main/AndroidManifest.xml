@@ -1,1 +1,11 @@
-<manifest package="com.suddenh4x.ratingdialog"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.suddenh4x.ratingdialog">
+
+    <queries>
+        <!-- Sending Emails   -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+    </queries>
+</manifest>

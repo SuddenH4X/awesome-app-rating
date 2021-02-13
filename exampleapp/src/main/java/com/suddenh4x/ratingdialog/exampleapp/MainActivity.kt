@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import com.suddenh4x.ratingdialog.AppRating
-import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -19,7 +18,11 @@ class MainActivity : AppCompatActivity() {
         AppRating.reset(this)
 
         toastLiveData.observe(this) { toastString ->
-            Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+            if (toastString.isNotBlank()) {
+                Toast.makeText(this, toastString, Toast.LENGTH_LONG).show()
+                // This is a workaround so that the toast isn't shown again on orientation change
+                toastLiveData.postValue("")
+            }
         }
     }
 
@@ -70,11 +73,9 @@ class MainActivity : AppCompatActivity() {
         AppRating.Builder(this)
             .setDebug(true)
             .setUseCustomFeedback(true)
-            .setCustomFeedbackButtonClickListener(object : CustomFeedbackButtonClickListener {
-                override fun onClick(userFeedbackText: String) {
-                    toastLiveData.postValue("Feedback: $userFeedbackText")
-                }
-            })
+            .setCustomFeedbackButtonClickListener { userFeedbackText ->
+                toastLiveData.postValue("Feedback: $userFeedbackText")
+            }
             .showIfMeetsConditions()
     }
 
@@ -131,6 +132,21 @@ class MainActivity : AppCompatActivity() {
             .setMailFeedbackMessageTextId(R.string.message_feedback)
             .setMailFeedbackButtonTextId(R.string.button_mail_feedback)
             .setNoFeedbackButtonTextId(R.string.button_no_feedback)
+            .showIfMeetsConditions()
+    }
+
+    fun onCancelableButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setCancelable(true)
+            .setDialogCancelListener { toastLiveData.postValue("Dialog was canceled.") }
+            .showIfMeetsConditions()
+    }
+
+    fun onCustomThemeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setCustomTheme(R.style.AppTheme_CustomAlertDialog)
             .showIfMeetsConditions()
     }
 

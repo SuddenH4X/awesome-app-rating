@@ -56,6 +56,11 @@ object AppRating {
             RatingLogger.debug("Use custom icon drawable.")
         }
 
+        fun setCustomTheme(customTheme: Int) = apply {
+            dialogOptions.customTheme = customTheme
+            RatingLogger.debug("Use custom theme.")
+        }
+
         fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
@@ -205,6 +210,10 @@ object AppRating {
             RatingLogger.debug("Set cancelable to $cancelable.")
         }
 
+        fun setDialogCancelListener(dialogCancelListener: () -> Unit) = apply {
+            dialogOptions.dialogCancelListener = dialogCancelListener
+        }
+
         fun setMinimumLaunchTimes(launchTimes: Int) = apply {
             PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes)
         }
@@ -301,7 +310,12 @@ object AppRating {
             }
         }
 
-        fun showIfMeetsConditions() {
+        fun showIfMeetsConditions(): Boolean {
+            if (activity.supportFragmentManager.findFragmentByTag(TAG) != null) {
+                RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
+                return false
+            }
+
             if (dialogOptions.countAppLaunch) {
                 RatingLogger.debug("App launch will be counted: countAppLaunch is true.")
                 PreferenceUtil.increaseLaunchTimes(activity)
@@ -309,11 +323,13 @@ object AppRating {
                 RatingLogger.info("App launch not counted this time: countAppLaunch has been set to false.")
             }
 
-            if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
+            return if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
                 RatingLogger.info("Show rating dialog now: Conditions met.")
                 showNow()
+                true
             } else {
                 RatingLogger.info("Don't show rating dialog: Conditions not met.")
+                false
             }
         }
 
@@ -338,7 +354,7 @@ object AppRating {
         }
 
         companion object {
-            private val TAG = AppRating::class.java.simpleName
+            private const val TAG = "AwesomeAppRatingDialog"
         }
     }
 }

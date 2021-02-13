@@ -1,0 +1,27 @@
+<resources>
+    <string name="rating_dialog_button_rate_later">Позже</string>
+    <string name="rating_dialog_button_rate_never">Никогда</string>
+
+    // rating dialog overview
+    <string name="rating_dialog_overview_image_content_description">Иконка приложения</string>
+    <string name="rating_dialog_overview_title">Вам понравилось приложение?</string>
+    <string name="rating_dialog_overview_button_confirm">Подтвердить</string>
+
+    // rating dialog store
+    <string name="rating_dialog_store_title">Оценить в маркете</string>
+    <string name="rating_dialog_store_message">Если вам понравилось это приложение, пожалуйста, найдите время, чтобы оценить его. Это не займет больше минуты. Спасибо за вашу поддержку!</string>
+    <string name="rating_dialog_store_button_rate_now">Оценить сейчас</string>
+
+    // rating dialog feedback
+    <string name="rating_dialog_feedback_title">Обратная связь</string>
+    <string name="rating_dialog_feedback_button_cancel">Отмена</string>
+
+    // rating dialog mail feedback
+    <string name="rating_dialog_feedback_mail_message">Помогите нам улучшить приложение с вашей помощью. Вы хотите отправить электронное письмо с вашими предложениями?</string>
+    <string name="rating_dialog_feedback_mail_button_send">Отправить</string>
+    <string name="rating_dialog_feedback_mail_no_mail_error">Для отправки электронного письма, вам необходимо почтовое приложение!</string>
+
+    // rating dialog custom feedback
+    <string name="rating_dialog_feedback_custom_message">Сообщите нам, что вам не понравилось в приложении и мы исправим это.</string>
+    <string name="rating_dialog_feedback_custom_button_submit">Отправить</string>
+</resources>

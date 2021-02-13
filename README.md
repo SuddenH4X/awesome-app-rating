@@ -40,7 +40,7 @@ The library supports API level 14 and higher. You can simply include it in your 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.2.1'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.3.0'
 }
 ```
 
@@ -75,7 +75,9 @@ If you have adjusted the dialog to suit your preferences, you have multiple poss
 ratingBuilder.showIfMeetsConditions()
 ```
 
-But you can also just create the dialog to show it later
+This method also returns a boolean to indicate whether the dialog shows up or not. So you can prevent showing other dialogs at the same time as the rating dialog.
+
+If you want you can also just create the dialog to show it later
 
 ```kotlin
 ratingBuilder.create()
@@ -99,7 +101,7 @@ If you want to use the in-app review from Google instead of the library dialog, 
 .useGoogleInAppReview()
 ```
 
-You should also add a `completeListener` which gets called if the in-app review flow has been completed. The boolean indicates if the flow started correctly, but not if the in-app review was displayed to the user.
+You can also add a `completeListener` which gets called if the in-app review flow has been completed. The boolean indicates if the flow was started correctly, but not if the in-app review was displayed to the user.
 
 ```kotlin
 .setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit)
@@ -182,6 +184,12 @@ The following settings will only take effect if the library dialog is used (and 
 
 ```kotlin
 .setIconDrawable(iconDrawable: Drawable?) // default is null which means app icon
+```
+
+- Change the theme of the dialog
+
+```kotlin
+.setCustomTheme(customTheme: Int)
 ```
 
 - Change the rate later button text
@@ -362,10 +370,16 @@ These settings will only apply if custom feedback is enabled:
 .setRatingThreshold(ratingThreshold: RatingThreshold) // default is RatingThreshold.THREE
 ```
 
-- Choose if the dialogs should be cancelable (by clicking outside or using the back button)
+- Choose if the dialogs should be cancelable (by clicking outside or using the back button). This case is treated the same as a click on the `later` button.
 
 ```kotlin
 .setCancelable(cancelable: Boolean) // default is false
+```
+
+- Add a cancel listener to the dialog
+
+```kotlin
+.setDialogCancelListener(dialogCancelListener: () -> Unit)
 ```
 
 - Disable all library logs

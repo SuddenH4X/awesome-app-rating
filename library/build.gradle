@@ -4,12 +4,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 apply plugin: 'com.novoda.bintray-release'
 
-def version = "2.2.1"
+def version = "2.3.0"
 
 android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 14
+        targetSdkVersion 30
         versionCode 3
         versionName "$version"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -31,19 +32,20 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.annotation:annotation:1.1.0'
 
     // needed for in-app review
-    implementation 'com.google.android.play:core:1.8.2'
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:5.5.0"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.5.0"
-    testImplementation "io.mockk:mockk:1.9.3"
-    testImplementation("org.assertj:assertj-core:3.13.0")
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.0"
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
+    testImplementation "io.mockk:mockk:1.10.5"
+    testImplementation("org.assertj:assertj-core:3.18.1")
 }
 
 publish {
