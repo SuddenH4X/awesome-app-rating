@@ -354,7 +354,7 @@ object AppRating {
         }
 
         companion object {
-            private const val TAG = "AwesomeAppRating"
+            private const val TAG = "AwesomeAppRatingDialog"
         }
     }
 }

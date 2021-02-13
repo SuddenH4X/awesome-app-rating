@@ -446,6 +446,7 @@ class AppRatingTest {
 
     @Nested
     inner class ShowIfMeetsConditions {
+        private val TAG = "AwesomeAppRatingDialog"
 
         @BeforeEach
         fun setup() {
@@ -454,7 +455,7 @@ class AppRatingTest {
             every { PreferenceUtil.increaseLaunchTimes(any()) } just Runs
             every { ConditionsChecker.shouldShowDialog(activity, dialogOptions) } returns false
             every {
-                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+                activity.supportFragmentManager.findFragmentByTag(TAG)
             } returns null
         }
 
@@ -462,7 +463,7 @@ class AppRatingTest {
         fun `returns immediately if dialog is currently visible`() {
             val appRatingBuilder = spyk(getBuilder())
             every {
-                activity.supportFragmentManager.findFragmentByTag(AppRating::class.java.simpleName)
+                activity.supportFragmentManager.findFragmentByTag(TAG)
             } returns mockk()
 
             getBuilder().showIfMeetsConditions()
@@ -539,18 +540,9 @@ class AppRatingTest {
 
     companion object {
         private const val INT_RES_ID = 42
-        private val clickListener = object : RateDialogClickListener {
-            override fun onClick() {
-            }
-        }
-        private val confirmButtonClickListener = object : ConfirmButtonClickListener {
-            override fun onClick(userRating: Float) {
-            }
-        }
-        private val customFeedbackButtonClickListener = object : CustomFeedbackButtonClickListener {
-            override fun onClick(userFeedbackText: String) {
-            }
-        }
+        private val clickListener = RateDialogClickListener { }
+        private val confirmButtonClickListener = ConfirmButtonClickListener { }
+        private val customFeedbackButtonClickListener = CustomFeedbackButtonClickListener { }
         private val customCondition: () -> Boolean = { true }
         private val mailSettings = MailSettings("mailAddress", "subject", "message", "errorToast")
     }
