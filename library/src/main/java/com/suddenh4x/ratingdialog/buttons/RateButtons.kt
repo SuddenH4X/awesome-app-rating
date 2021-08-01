@@ -5,15 +5,15 @@ import java.io.Serializable
 
 internal class RateButton(
     @StringRes var textId: Int,
-    var rateDialogClickListener: RateDialogClickListener?
+    @Transient var rateDialogClickListener: RateDialogClickListener?
 ) : Serializable
 
 internal class ConfirmButton(
     @StringRes var textId: Int,
-    var confirmButtonClickListener: ConfirmButtonClickListener?
+    @Transient var confirmButtonClickListener: ConfirmButtonClickListener?
 ) : Serializable
 
 internal class CustomFeedbackButton(
     @StringRes var textId: Int,
-    var customFeedbackButtonClickListener: CustomFeedbackButtonClickListener?
+    @Transient var customFeedbackButtonClickListener: CustomFeedbackButtonClickListener?
 ) : Serializable
