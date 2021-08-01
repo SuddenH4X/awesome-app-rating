@@ -46,8 +46,7 @@ object AppRating {
         internal var reviewManger: ReviewManager? = null
         private var dialogOptions = DialogOptions()
 
-        internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) :
-            this(activity) {
+        internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) : this(activity) {
             this.dialogOptions = dialogOptions
         }
 
@@ -221,7 +220,7 @@ object AppRating {
         fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply {
             PreferenceUtil.setMinimumLaunchTimesToShowAgain(
                 activity,
-                launchTimesToShowAgain
+                launchTimesToShowAgain,
             )
         }
 
@@ -237,7 +236,7 @@ object AppRating {
             dialogOptions.customCondition = customCondition
             RatingLogger.debug(
                 "Custom condition set. This condition will be removed next" +
-                    " time you call the Builder constructor."
+                    " time you call the Builder constructor.",
             )
         }
 
@@ -245,7 +244,7 @@ object AppRating {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
             RatingLogger.debug(
                 "Custom condition to show again set. This condition will" +
-                    "be removed next time you call the Builder constructor."
+                    "be removed next time you call the Builder constructor.",
             )
         }
 
@@ -253,7 +252,7 @@ object AppRating {
             dialogOptions.countAppLaunch = false
             RatingLogger.debug(
                 "countAppLaunch is now set to false. This setting will be " +
-                    "reset next time you call the Builder constructor."
+                    "reset next time you call the Builder constructor.",
             )
         }
 

@@ -25,21 +25,24 @@ internal object ConditionsChecker {
             RatingLogger.verbose("Days between later button click and now: $daysBetween.")
             if (!checkCustomConditionToShowAgain(dialogOptions)) return false
 
-            return (!isDialogAgreed &&
-                !isDoNotShowAgain &&
-                daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
-                (PreferenceUtil.getLaunchTimes(context) >=
-                    PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)))
+            return (
+                !isDialogAgreed && !isDoNotShowAgain &&
+                    daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
+                    PreferenceUtil.getLaunchTimes(context) >=
+                    PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)
+                )
         }
 
         if (!checkCustomCondition(dialogOptions)) return false
 
         RatingLogger.verbose("Days between first app start and now: $daysBetween.")
         RatingLogger.debug("Show later button hasn't been clicked until now.")
-        return (!isDialogAgreed &&
-            !isDoNotShowAgain &&
-            daysBetween >= PreferenceUtil.getMinimumDays(context) &&
-            (PreferenceUtil.getLaunchTimes(context) >= PreferenceUtil.getMinimumLaunchTimes(context)))
+        return (
+            !isDialogAgreed && !isDoNotShowAgain &&
+                daysBetween >= PreferenceUtil.getMinimumDays(context) &&
+                PreferenceUtil.getLaunchTimes(context) >=
+                PreferenceUtil.getMinimumLaunchTimes(context)
+            )
     }
 
     internal fun calculateDaysBetween(d1: Date, d2: Date): Long {
