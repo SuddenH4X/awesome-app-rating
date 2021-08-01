@@ -22,26 +22,25 @@ internal class RateDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
         dialogOptions = arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
-        dialogType =
-            arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
+        dialogType = arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
         isCancelable = dialogOptions.cancelable
 
         return when (dialogType) {
             DialogType.RATING_OVERVIEW -> DialogManager.createRatingOverviewDialog(
                 requireActivity(),
-                dialogOptions
+                dialogOptions,
             )
             DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
                 requireActivity(),
-                dialogOptions
+                dialogOptions,
             )
             DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
                 requireActivity(),
-                dialogOptions
+                dialogOptions,
             )
             DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
                 requireActivity(),
-                dialogOptions
+                dialogOptions,
             )
         }
     }

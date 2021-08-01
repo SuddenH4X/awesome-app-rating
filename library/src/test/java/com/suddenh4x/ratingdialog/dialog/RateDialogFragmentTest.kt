@@ -1,6 +1,7 @@
 package com.suddenh4x.ratingdialog.dialog
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
@@ -12,6 +13,7 @@ import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
 import io.mockk.spyk
 import io.mockk.unmockkAll
 import io.mockk.verify
@@ -39,8 +41,10 @@ class RateDialogFragmentTest {
     fun setup() {
         RatingLogger.isLoggingEnabled = false
         mockkObject(DialogManager)
+        mockkStatic(Log::class)
 
         rateDialogFragmentSpy = spyk(RateDialogFragment())
+        every { Log.isLoggable(any(), any()) } returns false
         every { bundle.getSerializable(RateDialogFragment.ARG_DIALOG_TYPE) } returns null
         every { bundle.getSerializable(RateDialogFragment.ARG_DIALOG_OPTIONS) } returns dialogOptions
         every { rateDialogFragmentSpy.arguments } returns bundle
@@ -167,7 +171,7 @@ class RateDialogFragmentTest {
         @ParameterizedTest
         @EnumSource(
             value = DialogType::class,
-            names = ["FEEDBACK_MAIL", "RATING_OVERVIEW", "RATING_STORE"]
+            names = ["FEEDBACK_MAIL", "RATING_OVERVIEW", "RATING_STORE"],
         )
         fun `with other arguments doesn't disable positive button`(dialogType: DialogType) {
             rateDialogFragmentSpy.dialogType = dialogType
