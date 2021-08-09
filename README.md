@@ -40,11 +40,32 @@ The library supports API level 14 and higher. You can simply include it in your 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.3.0'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.4.0'
+}
+```
+
+Since version `2.4.0` you can use the Maven Central repository:
+```groovy
+allprojects {
+    repositories {
+		...
+        mavenCentral()
+    }
+}
+```
+
+If you want to use an older version of this library, you have to use JCenter:
+```groovy
+allprojects {
+    repositories {
+		...
+        jcenter()
+    }
 }
 ```
 
 ### Builder usage
+
 This library provides a builder to configure its behavior. 
 ```kotlin
  AppRating.Builder(this)
