@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "de.mannodermaus.android-junit5"
 
-def version = "2.3.0"
+def version = "2.4.0"
 
 android {
     compileSdkVersion 30
@@ -56,7 +56,7 @@ afterEvaluate {
 
 ext {
     PUBLISH_GROUP_ID = 'com.suddenh4x.ratingdialog'
-    PUBLISH_VERSION = '2.4.0'
+    PUBLISH_VERSION = "$version"
     PUBLISH_ARTIFACT_ID = 'awesome-app-rating'
     PUBLISH_DESCRIPTION = 'A highly customizable Android library providing a dialog, which asks the user to rate ' +
             'the app or give feedback. You can also use the library to show the Google in-app review easily under ' +

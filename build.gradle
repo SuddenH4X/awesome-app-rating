@@ -14,6 +14,7 @@ buildscript {
 }
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: "${rootDir}/scripts/publish-root.gradle"
 
 allprojects {
     repositories {
