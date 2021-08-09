@@ -9,8 +9,11 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1'
         classpath 'org.jlleitschuh.gradle:ktlint-gradle:10.1.0'
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
+
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 allprojects {
     repositories {
