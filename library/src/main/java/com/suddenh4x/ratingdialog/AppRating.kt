@@ -13,6 +13,7 @@ import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.dialog.RateDialogFragment
+import com.suddenh4x.ratingdialog.enums.AppStore
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
@@ -39,7 +40,7 @@ object AppRating {
     fun openMailFeedback(context: Context, mailSettings: MailSettings) =
         FeedbackUtils.openMailFeedback(context, mailSettings)
 
-    fun openPlayStoreListing(context: Context) = FeedbackUtils.openPlayStoreListing(context)
+    fun openStoreListing(context: Context, appStore: AppStore) = FeedbackUtils.openStoreListing(context, appStore)
 
     data class Builder(var activity: AppCompatActivity) {
         internal var isDebug = false

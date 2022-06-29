@@ -12,6 +12,7 @@ import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.dialog.RateDialogFragment
+import com.suddenh4x.ratingdialog.enums.AppStore
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
@@ -113,7 +114,7 @@ class AppRatingTest {
     fun `confirm button click listener is set correctly into dialogOptions`() {
         getBuilder().setConfirmButtonClickListener(confirmButtonClickListener)
         assertThat(dialogOptions.confirmButton.confirmButtonClickListener).isEqualTo(
-            confirmButtonClickListener
+            confirmButtonClickListener,
         )
     }
 
@@ -436,7 +437,7 @@ class AppRatingTest {
             verify(exactly = 1) {
                 ratingDialogFragment.show(
                     supportFragmentManager,
-                    any()
+                    any(),
                 )
             }
             verify(exactly = 0) { appRatingBuilder.showGoogleInAppReview() }
@@ -549,12 +550,13 @@ class AppRatingTest {
     }
 
     @Test
-    fun `open play store listing calls correct function of FeedbackUtils`() {
+    fun `open google play store listing calls correct function of FeedbackUtils`() {
+        val appStore = AppStore.GOOGLE_PLAYSTORE
         mockkObject(FeedbackUtils)
-        every { FeedbackUtils.openPlayStoreListing(any()) } just Runs
+        every { FeedbackUtils.openStoreListing(any(), appStore) } just Runs
         val context = mockk<Context>()
-        AppRating.openPlayStoreListing(context)
-        verify(exactly = 1) { FeedbackUtils.openPlayStoreListing(context) }
+        AppRating.openStoreListing(context, appStore)
+        verify(exactly = 1) { FeedbackUtils.openStoreListing(context, appStore) }
     }
 
     private fun getBuilder() = AppRating.Builder(activity, dialogOptions)

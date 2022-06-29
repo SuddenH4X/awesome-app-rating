@@ -4,17 +4,56 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.Toast
 import com.suddenh4x.ratingdialog.R
+import com.suddenh4x.ratingdialog.enums.AppStore
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 
 internal object FeedbackUtils {
     internal const val GOOGLE_PLAY_WEB_URL = "https://play.google.com/store/apps/details?id="
     internal const val GOOGLE_PLAY_IN_APP_URL = "market://details?id="
+    internal const val AMAZON_STORE_WEB_URL = "http://www.amazon.com/gp/mas/dl/android?p="
+    internal const val AMAZON_STORE_IN_APP_URL = "amzn://apps/android?p="
     internal const val URI_SCHEME_MAIL_TO = "mailto:"
 
-    fun openPlayStoreListing(context: Context) {
+    private fun isAmazonDevice(): Boolean {
+        return Build.MANUFACTURER.equals("Amazon", ignoreCase = true)
+    }
+
+    fun openStoreListing(context: Context, storeMode: AppStore) {
+        when (storeMode) {
+            AppStore.GOOGLE_PLAYSTORE -> openPlayStoreListing(context)
+            AppStore.AMAZON_APPSTORE -> openAmazonStoreListing(context)
+            AppStore.AUTO -> {
+                if (isAmazonDevice())
+                    openAmazonStoreListing(context)
+                else
+                    openPlayStoreListing(context)
+            }
+        }
+    }
+
+    private fun openAmazonStoreListing(context: Context) {
+        try {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(AMAZON_STORE_IN_APP_URL + context.packageName),
+                ),
+            )
+        } catch (activityNotFoundException: ActivityNotFoundException) {
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(AMAZON_STORE_WEB_URL + context.packageName),
+                ),
+            )
+        }
+    }
+
+    private fun openPlayStoreListing(context: Context) {
         try {
             val uri = Uri.parse(GOOGLE_PLAY_IN_APP_URL + context.packageName)
             RatingLogger.info("Open rating url (in app): $uri.")

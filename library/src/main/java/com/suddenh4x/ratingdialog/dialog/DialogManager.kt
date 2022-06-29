@@ -57,14 +57,14 @@ internal object DialogManager {
                     }
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
-                            "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
+                            "Below threshold and custom feedback is enabled. Showing custom feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
-                            "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
+                            "Below threshold and custom feedback is disabled. Showing mail feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_MAIL, activity)
@@ -79,7 +79,7 @@ internal object DialogManager {
             initRatingBar(
                 ratingOverviewDialogView,
                 dialogOptions.showOnlyFullStars,
-                dialog
+                dialog,
             )
         }
     }
@@ -145,7 +145,7 @@ internal object DialogManager {
                     button.rateDialogClickListener?.onClick()
                         ?: run {
                             RatingLogger.info("Default rate now button click listener called.")
-                            FeedbackUtils.openPlayStoreListing(context)
+                            FeedbackUtils.openStoreListing(context, dialogOptions.storeMode)
                         }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional rate now button click listener not set.")
@@ -175,7 +175,7 @@ internal object DialogManager {
 
                     button.rateDialogClickListener?.onClick() ?: openMailFeedback(
                         context,
-                        dialogOptions.mailSettings
+                        dialogOptions.mailSettings,
                     )
 
                     dialogOptions.additionalMailFeedbackButtonClickListener?.onClick()
@@ -192,7 +192,7 @@ internal object DialogManager {
             FeedbackUtils.openMailFeedback(context, mailSettings)
         } else {
             RatingLogger.error(
-                "Mail feedback button has no click listener and mail settings hasn't been set. Nothing happens."
+                "Mail feedback button has no click listener and mail settings hasn't been set. Nothing happens.",
             )
         }
     }
@@ -230,7 +230,7 @@ internal object DialogManager {
             .also { dialog ->
                 initializeCustomFeedbackDialogButtonHandler(
                     customFeedbackEditText,
-                    dialog
+                    dialog,
                 )
             }
     }
@@ -239,15 +239,17 @@ internal object DialogManager {
         editText: EditText,
         dialog: AlertDialog
     ) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+        editText.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {}
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
-            }
-        })
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
+                }
+            },
+        )
     }
 
     private fun disablePositiveButtonWhenDialogShows(dialog: AlertDialog) {
@@ -296,7 +298,7 @@ internal object DialogManager {
         if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
             RatingLogger.info(
                 "Less than $countOfLaterButtonClicksToShowNeverButton later " +
-                    "button clicks. Rate never button won't be displayed."
+                    "button clicks. Rate never button won't be displayed.",
             )
             return
         }
