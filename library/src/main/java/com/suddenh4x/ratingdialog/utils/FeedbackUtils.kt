@@ -22,8 +22,8 @@ internal object FeedbackUtils {
         return Build.MANUFACTURER.equals("Amazon", ignoreCase = true)
     }
 
-    fun openStoreListing(context: Context, storeMode: AppStore) {
-        when (storeMode) {
+    fun openStoreListing(context: Context, store: AppStore = AppStore.AUTO) {
+        when (store) {
             AppStore.GOOGLE_PLAYSTORE -> openPlayStoreListing(context)
             AppStore.AMAZON_APPSTORE -> openAmazonStoreListing(context)
             AppStore.AUTO -> {
