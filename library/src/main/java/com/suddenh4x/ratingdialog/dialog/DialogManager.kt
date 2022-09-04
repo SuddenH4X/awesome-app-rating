@@ -7,22 +7,21 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.buttons.RateButton
+import com.suddenh4x.ratingdialog.databinding.DialogRatingCustomFeedbackBinding
+import com.suddenh4x.ratingdialog.databinding.DialogRatingOverviewBinding
+import com.suddenh4x.ratingdialog.databinding.DialogRatingStoreBinding
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.toFloat
 import com.suddenh4x.ratingdialog.utils.FeedbackUtils
-import kotlinx.android.synthetic.main.dialog_rating_custom_feedback.view.*
-import kotlinx.android.synthetic.main.dialog_rating_overview.view.*
-import kotlinx.android.synthetic.main.dialog_rating_overview.view.imageView
-import kotlinx.android.synthetic.main.dialog_rating_store.view.*
 
 @SuppressLint("InflateParams")
 internal object DialogManager {
@@ -37,13 +36,13 @@ internal object DialogManager {
         val builder = getDialogBuilder(activity, dialogOptions.customTheme)
 
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val ratingOverviewDialogView = inflater.inflate(R.layout.dialog_rating_overview, null)
-        initializeRatingDialogIcon(activity, ratingOverviewDialogView, dialogOptions)
-        ratingOverviewDialogView.titleTextView.setText(dialogOptions.titleTextId)
-        showOverviewMessage(dialogOptions, ratingOverviewDialogView.messageTextView)
+        val ratingOverviewDialogBinding = DialogRatingOverviewBinding.inflate(inflater)
+        initializeRatingDialogIcon(activity, ratingOverviewDialogBinding.imageView, dialogOptions)
+        ratingOverviewDialogBinding.titleTextView.setText(dialogOptions.titleTextId)
+        showOverviewMessage(dialogOptions, ratingOverviewDialogBinding.messageTextView)
 
         builder.apply {
-            setView(ratingOverviewDialogView)
+            setView(ratingOverviewDialogBinding.root)
 
             setPositiveButton(dialogOptions.confirmButton.textId) { _, _ ->
                 RatingLogger.debug("Confirm button clicked.")
@@ -57,14 +56,14 @@ internal object DialogManager {
                     }
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
-                            "Below threshold and custom feedback is enabled. Showing custom feedback dialog."
+                            "Below threshold and custom feedback is enabled. Showing custom feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
                     }
                     else -> {
                         RatingLogger.info(
-                            "Below threshold and custom feedback is disabled. Showing mail feedback dialog."
+                            "Below threshold and custom feedback is disabled. Showing mail feedback dialog.",
                         )
                         PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_MAIL, activity)
@@ -77,9 +76,9 @@ internal object DialogManager {
 
         return builder.create().also { dialog ->
             initRatingBar(
-                ratingOverviewDialogView,
+                ratingOverviewDialogBinding.ratingBar,
                 dialogOptions.showOnlyFullStars,
-                dialog
+                dialog,
             )
         }
     }
@@ -104,11 +103,11 @@ internal object DialogManager {
     }
 
     private fun initRatingBar(
-        customRatingDialogView: View,
+        ratingBar: RatingBar,
         showOnlyFullStars: Boolean,
         dialog: AlertDialog
     ) {
-        customRatingDialogView.ratingBar.apply {
+        ratingBar.apply {
             if (showOnlyFullStars) {
                 stepSize = 1f
             }
@@ -128,13 +127,13 @@ internal object DialogManager {
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val ratingStoreDialogView = inflater.inflate(R.layout.dialog_rating_store, null)
-        initializeRatingDialogIcon(context, ratingStoreDialogView, dialogOptions)
-        ratingStoreDialogView.storeRatingTitleTextView.setText(dialogOptions.storeRatingTitleTextId)
-        ratingStoreDialogView.storeRatingMessageTextView.setText(dialogOptions.storeRatingMessageTextId)
+        val ratingStoreDialogBinding = DialogRatingStoreBinding.inflate(inflater)
+        initializeRatingDialogIcon(context, ratingStoreDialogBinding.imageView, dialogOptions)
+        ratingStoreDialogBinding.storeRatingTitleTextView.setText(dialogOptions.storeRatingTitleTextId)
+        ratingStoreDialogBinding.storeRatingMessageTextView.setText(dialogOptions.storeRatingMessageTextId)
 
         builder.apply {
-            setView(ratingStoreDialogView)
+            setView(ratingStoreDialogBinding.root)
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.rateNowButton.let { button ->
@@ -175,7 +174,7 @@ internal object DialogManager {
 
                     button.rateDialogClickListener?.onClick() ?: openMailFeedback(
                         context,
-                        dialogOptions.mailSettings
+                        dialogOptions.mailSettings,
                     )
 
                     dialogOptions.additionalMailFeedbackButtonClickListener?.onClick()
@@ -192,7 +191,7 @@ internal object DialogManager {
             FeedbackUtils.openMailFeedback(context, mailSettings)
         } else {
             RatingLogger.error(
-                "Mail feedback button has no click listener and mail settings hasn't been set. Nothing happens."
+                "Mail feedback button has no click listener and mail settings hasn't been set. Nothing happens.",
             )
         }
     }
@@ -205,14 +204,13 @@ internal object DialogManager {
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val ratingCustomFeedbackDialogView =
-            inflater.inflate(R.layout.dialog_rating_custom_feedback, null)
-        val customFeedbackEditText = ratingCustomFeedbackDialogView.customFeedbackEditText
-        ratingCustomFeedbackDialogView.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
+        val ratingCustomFeedbackDialogBinding = DialogRatingCustomFeedbackBinding.inflate(inflater)
+        val customFeedbackEditText = ratingCustomFeedbackDialogBinding.customFeedbackEditText
+        ratingCustomFeedbackDialogBinding.customFeedbackTitleTextView.setText(dialogOptions.feedbackTitleTextId)
         customFeedbackEditText.setHint(dialogOptions.customFeedbackMessageTextId)
 
         builder.apply {
-            setView(ratingCustomFeedbackDialogView)
+            setView(ratingCustomFeedbackDialogBinding.root)
             setCancelable(dialogOptions.cancelable)
 
             dialogOptions.customFeedbackButton.let { button ->
@@ -230,7 +228,7 @@ internal object DialogManager {
             .also { dialog ->
                 initializeCustomFeedbackDialogButtonHandler(
                     customFeedbackEditText,
-                    dialog
+                    dialog,
                 )
             }
     }
@@ -239,15 +237,17 @@ internal object DialogManager {
         editText: EditText,
         dialog: AlertDialog
     ) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+        editText.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {}
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
-            }
-        })
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
+                }
+            },
+        )
     }
 
     private fun disablePositiveButtonWhenDialogShows(dialog: AlertDialog) {
@@ -258,16 +258,16 @@ internal object DialogManager {
 
     private fun initializeRatingDialogIcon(
         context: Context,
-        customRatingDialogView: View,
+        imageView: ImageView,
         dialogOptions: DialogOptions
     ) {
         if (dialogOptions.iconDrawable != null) {
             RatingLogger.info("Use custom rating dialog icon.")
-            customRatingDialogView.imageView.setImageDrawable(dialogOptions.iconDrawable)
+            imageView.setImageDrawable(dialogOptions.iconDrawable)
         } else {
             RatingLogger.info("Use app icon for rating dialog.")
             val appIcon = context.packageManager.getApplicationIcon(context.applicationInfo)
-            customRatingDialogView.imageView.setImageDrawable(appIcon)
+            imageView.setImageDrawable(appIcon)
         }
     }
 
@@ -296,7 +296,7 @@ internal object DialogManager {
         if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
             RatingLogger.info(
                 "Less than $countOfLaterButtonClicksToShowNeverButton later " +
-                    "button clicks. Rate never button won't be displayed."
+                    "button clicks. Rate never button won't be displayed.",
             )
             return
         }
