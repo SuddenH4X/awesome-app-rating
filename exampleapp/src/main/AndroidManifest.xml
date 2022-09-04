@@ -20,5 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.suddenh4x.ratingdialog.exampleapp.JetpackComposeActivity"
+            android:exported="false" />
     </application>
 </manifest>

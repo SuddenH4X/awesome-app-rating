@@ -27,6 +27,7 @@ This library:
 - is completely written in Kotlin
 - is Unit tested
 - is optimized for MaterialComponent themes
+- supports Jetpack Compose
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
@@ -35,6 +36,7 @@ This library:
 
 ## How to use
 ### Gradle
+
 The library supports API level 14 and higher. You can simply include it in your app via Gradle:
 
 ```groovy
@@ -490,6 +492,12 @@ AppRating.Builder(this)
 ```
 
 If you want to show the dialog on app start, but with your custom conditions, you can of course just call the Builder in your `onCreate()` method of your main Activity class. If so, don't forget to remove the `dontCountThisAsAppLaunch()` method from the example above.
+
+### Jetpack Compose
+
+The libraries dialog is implemented as a `DialogFragment` and thus needs a `FragmentActivity` to get displayed. If you use Jetpack Compose your activity maybe extends from `ComponentActivity` and because this class isn't a subtype of `FragmentActivity` the dialog won't show up. You'll only see an error message in LogCat. 
+
+To get it working you just have to change your activity to extend from `AppCompatActivity` instead (or `FragmentActivity`). Or you just use the official Google in-app review which doesn't depend on fragments.
 
 ## Note
 
