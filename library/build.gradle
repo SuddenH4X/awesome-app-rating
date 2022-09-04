@@ -36,22 +36,24 @@ android {
     }
 }
 
+def junitVersion = "5.9.0"
+
 dependencies {
-    implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.annotation:annotation:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'com.google.android.material:material:1.6.1'
 
     // needed for in-app review
-    implementation 'com.google.android.play:core:1.10.0'
+    implementation 'com.google.android.play:core:1.10.3'
     implementation 'com.google.android.play:core-ktx:1.8.1'
 
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.2'
-    testImplementation 'org.assertj:assertj-core:3.20.2'
-    testImplementation 'io.mockk:mockk:1.12.0'
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+    testImplementation 'io.mockk:mockk:1.12.7'
 }
 
 afterEvaluate {
