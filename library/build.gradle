@@ -5,10 +5,10 @@ apply plugin: "de.mannodermaus.android-junit5"
 def version = "2.4.0"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 3
         versionName "$version"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
