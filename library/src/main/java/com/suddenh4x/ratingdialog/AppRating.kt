@@ -3,8 +3,9 @@ package com.suddenh4x.ratingdialog
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ComponentActivity
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
@@ -41,12 +42,14 @@ object AppRating {
 
     fun openPlayStoreListing(context: Context) = FeedbackUtils.openPlayStoreListing(context)
 
-    data class Builder(var activity: AppCompatActivity) {
+    data class Builder(var componentActivity: ComponentActivity) {
         internal var isDebug = false
         internal var reviewManger: ReviewManager? = null
         private var dialogOptions = DialogOptions()
 
-        internal constructor(activity: AppCompatActivity, dialogOptions: DialogOptions) : this(activity) {
+        internal constructor(componentActivity: ComponentActivity, dialogOptions: DialogOptions) : this(
+            componentActivity,
+        ) {
             this.dialogOptions = dialogOptions
         }
 
@@ -214,22 +217,22 @@ object AppRating {
         }
 
         fun setMinimumLaunchTimes(launchTimes: Int) = apply {
-            PreferenceUtil.setMinimumLaunchTimes(activity, launchTimes)
+            PreferenceUtil.setMinimumLaunchTimes(componentActivity, launchTimes)
         }
 
         fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply {
             PreferenceUtil.setMinimumLaunchTimesToShowAgain(
-                activity,
+                componentActivity,
                 launchTimesToShowAgain,
             )
         }
 
         fun setMinimumDays(minimumDays: Int) = apply {
-            PreferenceUtil.setMinimumDays(activity, minimumDays)
+            PreferenceUtil.setMinimumDays(componentActivity, minimumDays)
         }
 
         fun setMinimumDaysToShowAgain(minimumDaysToShowAgain: Int) = apply {
-            PreferenceUtil.setMinimumDaysToShowAgain(activity, minimumDaysToShowAgain)
+            PreferenceUtil.setMinimumDaysToShowAgain(componentActivity, minimumDaysToShowAgain)
         }
 
         fun setCustomCondition(customCondition: () -> Boolean) = apply {
@@ -271,7 +274,7 @@ object AppRating {
          * the library dialog.
          */
         fun useGoogleInAppReview() = apply {
-            reviewManger = ReviewManagerFactory.create(activity)
+            reviewManger = ReviewManagerFactory.create(componentActivity)
             dialogOptions.useGoogleInAppReview = true
             RatingLogger.info("Use in-app review from Google instead of the library dialog.")
         }
@@ -304,25 +307,35 @@ object AppRating {
                 showGoogleInAppReview()
             } else {
                 RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
-                RateDialogFragment.newInstance(dialogOptions)
-                    .show(activity.supportFragmentManager, TAG)
+                val fragmentActivity = componentActivity as? FragmentActivity
+                fragmentActivity?.let {
+                    RateDialogFragment.newInstance(dialogOptions)
+                        .show(fragmentActivity.supportFragmentManager, TAG)
+                }
+                    ?: RatingLogger.error(
+                        "To use the libraries dialog your activity has to extend from " +
+                            "FragmentActivity (e.g. AppCompatActvity).",
+                    )
             }
         }
 
         fun showIfMeetsConditions(): Boolean {
-            if (activity.supportFragmentManager.findFragmentByTag(TAG) != null) {
-                RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
-                return false
+            val fragmentActivity = componentActivity as? FragmentActivity
+            fragmentActivity?.let {
+                if (fragmentActivity.supportFragmentManager.findFragmentByTag(TAG) != null) {
+                    RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
+                    return false
+                }
             }
 
             if (dialogOptions.countAppLaunch) {
                 RatingLogger.debug("App launch will be counted: countAppLaunch is true.")
-                PreferenceUtil.increaseLaunchTimes(activity)
+                PreferenceUtil.increaseLaunchTimes(componentActivity)
             } else {
                 RatingLogger.info("App launch not counted this time: countAppLaunch has been set to false.")
             }
 
-            return if (isDebug || ConditionsChecker.shouldShowDialog(activity, dialogOptions)) {
+            return if (isDebug || ConditionsChecker.shouldShowDialog(componentActivity, dialogOptions)) {
                 RatingLogger.info("Show rating dialog now: Conditions met.")
                 showNow()
                 true
@@ -337,10 +350,10 @@ object AppRating {
             requestTask?.addOnCompleteListener { request ->
                 if (request.isSuccessful) {
                     val reviewInfo = request.result
-                    val flow = reviewManger?.launchReviewFlow(activity, reviewInfo)
+                    val flow = reviewManger?.launchReviewFlow(componentActivity, reviewInfo)
                     flow?.addOnCompleteListener { task ->
                         RatingLogger.info("Google in-app review request completed.")
-                        PreferenceUtil.onGoogleInAppReviewFlowCompleted(activity)
+                        PreferenceUtil.onGoogleInAppReviewFlowCompleted(componentActivity)
                         dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
                             ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
                     }
