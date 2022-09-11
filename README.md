@@ -151,8 +151,6 @@ Follow these tips on stackoverflow to maximize your chance of testing it success
 Source: https://stackoverflow.com/a/63950373
 ```
 
-You should consider to wait with implementing it and use the normal rating dialog instead until Google has fixed the issue(s).
-
 #### When to show up
 
 - Change the number of days the app has to be installed
@@ -513,6 +511,7 @@ To get it working you just have to change your activity to extend from `AppCompa
 * Look at the example app to get first impressions
 
 ## Recommendations
+
 The following things are highly recommended to not annoy the user, which in turn could lead to negative reviews:
 
 - Don't show the dialog immediately after install
