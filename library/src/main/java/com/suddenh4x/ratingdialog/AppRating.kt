@@ -44,7 +44,7 @@ object AppRating {
 
     data class Builder(var componentActivity: ComponentActivity) {
         internal var isDebug = false
-        internal var reviewManger: ReviewManager? = null
+        internal var reviewManager: ReviewManager? = null
         private var dialogOptions = DialogOptions()
 
         internal constructor(componentActivity: ComponentActivity, dialogOptions: DialogOptions) : this(
@@ -274,7 +274,7 @@ object AppRating {
          * the library dialog.
          */
         fun useGoogleInAppReview() = apply {
-            reviewManger = ReviewManagerFactory.create(componentActivity)
+            reviewManager = ReviewManagerFactory.create(componentActivity)
             dialogOptions.useGoogleInAppReview = true
             RatingLogger.info("Use in-app review from Google instead of the library dialog.")
         }
@@ -346,23 +346,39 @@ object AppRating {
         }
 
         internal fun showGoogleInAppReview() {
-            val requestTask = reviewManger?.requestReviewFlow()
-            requestTask?.addOnCompleteListener { request ->
+            val requestTask = reviewManager?.requestReviewFlow() ?: run {
+                onGoogleInAppReviewFailure("reviewManager is null. Did you call useGoogleInAppReview()?")
+                return
+            }
+            requestTask.addOnCompleteListener { request ->
                 if (request.isSuccessful) {
-                    val reviewInfo = request.result
-                    val flow = reviewManger?.launchReviewFlow(componentActivity, reviewInfo)
-                    flow?.addOnCompleteListener { task ->
+                    val reviewInfo = request.result ?: run {
+                        onGoogleInAppReviewFailure("The result of the initial request is null.")
+                        return@addOnCompleteListener
+                    }
+                    val flow = reviewManager?.launchReviewFlow(componentActivity, reviewInfo) ?: run {
+                        onGoogleInAppReviewFailure(
+                            "reviewManager is null. Did you call " +
+                                "useGoogleInAppReview()?",
+                        )
+                        return@addOnCompleteListener
+                    }
+                    flow.addOnCompleteListener { task ->
                         RatingLogger.info("Google in-app review request completed.")
                         PreferenceUtil.onGoogleInAppReviewFlowCompleted(componentActivity)
                         dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
                             ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
                     }
                 } else {
-                    RatingLogger.info("Google in-app review request wasn't successful.")
-                    dialogOptions.googleInAppReviewCompleteListener?.invoke(false)
-                        ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                    onGoogleInAppReviewFailure("The initial request  wasn't successful.")
                 }
             }
+        }
+
+        private fun onGoogleInAppReviewFailure(additionalInfo: String) {
+            RatingLogger.warn("Google in-app review request wasn't successful. $additionalInfo")
+            dialogOptions.googleInAppReviewCompleteListener?.invoke(false)
+                ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
         }
 
         companion object {

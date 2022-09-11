@@ -364,11 +364,11 @@ class AppRatingTest {
         @Test
         fun `creates review manager`() {
             val builder = getBuilder()
-            assertThat(builder.reviewManger).isNull()
+            assertThat(builder.reviewManager).isNull()
 
             builder.useGoogleInAppReview()
 
-            assertThat(builder.reviewManger).isEqualTo(reviewManger)
+            assertThat(builder.reviewManager).isEqualTo(reviewManger)
         }
     }
 
