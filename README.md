@@ -27,20 +27,22 @@ This library:
 - is completely written in Kotlin
 - is Unit tested
 - is optimized for MaterialComponent themes
+- supports Jetpack Compose
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
-- is Android 11 (API 30) ready
+- is Android 13 (API 33) ready
 - is easy to use
 
 ## How to use
 ### Gradle
+
 The library supports API level 14 and higher. You can simply include it in your app via Gradle:
 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.4.0'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.5.0'
 }
 ```
 
@@ -148,8 +150,6 @@ Follow these tips on stackoverflow to maximize your chance of testing it success
 
 Source: https://stackoverflow.com/a/63950373
 ```
-
-You should consider to wait with implementing it and use the normal rating dialog instead until Google has fixed the issue(s).
 
 #### When to show up
 
@@ -491,6 +491,12 @@ AppRating.Builder(this)
 
 If you want to show the dialog on app start, but with your custom conditions, you can of course just call the Builder in your `onCreate()` method of your main Activity class. If so, don't forget to remove the `dontCountThisAsAppLaunch()` method from the example above.
 
+### Jetpack Compose
+
+The libraries dialog is implemented as a `DialogFragment` and thus needs a `FragmentActivity` to get displayed. If you use Jetpack Compose your activity maybe extends from `ComponentActivity` and because this class isn't a subtype of `FragmentActivity` the dialog won't show up. You'll only see an error message in LogCat. 
+
+To get it working you just have to change your activity to extend from `AppCompatActivity` instead (or `FragmentActivity`). Or you just use the official Google in-app review which doesn't depend on fragments.
+
 ## Note
 
 * If the in-app review from Google will be used: After the first in-app review flow was completed successfully the `toShowAgain` conditions will be used. For example `.setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int)` instead of  `.setMinimumLaunchTimes(launchTimes: Int)`
@@ -505,6 +511,7 @@ If you want to show the dialog on app start, but with your custom conditions, yo
 * Look at the example app to get first impressions
 
 ## Recommendations
+
 The following things are highly recommended to not annoy the user, which in turn could lead to negative reviews:
 
 - Don't show the dialog immediately after install
@@ -516,7 +523,7 @@ The following things are highly recommended to not annoy the user, which in turn
 ## License
 
 ```
-Copyright (C) 2020 SuddenH4X
+Copyright (C) 2022 SuddenH4X
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

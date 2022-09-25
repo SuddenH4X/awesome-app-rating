@@ -40,6 +40,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class AppRatingTest {
+
     @MockK
     lateinit var activity: AppCompatActivity
     internal lateinit var dialogOptions: DialogOptions
@@ -113,7 +114,7 @@ class AppRatingTest {
     fun `confirm button click listener is set correctly into dialogOptions`() {
         getBuilder().setConfirmButtonClickListener(confirmButtonClickListener)
         assertThat(dialogOptions.confirmButton.confirmButtonClickListener).isEqualTo(
-            confirmButtonClickListener
+            confirmButtonClickListener,
         )
     }
 
@@ -363,11 +364,11 @@ class AppRatingTest {
         @Test
         fun `creates review manager`() {
             val builder = getBuilder()
-            assertThat(builder.reviewManger).isNull()
+            assertThat(builder.reviewManager).isNull()
 
             builder.useGoogleInAppReview()
 
-            assertThat(builder.reviewManger).isEqualTo(reviewManger)
+            assertThat(builder.reviewManager).isEqualTo(reviewManger)
         }
     }
 
@@ -436,7 +437,7 @@ class AppRatingTest {
             verify(exactly = 1) {
                 ratingDialogFragment.show(
                     supportFragmentManager,
-                    any()
+                    any(),
                 )
             }
             verify(exactly = 0) { appRatingBuilder.showGoogleInAppReview() }

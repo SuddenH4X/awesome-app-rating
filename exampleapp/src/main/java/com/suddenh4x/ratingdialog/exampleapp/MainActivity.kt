@@ -1,5 +1,6 @@
 package com.suddenh4x.ratingdialog.exampleapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -148,6 +149,11 @@ class MainActivity : AppCompatActivity() {
             .setDebug(true)
             .setCustomTheme(R.style.AppTheme_CustomAlertDialog)
             .showIfMeetsConditions()
+    }
+
+    fun onJetpackComposeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+        val jetpackComposeIntent = Intent(this, JetpackComposeActivity::class.java)
+        startActivity(jetpackComposeIntent)
     }
 
     companion object {
