@@ -42,7 +42,7 @@ The library supports API level 14 and higher. You can simply include it in your 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.4.0'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.5.0'
 }
 ```
 
@@ -523,7 +523,7 @@ The following things are highly recommended to not annoy the user, which in turn
 ## License
 
 ```
-Copyright (C) 2020 SuddenH4X
+Copyright (C) 2022 SuddenH4X
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
