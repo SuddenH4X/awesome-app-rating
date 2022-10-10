@@ -41,6 +41,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class AppRatingTest {
+
     @MockK
     lateinit var activity: AppCompatActivity
     internal lateinit var dialogOptions: DialogOptions
@@ -364,11 +365,11 @@ class AppRatingTest {
         @Test
         fun `creates review manager`() {
             val builder = getBuilder()
-            assertThat(builder.reviewManger).isNull()
+            assertThat(builder.reviewManager).isNull()
 
             builder.useGoogleInAppReview()
 
-            assertThat(builder.reviewManger).isEqualTo(reviewManger)
+            assertThat(builder.reviewManager).isEqualTo(reviewManger)
         }
     }
 

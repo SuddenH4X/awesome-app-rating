@@ -45,6 +45,8 @@
     <string name="button_example_cancelable">Cancelable</string>
     <string name="text_example_custom_theme">In this example the dialog is used with a custom theme. Debug is enabled.</string>
     <string name="button_example_custom_theme">Custom theme</string>
+    <string name="text_example_jetpack_compose">This button opens a new activity (ComponentActivity) to showcase the Jetpack Compose support.</string>
+    <string name="button_example_jetpack_compose">Jetpack Compose Example</string>
 
     <!-- Custom Button Texts -->
     <string name="button_rate_now">Foo</string>
