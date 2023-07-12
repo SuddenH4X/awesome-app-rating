@@ -144,7 +144,7 @@ internal object DialogManager {
                     button.rateDialogClickListener?.onClick()
                         ?: run {
                             RatingLogger.info("Default rate now button click listener called.")
-                            FeedbackUtils.openPlayStoreListing(context)
+                            FeedbackUtils.openStoreListing(context, dialogOptions.storeMode)
                         }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional rate now button click listener not set.")

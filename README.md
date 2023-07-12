@@ -2,7 +2,7 @@
 
 [![Build Status](https://app.bitrise.io/app/3156ba39c3e19393/status.svg?token=xXPr-IjWuLLKVliX5QPZKg&branch=master)](https://app.bitrise.io/app/3156ba39c3e19393)
 
-A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
+A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the corresponding App Store.
 
 ![showcase](https://github.com/SuddenH4X/awesome-app-rating/raw/develop/preview/showcase.png)
 
@@ -16,6 +16,8 @@ You can also use this library to show the [Google in-app review](https://develop
 
 ## Features
 - Let the dialog (or the [Google in-app review](https://developer.android.com/guide/playcore/in-app-review)) show up at a defined app session, after n days of usage and/or if your custom conditions meet
+- Support for Amazon App Store reviews
+- Automatically determine if the app was downloaded from the Amazon or Google Store to enable the corresponding review
 - Auto fetches the app icon to use it in the dialog
 - Ask the user to mail his feedback or show a custom feedback form if the user rates below the defined minimum threshold
 - All titles, messages and buttons are customizable
