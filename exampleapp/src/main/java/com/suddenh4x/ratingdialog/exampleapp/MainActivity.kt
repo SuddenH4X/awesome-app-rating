@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppRating.reset(this)
-        onBottomSheetExampleButtonClicked(null)
 
         toastLiveData.observe(this) { toastString ->
             if (toastString.isNotBlank()) {
