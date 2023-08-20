@@ -30,14 +30,17 @@ internal class RateDialogFragment : DialogFragment() {
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
@@ -64,7 +67,7 @@ internal class RateDialogFragment : DialogFragment() {
         internal const val ARG_DIALOG_TYPE = "DialogType"
         internal const val ARG_DIALOG_OPTIONS = "DialogOptions"
 
-        fun newInstance(dialogOptions: DialogOptions): RateDialogFragment {
+        fun newInstance(dialogOptions: DialogOptions): DialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
                 putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)
@@ -72,7 +75,7 @@ internal class RateDialogFragment : DialogFragment() {
             return rateDialogFragment
         }
 
-        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): DialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
                 putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)

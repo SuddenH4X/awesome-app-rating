@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.core.app.ComponentActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
@@ -191,6 +192,7 @@ object AppRating {
             dialogOptions.customFeedbackMessageTextId = feedbackCustomMessageTextId
         }
 
+
         fun setCustomFeedbackButtonTextId(@StringRes customFeedbackButtonTextId: Int) = apply {
             dialogOptions.customFeedbackButton.textId = customFeedbackButtonTextId
         }
@@ -239,7 +241,7 @@ object AppRating {
             dialogOptions.customCondition = customCondition
             RatingLogger.debug(
                 "Custom condition set. This condition will be removed next" +
-                    " time you call the Builder constructor.",
+                        " time you call the Builder constructor.",
             )
         }
 
@@ -247,7 +249,7 @@ object AppRating {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
             RatingLogger.debug(
                 "Custom condition to show again set. This condition will" +
-                    "be removed next time you call the Builder constructor.",
+                        "be removed next time you call the Builder constructor.",
             )
         }
 
@@ -255,8 +257,13 @@ object AppRating {
             dialogOptions.countAppLaunch = false
             RatingLogger.debug(
                 "countAppLaunch is now set to false. This setting will be " +
-                    "reset next time you call the Builder constructor.",
+                        "reset next time you call the Builder constructor.",
             )
+        }
+
+        fun setBottomSheet(bottomSheet: Boolean) = apply {
+            dialogOptions.bottomSheet = bottomSheet
+            RatingLogger.debug("Use bottom sheet instead of dialog: $bottomSheet.")
         }
 
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {
@@ -309,12 +316,12 @@ object AppRating {
                 RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
                 val fragmentActivity = componentActivity as? FragmentActivity
                 fragmentActivity?.let {
-                    RateDialogFragment.newInstance(dialogOptions)
-                        .show(fragmentActivity.supportFragmentManager, TAG)
+                    val dialogFragment = RateDialogFragment.newInstance(dialogOptions)
+                    dialogFragment.show(fragmentActivity.supportFragmentManager, TAG)
                 }
                     ?: RatingLogger.error(
                         "To use the libraries dialog your activity has to extend from " +
-                            "FragmentActivity (e.g. AppCompatActvity).",
+                                "FragmentActivity (e.g. AppCompatActvity).",
                     )
             }
         }
@@ -359,7 +366,7 @@ object AppRating {
                     val flow = reviewManager?.launchReviewFlow(componentActivity, reviewInfo) ?: run {
                         onGoogleInAppReviewFailure(
                             "reviewManager is null. Did you call " +
-                                "useGoogleInAppReview()?",
+                                    "useGoogleInAppReview()?",
                         )
                         return@addOnCompleteListener
                     }

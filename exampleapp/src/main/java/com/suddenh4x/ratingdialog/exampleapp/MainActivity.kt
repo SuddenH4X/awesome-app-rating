@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppRating.reset(this)
+        onBottomSheetExampleButtonClicked(null)
 
         toastLiveData.observe(this) { toastString ->
             if (toastString.isNotBlank()) {
@@ -39,6 +40,14 @@ class MainActivity : AppCompatActivity() {
                 toastLiveData.postValue("Google in-app review completed (successful: $successful)")
             }
             .setDebug(true)
+            .showIfMeetsConditions()
+    }
+
+    fun onBottomSheetExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View?) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setBottomSheet(true)
+            .setCancelable(true)
             .showIfMeetsConditions()
     }
 

@@ -23,10 +23,12 @@ internal class DialogOptions : Serializable {
     var customConditionToShowAgain: (() -> Boolean)? = null
     var countAppLaunch: Boolean = true
     var countOfLaterButtonClicksToShowNeverButton = 0
+    var bottomSheet: Boolean = false
 
     // rating dialog overview
     @StringRes
     var titleTextId = R.string.rating_dialog_overview_title
+
     @StringRes
     var messageTextId: Int? = null
     var confirmButton = ConfirmButton(R.string.rating_dialog_overview_button_confirm, null)
@@ -35,6 +37,7 @@ internal class DialogOptions : Serializable {
     // rating dialog store
     @StringRes
     var storeRatingTitleTextId = R.string.rating_dialog_store_title
+
     @StringRes
     var storeRatingMessageTextId = R.string.rating_dialog_store_message
     var rateNowButton: RateButton = RateButton(R.string.rating_dialog_store_button_rate_now, null)
@@ -56,6 +59,7 @@ internal class DialogOptions : Serializable {
 
     // rating dialog custom feedback
     var useCustomFeedback = false
+
     @StringRes
     var customFeedbackMessageTextId = R.string.rating_dialog_feedback_custom_message
     var customFeedbackButton: CustomFeedbackButton =
