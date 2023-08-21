@@ -6,7 +6,6 @@ import androidx.annotation.StringRes
 import androidx.core.app.ComponentActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
@@ -59,9 +58,14 @@ object AppRating {
             RatingLogger.debug("Use custom icon drawable.")
         }
 
-        fun setCustomTheme(customTheme: Int) = apply {
-            dialogOptions.customTheme = customTheme
-            RatingLogger.debug("Use custom theme.")
+        fun setCustomDialogTheme(customTheme: Int) = apply {
+            dialogOptions.customDialogTheme = customTheme
+            RatingLogger.debug("Use custom dialog theme.")
+        }
+
+        fun setCustomBottomSheetTheme(customTheme: Int) = apply {
+            dialogOptions.customBottomSheetTheme = customTheme
+            RatingLogger.debug("Use custom bottom sheet theme.")
         }
 
         fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {

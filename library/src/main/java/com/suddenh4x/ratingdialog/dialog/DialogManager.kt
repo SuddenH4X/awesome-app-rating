@@ -43,14 +43,14 @@ internal object DialogManager {
         showOverviewMessage(dialogOptions, ratingOverviewDialogBinding.messageTextView)
 
         val dialog: Dialog = if (dialogOptions.bottomSheet) {
-            BottomSheetAlertDialog(activity, dialogOptions.customTheme).apply {
+            BottomSheetAlertDialog(activity, dialogOptions.customBottomSheetTheme).apply {
                 setContentView(ratingOverviewDialogBinding.root)
             }
         } else {
             RatingLogger.debug("Creating rating overview dialog.")
             getDialogBuilder(
                 activity,
-                dialogOptions.customTheme
+                dialogOptions.customDialogTheme
             ).apply { setView(ratingOverviewDialogBinding.root) }.create()
         }.apply {
             val clickListener = { dialogInterface: DialogInterface, which: Int ->
@@ -158,7 +158,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.customTheme)
+        val builder = getDialogBuilder(context, dialogOptions.customDialogTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingStoreDialogBinding = DialogRatingStoreBinding.inflate(inflater)
@@ -197,7 +197,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.customTheme)
+        val builder = getDialogBuilder(context, dialogOptions.customDialogTheme)
 
         builder.apply {
             setTitle(dialogOptions.feedbackTitleTextId)
@@ -237,7 +237,7 @@ internal object DialogManager {
         dialogOptions: DialogOptions
     ): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
-        val builder = getDialogBuilder(context, dialogOptions.customTheme)
+        val builder = getDialogBuilder(context, dialogOptions.customDialogTheme)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val ratingCustomFeedbackDialogBinding = DialogRatingCustomFeedbackBinding.inflate(inflater)
