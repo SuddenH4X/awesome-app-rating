@@ -42,6 +42,14 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
+    fun onBottomSheetExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View?) {
+        AppRating.Builder(this)
+            .setDebug(true)
+            .setBottomSheet(true)
+            .setCancelable(true)
+            .showIfMeetsConditions()
+    }
+
     fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setDebug(true)
@@ -147,7 +155,7 @@ class MainActivity : AppCompatActivity() {
     fun onCustomThemeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
         AppRating.Builder(this)
             .setDebug(true)
-            .setCustomTheme(R.style.AppTheme_CustomAlertDialog)
+            .setCustomDialogTheme(R.style.AppTheme_CustomAlertDialog)
             .showIfMeetsConditions()
     }
 
