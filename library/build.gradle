@@ -6,10 +6,10 @@ def version = "2.6.0"
 
 android {
     namespace 'com.suddenh4x.ratingdialog'
-    compileSdkVersion 33
+    compileSdk 34
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 33
+        targetSdkVersion 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,25 +24,19 @@ android {
         viewBinding = true
     }
 
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    kotlin {
+        jvmToolchain 17
     }
 }
 
-def junitVersion = "5.9.0"
+def junitVersion = "5.10.0"
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
+    implementation 'com.google.android.material:material:1.9.0'
 
     implementation 'com.google.android.play:review:2.0.1'
     implementation 'com.google.android.play:review-ktx:2.0.1'
