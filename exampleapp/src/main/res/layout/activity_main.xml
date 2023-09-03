@@ -183,13 +183,13 @@
             style="@style/ExampleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_example_jetpack_compose" />
+            android:text="@string/text_example_jetpack_compose_activity" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_big"
             android:onClick="onJetpackComposeButtonClicked"
-            android:text="@string/button_example_jetpack_compose" />
+            android:text="@string/button_example_jetpack_compose_activity" />
     </LinearLayout>
 </ScrollView>

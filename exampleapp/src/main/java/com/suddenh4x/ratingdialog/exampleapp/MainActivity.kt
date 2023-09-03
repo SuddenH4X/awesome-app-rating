@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import com.suddenh4x.ratingdialog.AppRating
+import com.suddenh4x.ratingdialog.exampleapp.composeexample.ComposeExampleActivity
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 
@@ -152,7 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onJetpackComposeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
-        val jetpackComposeIntent = Intent(this, JetpackComposeActivity::class.java)
+        val jetpackComposeIntent = Intent(this, ComposeExampleActivity::class.java)
         startActivity(jetpackComposeIntent)
     }
 

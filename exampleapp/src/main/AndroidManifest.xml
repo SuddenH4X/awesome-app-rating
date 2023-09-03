@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.suddenh4x.ratingdialog.exampleapp.JetpackComposeActivity"
+            android:name="com.suddenh4x.ratingdialog.exampleapp.composeexample.ComposeExampleActivity"
             android:exported="false" />
     </application>
 </manifest>

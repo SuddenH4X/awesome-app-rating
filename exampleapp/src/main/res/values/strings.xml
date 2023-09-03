@@ -1,70 +1,75 @@
 <resources>
-    <string name="app_name">awesome-app-rating Example App</string>
+    <string name="app_name" translatable="false">awesome-app-rating Example App</string>
 
     <!-- Example Buttons and Descriptions -->
-    <string name="text_example_note_app_reset">Note: Use the reset button below or restart the app to clear all settings.</string>
-    <string name="button_example_reset">Reset</string>
-    <string name="text_example_google_in_app_review">This example uses the Google in-app review instead of the library
+    <string name="text_example_note_app_reset" translatable="false">Note: Use the reset button below or restart the app to clear all settings.</string>
+    <string name="button_example_reset" translatable="false">Reset</string>
+    <string name="text_example_google_in_app_review" translatable="false">This example uses the Google in-app review instead of the library
         dialog. Debug is enabled. (note: this example doesn\'t work at the moment because the example app hasn\'t been uploaded
         to the Google Play Store)</string>
-    <string name="button_example_google_in_app_review">Google In-App Review</string>
-    <string name="text_example_default">This example has no customizations. Debug is enabled.</string>
-    <string name="button_example_default">Default</string>
-    <string name="text_example_custom_icon">In this example the default icon (app icon) has been replaced with a cusom icon.
+    <string name="button_example_google_in_app_review" translatable="false">Google In-App Review</string>
+    <string name="text_example_default" translatable="false">This example has no customizations. Debug is enabled.</string>
+    <string name="button_example_default" translatable="false">Default</string>
+    <string name="text_example_custom_icon" translatable="false">In this example the default icon (app icon) has been replaced with a cusom icon.
         Debug is enabled.</string>
-    <string name="button_example_custom_icon">Custom Icon</string>
-    <string name="text_example_mail_feedback">This example uses a configured mail feedback dialog. Rate below the threshold
+    <string name="button_example_custom_icon" translatable="false">Custom Icon</string>
+    <string name="text_example_mail_feedback" translatable="false">This example uses a configured mail feedback dialog. Rate below the threshold
         to check it out.Debug is enabled.</string>
-    <string name="button_example_mail_feedback">Mail Feedback</string>
-    <string name="text_example_custom_feedback">This example uses the custom feedback dialog instead of the mail feedback
+    <string name="button_example_mail_feedback" translatable="false">Mail Feedback</string>
+    <string name="text_example_custom_feedback" translatable="false">This example uses the custom feedback dialog instead of the mail feedback
         dialog. Debug is enabled.</string>
-    <string name="button_example_custom_feedback">Custom Feedback</string>
-    <string name="text_example_show_never">In this example the show never button will be displayed. Debug is enabled.</string>
-    <string name="button_example_show_never">Show \"Never\" button</string>
-    <string name="text_example_show_never_after_three_times">In this example the show never button will be displayed after three
+    <string name="button_example_custom_feedback" translatable="false">Custom Feedback</string>
+    <string name="text_example_show_never" translatable="false">In this example the show never button will be displayed. Debug is enabled.</string>
+    <string name="button_example_show_never" translatable="false">Show \"Never\" button</string>
+    <string name="text_example_show_never_after_three_times" translatable="false">In this example the show never button will be displayed after three
         times. This means you have to click the later button for at least 3 times (other examples included). Debug is enabled.</string>
-    <string name="button_example_show_never_after_three_times">Show \"Never\" button after 3 times</string>
-    <string name="text_example_show_on_third_click">In this example debug is disabled. The dialog will show on the third
+    <string name="button_example_show_never_after_three_times" translatable="false">Show \"Never\" button after 3 times</string>
+    <string name="text_example_show_on_third_click" translatable="false">In this example debug is disabled. The dialog will show on the third
         click. If the \"Later\" button has been clicked, the dialog will show again after 5 more clicks. You can also use
         the \"Never\" button.
         \nAttention: If you have already clicked the never button or the feedback button of another example, this dialog will
         not show up until you click \"reset\" or restart the app.
     </string>
-    <string name="button_example_show_on_third_click">Show on third click</string>
-    <string name="text_example_rating_threshold_4_and_a_half">In this example the rating threshold was set to 4.5. So you
+    <string name="button_example_show_on_third_click" translatable="false">Show on third click</string>
+    <string name="text_example_rating_threshold_4_and_a_half" translatable="false">In this example the rating threshold was set to 4.5. So you
         need to rate at least 4.5 stars to see the store rating dialog. Debug is enabled.</string>
-    <string name="button_example_rating_threshold_4_and_a_half">Rating threshold 4.5</string>
-    <string name="text_example_full_star_rating">In this example full star rating is enabled. So you can\'t set half stars
+    <string name="button_example_rating_threshold_4_and_a_half" translatable="false">Rating threshold 4.5</string>
+    <string name="text_example_full_star_rating" translatable="false">In this example full star rating is enabled. So you can\'t set half stars
         in the rating dialog. Debug is enabled.</string>
-    <string name="button_example_full_star_rating">Full star rating</string>
-    <string name="text_example_custom_texts">In this example the default texts has been replaced with dummy texts. Debug
+    <string name="button_example_full_star_rating" translatable="false">Full star rating</string>
+    <string name="text_example_custom_texts" translatable="false">In this example the default texts has been replaced with dummy texts. Debug
         is enabled.</string>
-    <string name="button_example_custom_texts">Custom texts</string>
-    <string name="text_example_cancelable">In this example the dialog is cancelable. A dialogCancelListener was set to show a toast. Debug
+    <string name="button_example_custom_texts" translatable="false">Custom texts</string>
+    <string name="text_example_cancelable" translatable="false">In this example the dialog is cancelable. A dialogCancelListener was set to show a toast. Debug
         is enabled.</string>
-    <string name="button_example_cancelable">Cancelable</string>
-    <string name="text_example_custom_theme">In this example the dialog is used with a custom theme. Debug is enabled.</string>
-    <string name="button_example_custom_theme">Custom theme</string>
-    <string name="text_example_jetpack_compose">This button opens a new activity (ComponentActivity) to showcase the Jetpack Compose support.</string>
-    <string name="button_example_jetpack_compose">Jetpack Compose Example</string>
+    <string name="button_example_cancelable" translatable="false">Cancelable</string>
+    <string name="text_example_custom_theme" translatable="false">In this example the dialog is used with a custom theme. Debug is enabled.</string>
+    <string name="button_example_custom_theme" translatable="false">Custom theme</string>
+    <string name="text_example_jetpack_compose_activity" translatable="false">This button opens a new activity (ComponentActivity) to showcase the Jetpack Compose support.</string>
+    <string name="button_example_jetpack_compose_activity" translatable="false">Jetpack Compose Example</string>
+
+    <!-- Jetpack Compose Example Activity -->
+    <string name="text_example_jetpack_compose" translatable="false">This is a Jetpack Compose example with a ComponentActivity. So the button below only starts the Google
+        in-app review. If you want to use the libraries dialog with Jetpack Compose your activity has to extend from FragmentActivity (e.g. ComponentActivity).</string>
+    <string name="button_example_jetpack_compose" translatable="false">Jetpack Compose Example</string>
 
     <!-- Custom Button Texts -->
-    <string name="button_rate_now">Foo</string>
-    <string name="button_rate_never">Doe</string>
-    <string name="button_rate_later">Bar</string>
+    <string name="button_rate_now" translatable="false">Foo</string>
+    <string name="button_rate_never" translatable="false">Doe</string>
+    <string name="button_rate_later" translatable="false">Bar</string>
 
-    <string name="title_overview">Another Title</string>
-    <string name="message_overview">This is an additional message, which is hidden by default.</string>
-    <string name="button_confirm">Go on!</string>
+    <string name="title_overview" translatable="false">Another Title</string>
+    <string name="message_overview" translatable="false">This is an additional message, which is hidden by default.</string>
+    <string name="button_confirm" translatable="false">Go on!</string>
 
-    <string name="title_store">Custom Title</string>
-    <string name="message_store">The answer to life, the universe and everything is 42.</string>
+    <string name="title_store" translatable="false">Custom Title</string>
+    <string name="message_store" translatable="false">The answer to life, the universe and everything is 42.</string>
 
-    <string name="title_feedback">Wow!</string>
-    <string name="message_feedback">I am so blue I\'m greener than purple.</string>
-    <string name="button_mail_feedback">Foo</string>
-    <string name="button_no_feedback">John</string>
+    <string name="title_feedback" translatable="false">Wow!</string>
+    <string name="message_feedback" translatable="false">I am so blue I\'m greener than purple.</string>
+    <string name="button_mail_feedback" translatable="false">Foo</string>
+    <string name="button_no_feedback" translatable="false">John</string>
 
     <!-- Other -->
-    <string name="toast_reset">All settings got cleared. Have fun!</string>
+    <string name="toast_reset" translatable="false">All settings got cleared. Have fun!</string>
 </resources>
