@@ -24,18 +24,12 @@ android {
         compose = true
     }
 
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
     composeOptions {
         kotlinCompilerExtensionVersion '1.5.3'
+    }
+
+    kotlin {
+        jvmToolchain 17
     }
 }
 
