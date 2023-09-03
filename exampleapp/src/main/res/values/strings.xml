@@ -45,7 +45,12 @@
     <string name="button_example_cancelable">Cancelable</string>
     <string name="text_example_custom_theme">In this example the dialog is used with a custom theme. Debug is enabled.</string>
     <string name="button_example_custom_theme">Custom theme</string>
-    <string name="text_example_jetpack_compose">This button opens a new activity (ComponentActivity) to showcase the Jetpack Compose support.</string>
+    <string name="text_example_jetpack_compose_activity">This button opens a new activity (ComponentActivity) to showcase the Jetpack Compose support.</string>
+    <string name="button_example_jetpack_compose_activity">Jetpack Compose Example</string>
+
+    <!-- Jetpack Compose Example Activity -->
+    <string name="text_example_jetpack_compose">This is a Jetpack Compose example with a ComponentActivity. So the button below only starts the Google
+        in-app review. If you want to use the libraries dialog with Jetpack Compose your activity has to extend from FragmentActivity (e.g. ComponentActivity).</string>
     <string name="button_example_jetpack_compose">Jetpack Compose Example</string>
 
     <!-- Custom Button Texts -->
