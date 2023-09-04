@@ -75,7 +75,7 @@ internal object PreferenceUtil {
     fun onLaterButtonClicked(context: Context) {
         RatingLogger.verbose(
             "Later button was clicked or dialog was canceled. Update remind timestamp " +
-                "and set launch times to 0."
+                "and set launch times to 0.",
         )
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
@@ -88,7 +88,7 @@ internal object PreferenceUtil {
     fun onGoogleInAppReviewFlowCompleted(context: Context) {
         RatingLogger.verbose(
             "Google in-app review flow has been completed. Update remind timestamp " +
-                "and set launch times to 0."
+                "and set launch times to 0.",
         )
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())

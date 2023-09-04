@@ -34,8 +34,7 @@ object AppRating {
 
     fun wasNeverButtonClicked(context: Context) = PreferenceUtil.isDoNotShowAgain(context)
 
-    fun getNumberOfLaterButtonClicks(context: Context) =
-        PreferenceUtil.getNumberOfLaterButtonClicks(context)
+    fun getNumberOfLaterButtonClicks(context: Context) = PreferenceUtil.getNumberOfLaterButtonClicks(context)
 
     fun openMailFeedback(context: Context, mailSettings: MailSettings) =
         FeedbackUtils.openMailFeedback(context, mailSettings)
@@ -67,28 +66,24 @@ object AppRating {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
 
-        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.rateLaterButton.rateDialogClickListener =
-                    rateLaterButtonClickListener
-            }
+        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.rateLaterButton.rateDialogClickListener = rateLaterButtonClickListener
+        }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
-            rateNeverButtonClickListener: RateDialogClickListener? = null
+            rateNeverButtonClickListener: RateDialogClickListener? = null,
         ) = apply {
-            dialogOptions.rateNeverButton =
-                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            dialogOptions.rateNeverButton = RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
             RatingLogger.debug("Show rate never button.")
         }
 
         fun showRateNeverButtonAfterNTimes(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
             rateNeverButtonClickListener: RateDialogClickListener? = null,
-            countOfLaterButtonClicks: Int
+            countOfLaterButtonClicks: Int,
         ) = apply {
-            dialogOptions.rateNeverButton =
-                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            dialogOptions.rateNeverButton = RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
             dialogOptions.countOfLaterButtonClicksToShowNeverButton = countOfLaterButtonClicks
             RatingLogger.debug("Show rate never button after $countOfLaterButtonClicks later button clicks.")
         }
@@ -106,10 +101,9 @@ object AppRating {
             dialogOptions.confirmButton.textId = confirmButtonTextId
         }
 
-        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) =
-            apply {
-                dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
-            }
+        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) = apply {
+            dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
+        }
 
         fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply {
             dialogOptions.showOnlyFullStars = showOnlyFullStars
@@ -128,15 +122,13 @@ object AppRating {
             dialogOptions.rateNowButton.textId = rateNowButtonTextId
         }
 
-        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
-            }
+        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
+        }
 
         fun setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener) =
             apply {
-                dialogOptions.additionalRateNowButtonClickListener =
-                    additionalRateNowButtonClickListener
+                dialogOptions.additionalRateNowButtonClickListener = additionalRateNowButtonClickListener
             }
 
         // rating dialog feedback
@@ -148,11 +140,9 @@ object AppRating {
             dialogOptions.noFeedbackButton.textId = noFeedbackButtonTextId
         }
 
-        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.noFeedbackButton.rateDialogClickListener =
-                    noFeedbackButtonClickListener
-            }
+        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.noFeedbackButton.rateDialogClickListener = noFeedbackButtonClickListener
+        }
 
         // rating dialog mail feedback
         fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply {
@@ -167,19 +157,15 @@ object AppRating {
             dialogOptions.mailFeedbackButton.textId = mailFeedbackButtonTextId
         }
 
-        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.mailFeedbackButton.rateDialogClickListener =
-                    mailFeedbackButtonClickListener
-            }
+        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.mailFeedbackButton.rateDialogClickListener = mailFeedbackButtonClickListener
+        }
 
         fun setAdditionalMailFeedbackButtonClickListener(
-            additionalMailFeedbackButtonClickListener: RateDialogClickListener
-        ) =
-            apply {
-                dialogOptions.additionalMailFeedbackButtonClickListener =
-                    additionalMailFeedbackButtonClickListener
-            }
+            additionalMailFeedbackButtonClickListener: RateDialogClickListener,
+        ) = apply {
+            dialogOptions.additionalMailFeedbackButtonClickListener = additionalMailFeedbackButtonClickListener
+        }
 
         // rating dialog custom feedback
         fun setUseCustomFeedback(useCustomFeedback: Boolean) = apply {
@@ -197,8 +183,7 @@ object AppRating {
 
         fun setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) =
             apply {
-                dialogOptions.customFeedbackButton.customFeedbackButtonClickListener =
-                    customFeedbackButtonClickListener
+                dialogOptions.customFeedbackButton.customFeedbackButtonClickListener = customFeedbackButtonClickListener
             }
 
         // other settings
@@ -238,24 +223,21 @@ object AppRating {
         fun setCustomCondition(customCondition: () -> Boolean) = apply {
             dialogOptions.customCondition = customCondition
             RatingLogger.debug(
-                "Custom condition set. This condition will be removed next" +
-                    " time you call the Builder constructor.",
+                "Custom condition set. This condition will be removed next time you call the Builder constructor.",
             )
         }
 
         fun setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean) = apply {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
             RatingLogger.debug(
-                "Custom condition to show again set. This condition will" +
-                    "be removed next time you call the Builder constructor.",
+                "Custom condition to show again set. This condition will be removed next time you call the Builder constructor.",
             )
         }
 
         fun dontCountThisAsAppLaunch() = apply {
             dialogOptions.countAppLaunch = false
             RatingLogger.debug(
-                "countAppLaunch is now set to false. This setting will be " +
-                    "reset next time you call the Builder constructor.",
+                "countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.",
             )
         }
 
@@ -284,10 +266,9 @@ object AppRating {
          * correctly (otherwise false).
          * Note: true doesn't mean that the in-app review from Google was displayed.
          */
-        fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) =
-            apply {
-                dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
-            }
+        fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) = apply {
+            dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
+        }
 
         /**
          * This method will return null if the in-app review from Google is used.
@@ -309,13 +290,10 @@ object AppRating {
                 RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
                 val fragmentActivity = componentActivity as? FragmentActivity
                 fragmentActivity?.let {
-                    RateDialogFragment.newInstance(dialogOptions)
-                        .show(fragmentActivity.supportFragmentManager, TAG)
-                }
-                    ?: RatingLogger.error(
-                        "To use the libraries dialog your activity has to extend from " +
-                            "FragmentActivity (e.g. AppCompatActvity).",
-                    )
+                    RateDialogFragment.newInstance(dialogOptions).show(fragmentActivity.supportFragmentManager, TAG)
+                } ?: RatingLogger.error(
+                    "To use the libraries dialog your activity has to extend from FragmentActivity (e.g. AppCompatActvity).",
+                )
             }
         }
 
@@ -358,16 +336,16 @@ object AppRating {
                     }
                     val flow = reviewManager?.launchReviewFlow(componentActivity, reviewInfo) ?: run {
                         onGoogleInAppReviewFailure(
-                            "reviewManager is null. Did you call " +
-                                "useGoogleInAppReview()?",
+                            "reviewManager is null. Did you call " + "useGoogleInAppReview()?",
                         )
                         return@addOnCompleteListener
                     }
                     flow.addOnCompleteListener { task ->
                         RatingLogger.info("Google in-app review request completed.")
                         PreferenceUtil.onGoogleInAppReviewFlowCompleted(componentActivity)
-                        dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
-                            ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                        dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful) ?: RatingLogger.warn(
+                            "There's no completeListener for Google's in-app review.",
+                        )
                     }
                 } else {
                     onGoogleInAppReviewFailure("The initial request  wasn't successful.")

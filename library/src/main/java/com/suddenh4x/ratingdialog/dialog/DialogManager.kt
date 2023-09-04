@@ -28,10 +28,7 @@ internal object DialogManager {
     private val TAG = DialogManager::class.java.simpleName
     private var rating: Float = -1f
 
-    internal fun createRatingOverviewDialog(
-        activity: FragmentActivity,
-        dialogOptions: DialogOptions
-    ): AlertDialog {
+    internal fun createRatingOverviewDialog(activity: FragmentActivity, dialogOptions: DialogOptions): AlertDialog {
         RatingLogger.debug("Creating rating overview dialog.")
         val builder = getDialogBuilder(activity, dialogOptions.customTheme)
 
@@ -54,6 +51,7 @@ internal object DialogManager {
                         RatingLogger.info("Above threshold. Showing rating store dialog.")
                         showRatingDialog(dialogOptions, DialogType.RATING_STORE, activity)
                     }
+
                     dialogOptions.useCustomFeedback -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is enabled. Showing custom feedback dialog.",
@@ -61,6 +59,7 @@ internal object DialogManager {
                         PreferenceUtil.setDialogAgreed(context)
                         showRatingDialog(dialogOptions, DialogType.FEEDBACK_CUSTOM, activity)
                     }
+
                     else -> {
                         RatingLogger.info(
                             "Below threshold and custom feedback is disabled. Showing mail feedback dialog.",
@@ -93,20 +92,11 @@ internal object DialogManager {
         }
     }
 
-    private fun showRatingDialog(
-        dialogOptions: DialogOptions,
-        dialogType: DialogType,
-        activity: FragmentActivity
-    ) {
-        RateDialogFragment.newInstance(dialogOptions, dialogType)
-            .show(activity.supportFragmentManager, TAG)
+    private fun showRatingDialog(dialogOptions: DialogOptions, dialogType: DialogType, activity: FragmentActivity) {
+        RateDialogFragment.newInstance(dialogOptions, dialogType).show(activity.supportFragmentManager, TAG)
     }
 
-    private fun initRatingBar(
-        ratingBar: RatingBar,
-        showOnlyFullStars: Boolean,
-        dialog: AlertDialog
-    ) {
+    private fun initRatingBar(ratingBar: RatingBar, showOnlyFullStars: Boolean, dialog: AlertDialog) {
         ratingBar.apply {
             if (showOnlyFullStars) {
                 stepSize = 1f
@@ -119,10 +109,7 @@ internal object DialogManager {
         disablePositiveButtonWhenDialogShows(dialog)
     }
 
-    internal fun createRatingStoreDialog(
-        context: Context,
-        dialogOptions: DialogOptions
-    ): AlertDialog {
+    internal fun createRatingStoreDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
         RatingLogger.debug("Creating store rating dialog.")
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -141,11 +128,10 @@ internal object DialogManager {
                     RatingLogger.info("Rate button clicked.")
                     PreferenceUtil.setDialogAgreed(context)
 
-                    button.rateDialogClickListener?.onClick()
-                        ?: run {
-                            RatingLogger.info("Default rate now button click listener called.")
-                            FeedbackUtils.openPlayStoreListing(context)
-                        }
+                    button.rateDialogClickListener?.onClick() ?: run {
+                        RatingLogger.info("Default rate now button click listener called.")
+                        FeedbackUtils.openPlayStoreListing(context)
+                    }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info("Additional rate now button click listener not set.")
                 }
@@ -156,10 +142,7 @@ internal object DialogManager {
         return builder.create()
     }
 
-    internal fun createMailFeedbackDialog(
-        context: Context,
-        dialogOptions: DialogOptions
-    ): AlertDialog {
+    internal fun createMailFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
         RatingLogger.debug("Creating mail feedback dialog.")
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -196,10 +179,7 @@ internal object DialogManager {
         }
     }
 
-    internal fun createCustomFeedbackDialog(
-        context: Context,
-        dialogOptions: DialogOptions
-    ): AlertDialog {
+    internal fun createCustomFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
         RatingLogger.debug("Creating custom feedback dialog.")
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -224,19 +204,15 @@ internal object DialogManager {
             }
             initializeNoFeedbackButton(context, dialogOptions.noFeedbackButton, this)
         }
-        return builder.create()
-            .also { dialog ->
-                initializeCustomFeedbackDialogButtonHandler(
-                    customFeedbackEditText,
-                    dialog,
-                )
-            }
+        return builder.create().also { dialog ->
+            initializeCustomFeedbackDialogButtonHandler(
+                customFeedbackEditText,
+                dialog,
+            )
+        }
     }
 
-    private fun initializeCustomFeedbackDialogButtonHandler(
-        editText: EditText,
-        dialog: AlertDialog
-    ) {
+    private fun initializeCustomFeedbackDialogButtonHandler(editText: EditText, dialog: AlertDialog) {
         editText.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {}
@@ -256,11 +232,7 @@ internal object DialogManager {
         }
     }
 
-    private fun initializeRatingDialogIcon(
-        context: Context,
-        imageView: ImageView,
-        dialogOptions: DialogOptions
-    ) {
+    private fun initializeRatingDialogIcon(context: Context, imageView: ImageView, dialogOptions: DialogOptions) {
         if (dialogOptions.iconDrawable != null) {
             RatingLogger.info("Use custom rating dialog icon.")
             imageView.setImageDrawable(dialogOptions.iconDrawable)
@@ -274,7 +246,7 @@ internal object DialogManager {
     private fun initializeRateLaterButton(
         context: Context,
         rateLaterButton: RateButton,
-        dialogBuilder: AlertDialog.Builder
+        dialogBuilder: AlertDialog.Builder,
     ) {
         dialogBuilder.setNeutralButton(rateLaterButton.textId) { _, _ ->
             RatingLogger.info("Rate later button clicked.")
@@ -287,16 +259,14 @@ internal object DialogManager {
     private fun initializeRateNeverButton(
         context: Context,
         dialogOptions: DialogOptions,
-        dialogBuilder: AlertDialog.Builder
+        dialogBuilder: AlertDialog.Builder,
     ) {
-        val countOfLaterButtonClicksToShowNeverButton =
-            dialogOptions.countOfLaterButtonClicksToShowNeverButton
+        val countOfLaterButtonClicksToShowNeverButton = dialogOptions.countOfLaterButtonClicksToShowNeverButton
         val numberOfLaterButtonClicks = PreferenceUtil.getNumberOfLaterButtonClicks(context)
         RatingLogger.debug("Rate later button was clicked $numberOfLaterButtonClicks times.")
         if (countOfLaterButtonClicksToShowNeverButton > numberOfLaterButtonClicks) {
             RatingLogger.info(
-                "Less than $countOfLaterButtonClicksToShowNeverButton later " +
-                    "button clicks. Rate never button won't be displayed.",
+                "Less than $countOfLaterButtonClicksToShowNeverButton later " + "button clicks. Rate never button won't be displayed.",
             )
             return
         }
@@ -314,7 +284,7 @@ internal object DialogManager {
     private fun initializeNoFeedbackButton(
         context: Context,
         noFeedbackButton: RateButton,
-        dialogBuilder: AlertDialog.Builder
+        dialogBuilder: AlertDialog.Builder,
     ) {
         noFeedbackButton.let { button ->
             dialogBuilder.setNegativeButton(button.textId) { _, _ ->
