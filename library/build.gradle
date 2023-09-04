@@ -27,6 +27,11 @@ android {
     kotlin {
         jvmToolchain 17
     }
+
+    // Workaround for https://github.com/gradle-nexus/publish-plugin/issues/208
+    publishing {
+        singleVariant("release")
+    }
 }
 
 def junitVersion = "5.10.0"
