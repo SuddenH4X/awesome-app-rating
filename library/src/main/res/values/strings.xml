@@ -25,7 +25,7 @@
     <string name="rating_dialog_feedback_custom_message">Suggest us what went wrong and we\'ll work on it.</string>
     <string name="rating_dialog_feedback_custom_button_submit">Submit</string>
 
-    <!-- logs -->
+    <!-- logs app rating -->
     <string name="rating_dialog_log_settings_reset" translatable="false">Settings were reset.</string>
     <string name="rating_dialog_log_use_custom_icon" translatable="false">Use custom icon drawable.</string>
     <string name="rating_dialog_log_use_custom_theme" translatable="false">Use custom theme.</string>
@@ -54,4 +54,34 @@
     <string name="rating_dialog_log_in_app_review_no_complete_listener" translatable="false">There\'s no completeListener for Google\'s in-app review.</string>
     <string name="rating_dialog_log_in_app_review_initial_request_not_successful" translatable="false">The initial request wasn\'t successful.</string>
     <string name="rating_dialog_log_in_app_review_not_successful" translatable="false">Google in-app review request wasn\'t successful. %1$s</string>
+
+    <!-- logs dialog manager -->
+    <string name="rating_dialog_log_rating_overview_creating_dialog" translatable="false">Creating rating overview dialog.</string>
+    <string name="rating_dialog_log_rating_overview_confirm_button_clicked" translatable="false">Confirm button clicked.</string>
+    <string name="rating_dialog_log_rating_overview_confirm_button_no_click_listener" translatable="false">Confirm button has no click listener.</string>
+    <string name="rating_dialog_log_rating_overview_above_threshold" translatable="false">Above threshold. Showing rating store dialog.</string>
+    <string name="rating_dialog_log_rating_overview_below_threshold_with_custom_feedback" translatable="false">Below threshold and custom feedback is enabled. Showing custom feedback dialog.</string>
+    <string name="rating_dialog_log_rating_overview_below_threshold_without_custom_feedback" translatable="false">Below threshold and custom feedback is disabled. Showing mail feedback dialog.</string>
+    <string name="rating_dialog_log_rating_store_creating_dialog" translatable="false">Creating store rating dialog.</string>
+    <string name="rating_dialog_log_rating_store_rate_button_clicked" translatable="false">Rate button clicked.</string>
+    <string name="rating_dialog_log_rating_store_default_click_listener" translatable="false">Default rate now button click listener called.</string>
+    <string name="rating_dialog_log_rating_store_additional_click_listener_not_set" translatable="false">Additional rate now button click listener not set.</string>
+    <string name="rating_dialog_log_mail_feedback_creating_dialog" translatable="false">Creating mail feedback dialog.</string>
+    <string name="rating_dialog_log_mail_feedback_button_clicked" translatable="false">Mail feedback button clicked.</string>
+    <string name="rating_dialog_log_mail_feedback_additional_click_listener_not_set" translatable="false">Additional mail feedback button click listener not set.</string>
+    <string name="rating_dialog_log_mail_feedback_no_mail_settings" translatable="false">Mail feedback button has no click listener and mail settings hasn\'t been set. Nothing happens.</string>
+    <string name="rating_dialog_log_custom_feedback_creating_dialog" translatable="false">Creating custom feedback dialog.</string>
+    <string name="rating_dialog_log_custom_feedback_button_clicked" translatable="false">Custom feedback button clicked.</string>
+    <string name="rating_dialog_log_custom_feedback_no_click_listener" translatable="false">Custom feedback button has no click listener. Nothing happens.</string>
+    <string name="rating_dialog_log_use_custom_rating_dialog_icon" translatable="false">Use custom rating dialog icon.</string>
+    <string name="rating_dialog_log_use_app_icon" translatable="false">Use app icon for rating dialog.</string>
+    <string name="rating_dialog_log_rate_later_button_clicked" translatable="false">Rate later button clicked.</string>
+    <string name="rating_dialog_log_rate_later_button_no_click_listener" translatable="false">Rate later button has no click listener.</string>
+    <string name="rating_dialog_log_rate_later_button_was_clicked" translatable="false">Rate later button was clicked %d times.</string>
+    <string name="rating_dialog_log_rate_later_button_dont_show_never" translatable="false">Less than %d later button clicks. Rate never button won\'t be displayed.</string>
+    <string name="rating_dialog_log_rate_never_button_clicked" translatable="false">Rate never button clicked.</string>
+    <string name="rating_dialog_log_rate_never_button_no_click_listener" translatable="false">Rate never button has no click listener.</string>
+    <string name="rating_dialog_log_no_feedback_button_clicked" translatable="false">No feedback button clicked.</string>
+    <string name="rating_dialog_log_no_feedback_button_no_click_listener" translatable="false">No feedback button has no click listener.</string>
+    <string name="rating_dialog_log_no_material_components_theme_used" translatable="false">This app doesn\'t use a MaterialComponents theme. Using normal AlertDialog instead.</string>
 </resources>
