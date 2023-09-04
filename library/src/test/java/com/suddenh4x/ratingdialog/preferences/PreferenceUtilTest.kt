@@ -42,7 +42,7 @@ class PreferenceUtilTest {
         every {
             context.getSharedPreferences(
                 PREF_FILE_NAME,
-                Context.MODE_PRIVATE
+                Context.MODE_PRIVATE,
             )
         } returns sharedPreferences
         every { sharedPreferences.edit() } returns editor
@@ -77,9 +77,9 @@ class PreferenceUtilTest {
         verify(exactly = 1) { editor.putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 2) }
     }
 
+    // fixme: The System class can't be mocked at the moment: https://github.com/mockk/mockk/issues/98
     @Test
     @Disabled
-    // fixme: The System class can't be mocked at the moment: https://github.com/mockk/mockk/issues/98
     fun `get remind timestamp returns current time if not set`() {
         mockkStatic(System::class)
         every { sharedPreferences.getLong(any(), any()) } returns -1L
@@ -90,7 +90,7 @@ class PreferenceUtilTest {
         verify(exactly = 1) {
             sharedPreferences.getLong(
                 PREF_KEY_REMIND_TIMESTAMP,
-                CURRENT_TIME_IN_MILLIS
+                CURRENT_TIME_IN_MILLIS,
             )
         }
     }

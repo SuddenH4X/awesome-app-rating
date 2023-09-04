@@ -109,7 +109,7 @@ class FeedbackUtilsTest {
             mockkStatic(Toast::class)
             every { anyConstructed<Intent>().resolveActivity(any()) } returns null
             every { Toast.makeText(context, any<String>(), Toast.LENGTH_LONG) } returns mockk(
-                relaxed = true
+                relaxed = true,
             )
             FeedbackUtils.openMailFeedback(context, mailSettings)
 
@@ -118,7 +118,7 @@ class FeedbackUtilsTest {
                 Toast.makeText(
                     context,
                     mailSettings.errorToastMessage,
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 )
             }
         }

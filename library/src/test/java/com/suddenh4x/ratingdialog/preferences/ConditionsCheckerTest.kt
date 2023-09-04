@@ -24,6 +24,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class ConditionsCheckerTest {
     @MockK
     lateinit var context: Context
+
     @MockK
     lateinit var activity: AppCompatActivity
     internal lateinit var dialogOptions: DialogOptions
@@ -100,8 +101,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
 
@@ -113,8 +114,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
 
@@ -126,8 +127,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
                 }
@@ -146,8 +147,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -158,8 +159,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -170,8 +171,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -221,8 +222,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -241,8 +242,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -253,8 +254,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -265,8 +266,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -293,8 +294,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -313,8 +314,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -325,8 +326,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -337,8 +338,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -423,8 +424,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -443,8 +444,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -455,8 +456,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -467,8 +468,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -518,8 +519,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
 
@@ -531,8 +532,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
 
@@ -544,8 +545,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
                 }
@@ -564,8 +565,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -576,8 +577,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -588,8 +589,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -616,8 +617,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
@@ -636,8 +637,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -648,8 +649,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isFalse()
                     }
 
@@ -660,8 +661,8 @@ class ConditionsCheckerTest {
                         assertThat(
                             ConditionsChecker.shouldShowDialog(
                                 context,
-                                dialogOptions
-                            )
+                                dialogOptions,
+                            ),
                         ).isTrue()
                     }
                 }
