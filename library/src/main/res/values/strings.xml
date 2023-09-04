@@ -24,4 +24,34 @@
     <!-- rating dialog custom feedback -->
     <string name="rating_dialog_feedback_custom_message">Suggest us what went wrong and we\'ll work on it.</string>
     <string name="rating_dialog_feedback_custom_button_submit">Submit</string>
+
+    <!-- logs -->
+    <string name="rating_dialog_log_settings_reset" translatable="false">Settings were reset.</string>
+    <string name="rating_dialog_log_use_custom_icon" translatable="false">Use custom icon drawable.</string>
+    <string name="rating_dialog_log_use_custom_theme" translatable="false">Use custom theme.</string>
+    <string name="rating_dialog_log_show_rate_never_button" translatable="false">Show rate never button.</string>
+    <string name="rating_dialog_log_show_rate_never_button_later" translatable="false">Show rate never button after %d later button clicks.</string>
+    <string name="rating_dialog_log_use_custom_feedback" translatable="false">Use custom feedback instead of mail feedback: %b.</string>
+    <string name="rating_dialog_log_set_rating_threshold" translatable="false">Set rating threshold to %d.</string>
+    <string name="rating_dialog_log_set_cancelable" translatable="false">Set cancelable to %b.</string>
+    <string name="rating_dialog_log_set_custom_condition" translatable="false">Custom condition set. This condition will be removed next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_set_custom_condition_to_show_again" translatable="false">Custom condition to show again set. This condition will be removed next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_dont_count_app_launch" translatable="false">countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_set_debug" translatable="false">Set debug to %b. Don\'t use this for production.</string>
+    <string name="rating_dialog_log_use_in_app_review" translatable="false">Use in-app review from Google instead of the library dialog.</string>
+    <string name="rating_dialog_log_create_not_possible_with_in_app_review" translatable="false">In-app review from Google will be used. Can\'t create the library dialog.</string>
+    <string name="rating_dialog_log_show_in_app_review" translatable="false">In-app review from Google will be displayed now.</string>
+    <string name="rating_dialog_log_show_library_dialog" translatable="false">In-app review from Google hasn\'t been activated. Showing library dialog now.</string>
+    <string name="rating_dialog_log_error_extend_from_fragment_activity" translatable="false">To use the libraries dialog your activity has to extend from FragmentActivity (e.g. AppCompatActivity).</string>
+    <string name="rating_dialog_log_stop_checking_conditions" translatable="false">Stop checking conditions, rating dialog is currently visible.</string>
+    <string name="rating_dialog_log_app_launch_counted" translatable="false">App launch will be counted: countAppLaunch is true.</string>
+    <string name="rating_dialog_log_app_launch_not_counted" translatable="false">App launch not counted this time: countAppLaunch has been set to false.</string>
+    <string name="rating_dialog_log_show_rating_dialog_now" translatable="false">Show rating dialog now: Conditions met.</string>
+    <string name="rating_dialog_log_dont_show_rating_dialog_now" translatable="false">Don\'t show rating dialog: Conditions not met.</string>
+    <string name="rating_dialog_log_in_app_review_review_manager_is_null" translatable="false">reviewManager is null. Did you call useGoogleInAppReview()?</string>
+    <string name="rating_dialog_log_in_app_review_initial_request_is_null" translatable="false">The result of the initial request is null.</string>
+    <string name="rating_dialog_log_in_app_review_completed" translatable="false">Google in-app review request completed.</string>
+    <string name="rating_dialog_log_in_app_review_no_complete_listener" translatable="false">There\'s no completeListener for Google\'s in-app review.</string>
+    <string name="rating_dialog_log_in_app_review_initial_request_not_successful" translatable="false">The initial request wasn\'t successful.</string>
+    <string name="rating_dialog_log_in_app_review_not_successful" translatable="false">Google in-app review request wasn\'t successful. %1$s</string>
 </resources>
