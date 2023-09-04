@@ -19,6 +19,7 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
+import com.suddenh4x.ratingdialog.preferences.toFloat
 import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 
 object AppRating {
@@ -199,7 +200,7 @@ object AppRating {
 
         fun setRatingThreshold(ratingThreshold: RatingThreshold) = apply {
             dialogOptions.ratingThreshold = ratingThreshold
-            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_rating_threshold, ratingThreshold.ordinal / 2))
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_rating_threshold, ratingThreshold.toFloat()))
         }
 
         fun setCancelable(cancelable: Boolean) = apply {

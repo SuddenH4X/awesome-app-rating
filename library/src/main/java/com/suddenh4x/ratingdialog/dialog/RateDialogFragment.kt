@@ -30,14 +30,17 @@ internal class RateDialogFragment : DialogFragment() {
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
