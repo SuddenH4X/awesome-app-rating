@@ -6,5 +6,5 @@ data class MailSettings(
     val mailAddress: String,
     val subject: String,
     val text: String? = null,
-    val errorToastMessage: String? = null
+    val errorToastMessage: String? = null,
 ) : Serializable

@@ -3,6 +3,7 @@ package com.suddenh4x.ratingdialog.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 
 internal object PreferenceUtil {
@@ -28,13 +29,13 @@ internal object PreferenceUtil {
         getPreferences(context).edit {
             putInt(PREF_KEY_LAUNCH_TIMES, launchTimes + 1)
         }
-        RatingLogger.verbose("Increased launch times by 1. It's now ${launchTimes + 1}.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_launch_times_increased, launchTimes + 1))
     }
 
     fun getLaunchTimes(context: Context) = getPreferences(context).getInt(PREF_KEY_LAUNCH_TIMES, 0)
 
     fun setMinimumLaunchTimes(context: Context, minimumLaunchTimes: Int) {
-        RatingLogger.verbose("Set minimum launch times to $minimumLaunchTimes.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_minimum_launch_times_set, minimumLaunchTimes))
         getPreferences(context).edit {
             putInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, minimumLaunchTimes)
         }
@@ -44,7 +45,7 @@ internal object PreferenceUtil {
         getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES, 5)
 
     fun setMinimumLaunchTimesToShowAgain(context: Context, minimumLaunchTimes: Int) {
-        RatingLogger.verbose("Set minimum launch times to show the dialog again to $minimumLaunchTimes.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_minimum_launch_times_to_show_again_set, minimumLaunchTimes))
         getPreferences(context).edit {
             putInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, minimumLaunchTimes)
         }
@@ -54,7 +55,7 @@ internal object PreferenceUtil {
         getPreferences(context).getInt(PREF_KEY_MINIMUM_LAUNCH_TIMES_TO_SHOW_AGAIN, 5)
 
     fun setMinimumDays(context: Context, minimumDays: Int) {
-        RatingLogger.verbose("Set minimum days to $minimumDays.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_minimum_days_set, minimumDays))
         getPreferences(context).edit {
             putInt(PREF_KEY_MINIMUM_DAYS, minimumDays)
         }
@@ -63,7 +64,7 @@ internal object PreferenceUtil {
     fun getMinimumDays(context: Context) = getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS, 3)
 
     fun setMinimumDaysToShowAgain(context: Context, minimumDays: Int) {
-        RatingLogger.verbose("Set minimum days to show the dialog again to $minimumDays.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_minimum_days_to_show_again_set, minimumDays))
         getPreferences(context).edit {
             putInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, minimumDays)
         }
@@ -73,10 +74,7 @@ internal object PreferenceUtil {
         getPreferences(context).getInt(PREF_KEY_MINIMUM_DAYS_TO_SHOW_AGAIN, 14)
 
     fun onLaterButtonClicked(context: Context) {
-        RatingLogger.verbose(
-            "Later button was clicked or dialog was canceled. Update remind timestamp " +
-                "and set launch times to 0."
-        )
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_later_button_clicked))
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
@@ -86,10 +84,7 @@ internal object PreferenceUtil {
     }
 
     fun onGoogleInAppReviewFlowCompleted(context: Context) {
-        RatingLogger.verbose(
-            "Google in-app review flow has been completed. Update remind timestamp " +
-                "and set launch times to 0."
-        )
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_in_app_review_completed))
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, System.currentTimeMillis())
             putInt(PREF_KEY_LAUNCH_TIMES, 0)
@@ -106,7 +101,7 @@ internal object PreferenceUtil {
     }
 
     private fun setInitialRemindTimestamp(context: Context): Long {
-        RatingLogger.debug("First app start. Set initial remind timestamp.")
+        RatingLogger.debug(context.getString(R.string.rating_dialog_log_preference_initial_timestamp_set))
         val currentTime = System.currentTimeMillis()
         getPreferences(context).edit {
             putLong(PREF_KEY_REMIND_TIMESTAMP, currentTime)
@@ -115,7 +110,7 @@ internal object PreferenceUtil {
     }
 
     fun setDialogAgreed(context: Context) {
-        RatingLogger.debug("Set dialog agreed.")
+        RatingLogger.debug(context.getString(R.string.rating_dialog_log_preference_dialog_agreed))
         getPreferences(context).edit {
             putBoolean(PREF_KEY_DIALOG_AGREED, true)
         }
@@ -132,14 +127,14 @@ internal object PreferenceUtil {
         getPreferences(context).edit {
             putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, numberOfLaterButtonClicks + 1)
         }
-        RatingLogger.verbose("Increased number of later button clicks by 1. It's now ${numberOfLaterButtonClicks + 1}.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_preference_increase_later_button_clicks, numberOfLaterButtonClicks + 1))
     }
 
     fun getNumberOfLaterButtonClicks(context: Context) =
         getPreferences(context).getInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 0)
 
     fun setDoNotShowAgain(context: Context) {
-        RatingLogger.debug("Set do not show again.")
+        RatingLogger.debug(context.getString(R.string.rating_dialog_log_preference_dont_show_again))
         getPreferences(context).edit {
             putBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, true)
         }
@@ -149,7 +144,7 @@ internal object PreferenceUtil {
         getPreferences(context).getBoolean(PREF_KEY_DIALOG_DO_NOT_SHOW_AGAIN, false)
 
     fun reset(context: Context) {
-        RatingLogger.warn("Clearing all settings.")
+        RatingLogger.warn(context.getString(R.string.rating_dialog_log_preference_reset))
         getPreferences(context).edit {
             clear()
         }

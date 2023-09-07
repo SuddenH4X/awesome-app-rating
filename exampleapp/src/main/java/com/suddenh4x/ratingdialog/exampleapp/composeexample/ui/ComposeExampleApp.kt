@@ -72,7 +72,7 @@ private fun ComposeExampleTopAppBar(finishActivity: () -> Unit) {
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary,
-        )
+        ),
     )
 }
 
@@ -119,7 +119,7 @@ fun ComposeExampleAppPreview() {
         uiState = ComposeExampleUiState.NoSnackbar,
         openGoogleInAppReview = {},
         dismissSnackbar = {},
-        finishActivity = {}
+        finishActivity = {},
     )
 }
 

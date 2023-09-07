@@ -26,7 +26,7 @@ class ComposeExampleActivity : ComponentActivity() {
                 uiState = uiState,
                 openGoogleInAppReview = ::openGoogleInAppReview,
                 dismissSnackbar = viewModel::dismissSnackbar,
-                finishActivity = ::finish
+                finishActivity = ::finish,
             )
         }
     }

@@ -34,6 +34,8 @@ class FeedbackUtilsTest {
         RatingLogger.isLoggingEnabled = false
         mockkStatic(Uri::class)
         every { Uri.parse(any()) } returns uri
+        every { context.getString(any()) } returns ""
+        every { context.getString(any(), any()) } returns ""
     }
 
     @Nested
@@ -109,7 +111,7 @@ class FeedbackUtilsTest {
             mockkStatic(Toast::class)
             every { anyConstructed<Intent>().resolveActivity(any()) } returns null
             every { Toast.makeText(context, any<String>(), Toast.LENGTH_LONG) } returns mockk(
-                relaxed = true
+                relaxed = true,
             )
             FeedbackUtils.openMailFeedback(context, mailSettings)
 
@@ -118,7 +120,7 @@ class FeedbackUtilsTest {
                 Toast.makeText(
                     context,
                     mailSettings.errorToastMessage,
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 )
             }
         }
