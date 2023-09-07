@@ -32,7 +32,7 @@
     <string name="rating_dialog_log_show_rate_never_button" translatable="false">Show rate never button.</string>
     <string name="rating_dialog_log_show_rate_never_button_later" translatable="false">Show rate never button after %d later button clicks.</string>
     <string name="rating_dialog_log_use_custom_feedback" translatable="false">Use custom feedback instead of mail feedback: %b.</string>
-    <string name="rating_dialog_log_set_rating_threshold" translatable="false">Set rating threshold to %d.</string>
+    <string name="rating_dialog_log_set_rating_threshold" translatable="false">Set rating threshold to %f.</string>
     <string name="rating_dialog_log_set_cancelable" translatable="false">Set cancelable to %b.</string>
     <string name="rating_dialog_log_set_custom_condition" translatable="false">Custom condition set. This condition will be removed next time you call the Builder constructor.</string>
     <string name="rating_dialog_log_set_custom_condition_to_show_again" translatable="false">Custom condition to show again set. This condition will be removed next time you call the Builder constructor.</string>
