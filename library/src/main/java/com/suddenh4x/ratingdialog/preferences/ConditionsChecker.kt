@@ -1,6 +1,7 @@
 package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
+import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import java.util.Date
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit
 internal object ConditionsChecker {
 
     fun shouldShowDialog(context: Context, dialogOptions: DialogOptions): Boolean {
-        RatingLogger.info("Checking conditions.")
+        RatingLogger.info(context.getString(R.string.rating_dialog_log_conditions_checker_checking))
         val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
         val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
         val remindTimestamp = PreferenceUtil.getRemindTimestamp(context)
@@ -17,13 +18,13 @@ internal object ConditionsChecker {
         val currentTimestamp = System.currentTimeMillis()
         val daysBetween = calculateDaysBetween(Date(remindTimestamp), Date(currentTimestamp))
 
-        RatingLogger.verbose("Is dialog agreed: $isDialogAgreed.")
-        RatingLogger.verbose("Do not show again: $isDoNotShowAgain.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_dialog_agreed, isDialogAgreed))
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_dont_show_again, isDoNotShowAgain))
 
         if (wasLaterButtonClicked) {
-            RatingLogger.debug("Show later button has already been clicked.")
-            RatingLogger.verbose("Days between later button click and now: $daysBetween.")
-            if (!checkCustomConditionToShowAgain(dialogOptions)) return false
+            RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_show_later_button_clicked))
+            RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_later_button_days_between, daysBetween))
+            if (!checkCustomConditionToShowAgain(context, dialogOptions)) return false
 
             return (
                 !isDialogAgreed && !isDoNotShowAgain &&
@@ -33,10 +34,10 @@ internal object ConditionsChecker {
                 )
         }
 
-        if (!checkCustomCondition(dialogOptions)) return false
+        if (!checkCustomCondition(context, dialogOptions)) return false
 
-        RatingLogger.verbose("Days between first app start and now: $daysBetween.")
-        RatingLogger.debug("Show later button hasn't been clicked until now.")
+        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_days_between, daysBetween))
+        RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_later_button_not_clicked))
         return (
             !isDialogAgreed && !isDoNotShowAgain &&
                 daysBetween >= PreferenceUtil.getMinimumDays(context) &&
@@ -49,21 +50,21 @@ internal object ConditionsChecker {
         return TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
     }
 
-    private fun checkCustomCondition(dialogOptions: DialogOptions): Boolean {
+    private fun checkCustomCondition(context: Context, dialogOptions: DialogOptions): Boolean {
         dialogOptions.customCondition?.let { condition ->
             val conditionResult = condition()
-            RatingLogger.info("Custom condition found. Condition result is: $conditionResult.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_conditions_checker_custom_condition, conditionResult))
             return conditionResult
-        } ?: RatingLogger.debug("No custom condition was set.")
+        } ?: RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_no_custom_condition))
         return true
     }
 
-    private fun checkCustomConditionToShowAgain(dialogOptions: DialogOptions): Boolean {
+    private fun checkCustomConditionToShowAgain(context: Context, dialogOptions: DialogOptions): Boolean {
         dialogOptions.customConditionToShowAgain?.let { condition ->
             val conditionResult = condition()
-            RatingLogger.info("Custom condition to show again found. Condition result is: $conditionResult.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_conditions_checker_custom_condition_to_show_again, conditionResult))
             return conditionResult
-        } ?: RatingLogger.debug("No custom condition to show again was set.")
+        } ?: RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_no_custom_condition_to_show_again))
         return true
     }
 }

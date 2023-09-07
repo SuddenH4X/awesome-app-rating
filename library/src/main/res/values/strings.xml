@@ -84,4 +84,21 @@
     <string name="rating_dialog_log_no_feedback_button_clicked" translatable="false">No feedback button clicked.</string>
     <string name="rating_dialog_log_no_feedback_button_no_click_listener" translatable="false">No feedback button has no click listener.</string>
     <string name="rating_dialog_log_no_material_components_theme_used" translatable="false">This app doesn\'t use a MaterialComponents theme. Using normal AlertDialog instead.</string>
+
+    <!-- logs rate dialog fragment -->
+    <string name="rating_dialog_log_rate_dialog_was_canceled" translatable="false">Dialog was canceled.</string>
+    <string name="rating_dialog_log_rate_dialog_cancel_listener_not_set" translatable="false">Dialog cancel listener isn\'t set.</string>
+
+    <!-- conditions checker -->
+    <string name="rating_dialog_log_conditions_checker_checking" translatable="false">Checking conditions.</string>
+    <string name="rating_dialog_log_conditions_checker_dialog_agreed" translatable="false">Is dialog agreed: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_dont_show_again" translatable="false">Do not show again: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_show_later_button_clicked" translatable="false">Show later button has already been clicked.</string>
+    <string name="rating_dialog_log_conditions_checker_later_button_days_between" translatable="false">Days between later button click and now: %d.</string>
+    <string name="rating_dialog_log_conditions_checker_days_between" translatable="false">Days between first app start and now: %d.</string>
+    <string name="rating_dialog_log_conditions_checker_later_button_not_clicked" translatable="false">Show later button hasn\'t been clicked until now.</string>
+    <string name="rating_dialog_log_conditions_checker_custom_condition" translatable="false">Custom condition found. Condition result is: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_no_custom_condition" translatable="false">No custom condition was set.</string>
+    <string name="rating_dialog_log_conditions_checker_custom_condition_to_show_again" translatable="false">Custom condition to show again found. Condition result is: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_no_custom_condition_to_show_again" translatable="false">No custom condition to show again was set.</string>
 </resources>
