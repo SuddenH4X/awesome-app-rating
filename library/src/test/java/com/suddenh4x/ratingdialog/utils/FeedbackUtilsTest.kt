@@ -34,6 +34,8 @@ class FeedbackUtilsTest {
         RatingLogger.isLoggingEnabled = false
         mockkStatic(Uri::class)
         every { Uri.parse(any()) } returns uri
+        every { context.getString(any()) } returns ""
+        every { context.getString(any(), any()) } returns ""
     }
 
     @Nested

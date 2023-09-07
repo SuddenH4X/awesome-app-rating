@@ -46,6 +46,8 @@ class PreferenceUtilTest {
             )
         } returns sharedPreferences
         every { sharedPreferences.edit() } returns editor
+        every { context.getString(any()) } returns ""
+        every { context.getString(any(), any()) } returns ""
     }
 
     @AfterEach

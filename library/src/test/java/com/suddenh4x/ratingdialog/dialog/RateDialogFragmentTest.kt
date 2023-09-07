@@ -130,6 +130,8 @@ class RateDialogFragmentTest {
 
         @Test
         fun `calls PreferenceUtils_onLaterButtonClicked`() {
+            every { rateDialogFragmentSpy.getString(any()) } returns ""
+
             rateDialogFragmentSpy.onCancel(mockk())
 
             verify(exactly = 1) { PreferenceUtil.onLaterButtonClicked(any()) }
@@ -140,6 +142,7 @@ class RateDialogFragmentTest {
             val dialogCancelListener: () -> Unit = mockk()
             every { dialogCancelListener() } just Runs
             every { dialogOptions.dialogCancelListener } returns dialogCancelListener
+            every { rateDialogFragmentSpy.getString(any()) } returns ""
 
             rateDialogFragmentSpy.onCancel(mockk())
 

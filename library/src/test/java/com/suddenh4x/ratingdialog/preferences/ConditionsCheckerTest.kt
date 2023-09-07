@@ -36,6 +36,8 @@ class ConditionsCheckerTest {
         every { PreferenceUtil.isDialogAgreed(context) } returns false
         every { PreferenceUtil.isDoNotShowAgain(context) } returns false
         every { PreferenceUtil.getRemindTimestamp(context) } returns 0
+        every { context.getString(any()) } returns ""
+        every { context.getString(any(), any()) } returns ""
         dialogOptions = DialogOptions()
     }
 
