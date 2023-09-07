@@ -101,4 +101,18 @@
     <string name="rating_dialog_log_conditions_checker_no_custom_condition" translatable="false">No custom condition was set.</string>
     <string name="rating_dialog_log_conditions_checker_custom_condition_to_show_again" translatable="false">Custom condition to show again found. Condition result is: %b.</string>
     <string name="rating_dialog_log_conditions_checker_no_custom_condition_to_show_again" translatable="false">No custom condition to show again was set.</string>
+
+    <!-- preference utils -->
+    <string name="rating_dialog_log_preference_launch_times_increased" translatable="false">Increased launch times by 1. It\'s now %d.</string>
+    <string name="rating_dialog_log_preference_minimum_launch_times_set" translatable="false">Set minimum launch times to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_launch_times_to_show_again_set" translatable="false">Set minimum launch times to show the dialog again to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_days_set" translatable="false">Set minimum days to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_days_to_show_again_set" translatable="false">Set minimum days to show the dialog again to %d.</string>
+    <string name="rating_dialog_log_preference_later_button_clicked" translatable="false">Later button was clicked or dialog was canceled. Update remind timestamp and set launch times to 0.</string>
+    <string name="rating_dialog_log_preference_in_app_review_completed" translatable="false">Google in-app review flow has been completed. Update remind timestamp and set launch times to 0.</string>
+    <string name="rating_dialog_log_preference_initial_timestamp_set" translatable="false">First app start. Set initial remind timestamp.</string>
+    <string name="rating_dialog_log_preference_dialog_agreed" translatable="false">Set dialog agreed.</string>
+    <string name="rating_dialog_log_preference_increase_later_button_clicks" translatable="false">Increased number of later button clicks by 1. It\'s now %d.</string>
+    <string name="rating_dialog_log_preference_dont_show_again" translatable="false">Set do not show again.</string>
+    <string name="rating_dialog_log_preference_reset" translatable="false">Clearing all settings.</string>
 </resources>
