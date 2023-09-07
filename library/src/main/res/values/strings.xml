@@ -115,4 +115,11 @@
     <string name="rating_dialog_log_preference_increase_later_button_clicks" translatable="false">Increased number of later button clicks by 1. It\'s now %d.</string>
     <string name="rating_dialog_log_preference_dont_show_again" translatable="false">Set do not show again.</string>
     <string name="rating_dialog_log_preference_reset" translatable="false">Clearing all settings.</string>
+
+    <!-- feedback utils -->
+    <string name="rating_dialog_log_feedback_utils_open_rating_url" translatable="false">Open rating url (in app): %s.</string>
+    <string name="rating_dialog_log_feedback_utils_play_store_not_found" translatable="false">Google Play Store was not found on this device. Calling web url now.</string>
+    <string name="rating_dialog_log_feedback_utils_open_rating_url_web" translatable="false">Open rating url (web): %s.</string>
+    <string name="rating_dialog_log_feedback_utils_open_mail_app" translatable="false">Open mail app.</string>
+    <string name="rating_dialog_log_feedback_utils_mail_app_not_found" translatable="false">No mail app is installed. Showing error toast now.</string>
 </resources>

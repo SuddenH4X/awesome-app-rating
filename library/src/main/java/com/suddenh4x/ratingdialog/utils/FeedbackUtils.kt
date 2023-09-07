@@ -17,13 +17,13 @@ internal object FeedbackUtils {
     fun openPlayStoreListing(context: Context) {
         try {
             val uri = Uri.parse(GOOGLE_PLAY_IN_APP_URL + context.packageName)
-            RatingLogger.info("Open rating url (in app): $uri.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_feedback_utils_open_rating_url, uri))
             val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(googlePlayIntent)
         } catch (activityNotFoundException: ActivityNotFoundException) {
-            RatingLogger.info("Google Play Store was not found on this device. Calling web url now.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_feedback_utils_play_store_not_found))
             val uri = Uri.parse(GOOGLE_PLAY_WEB_URL + context.packageName)
-            RatingLogger.info("Open rating url (web): $uri.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_feedback_utils_open_rating_url_web, uri))
             val googlePlayIntent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(googlePlayIntent)
         }
@@ -39,11 +39,11 @@ internal object FeedbackUtils {
 
         if (mailIntent.resolveActivity(context.packageManager) != null) {
             context.startActivity(mailIntent)
-            RatingLogger.info("Open mail app.")
+            RatingLogger.info(context.getString(R.string.rating_dialog_log_feedback_utils_open_mail_app))
         } else {
             val errorMessage = settings.errorToastMessage
                 ?: context.getString(R.string.rating_dialog_feedback_mail_no_mail_error)
-            RatingLogger.error("No mail app is installed. Showing error toast now.")
+            RatingLogger.error(context.getString(R.string.rating_dialog_log_feedback_utils_mail_app_not_found))
             Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
