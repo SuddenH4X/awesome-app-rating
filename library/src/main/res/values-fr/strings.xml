@@ -1,0 +1,27 @@
+<resources>
+    <string name="rating_dialog_button_rate_later">Plus tard</string>
+    <string name="rating_dialog_button_rate_never">Jamais</string>
+
+    <!-- rating dialog overview -->
+    <string name="rating_dialog_overview_image_content_description">Icône de l\'application</string>
+    <string name="rating_dialog_overview_title">Comment s\'est passée votre expérience avec cette application?</string>
+    <string name="rating_dialog_overview_button_confirm">Confirmer</string>
+
+    <!-- rating dialog store -->
+    <string name="rating_dialog_store_title">Évaluation du magasin</string>
+    <string name="rating_dialog_store_message">Si vous aimez utiliser cette application, pourriez-vous prendre un moment pour l\'évaluer? Merci pour votre aide!</string>
+    <string name="rating_dialog_store_button_rate_now">Taux</string>
+
+    <!-- rating dialog feedback -->
+    <string name="rating_dialog_feedback_title">Donner votre retour</string>
+    <string name="rating_dialog_feedback_button_cancel">Annuler</string>
+
+    <!-- rating dialog mail feedback -->
+    <string name="rating_dialog_feedback_mail_message">Nous souhaitons améliorer l\'application avec votre aide. Voulez-vous envoyer un e-mail avec vos suggestions?</string>
+    <string name="rating_dialog_feedback_mail_button_send">Envoyer</string>
+    <string name="rating_dialog_feedback_mail_no_mail_error">Pour envoyer des commentaires par courrier, vous avez besoin d\'une application de messagerie!</string>
+
+    <!-- rating dialog custom feedback -->
+    <string name="rating_dialog_feedback_custom_message">Suggérez-nous ce qui n\'a pas fonctionné et nous y travaillerons.</string>
+    <string name="rating_dialog_feedback_custom_button_submit">Soumettre</string>
+</resources>
