@@ -1,6 +1,6 @@
 <resources>
     <string name="rating_dialog_button_rate_later">後で</string>
-    <string name="rating_dialog_button_rate_never">一度もない</string>
+    <string name="rating_dialog_button_rate_never">一度もないです。</string>
 
     <!-- rating dialog overview -->
     <string name="rating_dialog_overview_image_content_description">アプリアイコン</string>
