@@ -1,0 +1,27 @@
+<resources>
+    <string name="rating_dialog_button_rate_later">後で</string>
+    <string name="rating_dialog_button_rate_never">一度もない</string>
+
+    <!-- rating dialog overview -->
+    <string name="rating_dialog_overview_image_content_description">アプリアイコン</string>
+    <string name="rating_dialog_overview_title">このアプリを使ってみてどうでしたか?</string>
+    <string name="rating_dialog_overview_button_confirm">確認する</string>
+
+    <!-- rating dialog store -->
+    <string name="rating_dialog_store_title">ストアの評価</string>
+    <string name="rating_dialog_store_message">このアプリを気に入っていただけましたら、評価していただけませんか?ご協力ありがとうございました！</string>
+    <string name="rating_dialog_store_button_rate_now">レート</string>
+
+    <!-- rating dialog feedback -->
+    <string name="rating_dialog_feedback_title">フィードバックを与えます</string>
+    <string name="rating_dialog_feedback_button_cancel">キャンセル</string>
+
+    <!-- rating dialog mail feedback -->
+    <string name="rating_dialog_feedback_mail_message">私たちはあなたの助けを借りてアプリを改善したいと考えています。ご提案をメールで送信してみませんか?</string>
+    <string name="rating_dialog_feedback_mail_button_send">送信</string>
+    <string name="rating_dialog_feedback_mail_no_mail_error">メールでフィードバックを送信するには、メール アプリが必要です。</string>
+
+    <!-- rating dialog custom feedback -->
+    <string name="rating_dialog_feedback_custom_message">何が問題だったのかを提案してください。解決していきます。</string>
+    <string name="rating_dialog_feedback_custom_button_submit">提出する</string>
+</resources>
