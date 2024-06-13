@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.suddenh4x.ratingdialog.enums.AppStore
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import io.mockk.Runs
@@ -51,7 +52,7 @@ class FeedbackUtilsTest {
         fun `opens correct in app url`() {
             every { context.startActivity(any()) } just Runs
 
-            FeedbackUtils.openPlayStoreListing(context)
+            FeedbackUtils.openStoreListing(context, store = AppStore.GOOGLE_PLAYSTORE)
             verify(exactly = 1) { Uri.parse(any()) }
             verify(exactly = 1) { Uri.parse(FeedbackUtils.GOOGLE_PLAY_IN_APP_URL + PACKAGE_NAME) }
             verify(exactly = 1) { context.startActivity(any()) }
@@ -61,7 +62,7 @@ class FeedbackUtilsTest {
         fun `opens correct web url if Play Store hasn't been found`() {
             every { context.startActivity(any()) } throws ActivityNotFoundException() andThen {}
 
-            FeedbackUtils.openPlayStoreListing(context)
+            FeedbackUtils.openStoreListing(context, AppStore.GOOGLE_PLAYSTORE)
             verify(exactly = 2) { Uri.parse(any()) }
             verify(exactly = 1) { Uri.parse(FeedbackUtils.GOOGLE_PLAY_IN_APP_URL + PACKAGE_NAME) }
             verify(exactly = 1) { Uri.parse(FeedbackUtils.GOOGLE_PLAY_WEB_URL + PACKAGE_NAME) }

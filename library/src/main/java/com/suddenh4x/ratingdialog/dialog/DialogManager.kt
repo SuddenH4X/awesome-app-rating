@@ -123,7 +123,7 @@ internal object DialogManager {
 
                     button.rateDialogClickListener?.onClick() ?: run {
                         RatingLogger.info(context.getString(R.string.rating_dialog_log_rating_store_default_click_listener))
-                        FeedbackUtils.openPlayStoreListing(context)
+                        FeedbackUtils.openStoreListing(context, dialogOptions.storeMode)
                     }
                     dialogOptions.additionalRateNowButtonClickListener?.onClick()
                         ?: RatingLogger.info(context.getString(R.string.rating_dialog_log_rating_store_additional_click_listener_not_set))

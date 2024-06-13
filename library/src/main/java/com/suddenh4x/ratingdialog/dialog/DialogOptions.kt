@@ -7,6 +7,7 @@ import com.suddenh4x.ratingdialog.buttons.ConfirmButton
 import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButton
 import com.suddenh4x.ratingdialog.buttons.RateButton
 import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
+import com.suddenh4x.ratingdialog.enums.AppStore
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import java.io.Serializable
@@ -35,6 +36,7 @@ internal class DialogOptions : Serializable {
     var messageTextId: Int? = null
     var confirmButton = ConfirmButton(R.string.rating_dialog_overview_button_confirm, null)
     var showOnlyFullStars = false
+    var storeMode = AppStore.AUTO
 
     /**
      * rating dialog store
