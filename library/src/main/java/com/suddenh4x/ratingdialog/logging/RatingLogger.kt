@@ -7,32 +7,22 @@ internal object RatingLogger {
     var isLoggingEnabled = true
 
     fun verbose(logMessage: String) {
-        if (isLoggingEnabled) {
-            Log.v(TAG, logMessage)
-        }
+        if (isLoggingEnabled) Log.v(TAG, logMessage)
     }
 
     fun debug(logMessage: String) {
-        if (isLoggingEnabled) {
-            Log.d(TAG, logMessage)
-        }
+        if (isLoggingEnabled) Log.d(TAG, logMessage)
     }
 
     fun info(logMessage: String) {
-        if (isLoggingEnabled) {
-            Log.i(TAG, logMessage)
-        }
+        if (isLoggingEnabled) Log.i(TAG, logMessage)
     }
 
     fun warn(logMessage: String) {
-        if (isLoggingEnabled) {
-            Log.w(TAG, logMessage)
-        }
+        if (isLoggingEnabled) Log.w(TAG, logMessage)
     }
 
     fun error(logMessage: String) {
-        if (isLoggingEnabled) {
-            Log.e(TAG, logMessage)
-        }
+        if (isLoggingEnabled) Log.e(TAG, logMessage)
     }
 }

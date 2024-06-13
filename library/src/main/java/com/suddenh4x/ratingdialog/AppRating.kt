@@ -20,13 +20,14 @@ import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 import com.suddenh4x.ratingdialog.preferences.RatingThreshold
+import com.suddenh4x.ratingdialog.preferences.toFloat
 import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 
 object AppRating {
 
     fun reset(context: Context) {
         PreferenceUtil.reset(context)
-        RatingLogger.warn("Settings were reset.")
+        RatingLogger.warn(context.getString(R.string.rating_dialog_log_settings_reset))
     }
 
     fun isDialogAgreed(context: Context) = PreferenceUtil.isDialogAgreed(context)
@@ -35,11 +36,9 @@ object AppRating {
 
     fun wasNeverButtonClicked(context: Context) = PreferenceUtil.isDoNotShowAgain(context)
 
-    fun getNumberOfLaterButtonClicks(context: Context) =
-        PreferenceUtil.getNumberOfLaterButtonClicks(context)
+    fun getNumberOfLaterButtonClicks(context: Context) = PreferenceUtil.getNumberOfLaterButtonClicks(context)
 
-    fun openMailFeedback(context: Context, mailSettings: MailSettings) =
-        FeedbackUtils.openMailFeedback(context, mailSettings)
+    fun openMailFeedback(context: Context, mailSettings: MailSettings) = FeedbackUtils.openMailFeedback(context, mailSettings)
 
     fun openStoreListing(context: Context, appStore: AppStore) = FeedbackUtils.openStoreListing(context, appStore)
 
@@ -48,53 +47,50 @@ object AppRating {
         internal var reviewManager: ReviewManager? = null
         private var dialogOptions = DialogOptions()
 
-        internal constructor(componentActivity: ComponentActivity, dialogOptions: DialogOptions) : this(
-            componentActivity,
-        ) {
+        internal constructor(componentActivity: ComponentActivity, dialogOptions: DialogOptions) : this(componentActivity) {
             this.dialogOptions = dialogOptions
         }
 
         fun setIconDrawable(iconDrawable: Drawable?) = apply {
             dialogOptions.iconDrawable = iconDrawable
-            RatingLogger.debug("Use custom icon drawable.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_use_custom_icon))
         }
 
         fun setCustomTheme(customTheme: Int) = apply {
             dialogOptions.customTheme = customTheme
-            RatingLogger.debug("Use custom theme.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_use_custom_theme))
         }
 
         fun setRateLaterButtonTextId(@StringRes rateLaterButtonTextId: Int) = apply {
             dialogOptions.rateLaterButton.textId = rateLaterButtonTextId
         }
 
-        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.rateLaterButton.rateDialogClickListener =
-                    rateLaterButtonClickListener
-            }
+        fun setRateLaterButtonClickListener(rateLaterButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.rateLaterButton.rateDialogClickListener = rateLaterButtonClickListener
+        }
 
         fun showRateNeverButton(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
-            rateNeverButtonClickListener: RateDialogClickListener? = null
+            rateNeverButtonClickListener: RateDialogClickListener? = null,
         ) = apply {
-            dialogOptions.rateNeverButton =
-                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
-            RatingLogger.debug("Show rate never button.")
+            dialogOptions.rateNeverButton = RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_show_rate_never_button))
         }
 
         fun showRateNeverButtonAfterNTimes(
             @StringRes rateNeverButtonTextId: Int = R.string.rating_dialog_button_rate_never,
             rateNeverButtonClickListener: RateDialogClickListener? = null,
-            countOfLaterButtonClicks: Int
+            countOfLaterButtonClicks: Int,
         ) = apply {
-            dialogOptions.rateNeverButton =
-                RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
+            dialogOptions.rateNeverButton = RateButton(rateNeverButtonTextId, rateNeverButtonClickListener)
             dialogOptions.countOfLaterButtonClicksToShowNeverButton = countOfLaterButtonClicks
-            RatingLogger.debug("Show rate never button after $countOfLaterButtonClicks later button clicks.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_show_rate_never_button_later, countOfLaterButtonClicks))
         }
 
-        // rating dialog overview
+        /**
+         * rating dialog overview
+         */
+
         fun setTitleTextId(@StringRes titleTextId: Int) = apply {
             dialogOptions.titleTextId = titleTextId
         }
@@ -107,16 +103,18 @@ object AppRating {
             dialogOptions.confirmButton.textId = confirmButtonTextId
         }
 
-        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) =
-            apply {
-                dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
-            }
+        fun setConfirmButtonClickListener(confirmButtonClickListener: ConfirmButtonClickListener) = apply {
+            dialogOptions.confirmButton.confirmButtonClickListener = confirmButtonClickListener
+        }
 
         fun setShowOnlyFullStars(showOnlyFullStars: Boolean) = apply {
             dialogOptions.showOnlyFullStars = showOnlyFullStars
         }
 
-        // rating dialog store
+        /**
+         * rating dialog store
+         */
+
         fun setStoreRatingTitleTextId(@StringRes storeRatingTitleTextId: Int) = apply {
             dialogOptions.storeRatingTitleTextId = storeRatingTitleTextId
         }
@@ -129,18 +127,17 @@ object AppRating {
             dialogOptions.rateNowButton.textId = rateNowButtonTextId
         }
 
-        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
-            }
+        fun overwriteRateNowButtonClickListener(rateNowButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.rateNowButton.rateDialogClickListener = rateNowButtonClickListener
+        }
 
         fun setAdditionalRateNowButtonClickListener(additionalRateNowButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.additionalRateNowButtonClickListener =
-                    additionalRateNowButtonClickListener
-            }
+            apply { dialogOptions.additionalRateNowButtonClickListener = additionalRateNowButtonClickListener }
 
-        // rating dialog feedback
+        /**
+         * rating dialog feedback
+         */
+
         fun setFeedbackTitleTextId(@StringRes feedbackTitleTextId: Int) = apply {
             dialogOptions.feedbackTitleTextId = feedbackTitleTextId
         }
@@ -149,13 +146,14 @@ object AppRating {
             dialogOptions.noFeedbackButton.textId = noFeedbackButtonTextId
         }
 
-        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.noFeedbackButton.rateDialogClickListener =
-                    noFeedbackButtonClickListener
-            }
+        fun setNoFeedbackButtonClickListener(noFeedbackButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.noFeedbackButton.rateDialogClickListener = noFeedbackButtonClickListener
+        }
 
-        // rating dialog mail feedback
+        /**
+         * rating dialog mail feedback
+         */
+
         fun setMailFeedbackMessageTextId(@StringRes feedbackMailMessageTextId: Int) = apply {
             dialogOptions.mailFeedbackMessageTextId = feedbackMailMessageTextId
         }
@@ -168,24 +166,21 @@ object AppRating {
             dialogOptions.mailFeedbackButton.textId = mailFeedbackButtonTextId
         }
 
-        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) =
-            apply {
-                dialogOptions.mailFeedbackButton.rateDialogClickListener =
-                    mailFeedbackButtonClickListener
-            }
+        fun overwriteMailFeedbackButtonClickListener(mailFeedbackButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.mailFeedbackButton.rateDialogClickListener = mailFeedbackButtonClickListener
+        }
 
-        fun setAdditionalMailFeedbackButtonClickListener(
-            additionalMailFeedbackButtonClickListener: RateDialogClickListener
-        ) =
-            apply {
-                dialogOptions.additionalMailFeedbackButtonClickListener =
-                    additionalMailFeedbackButtonClickListener
-            }
+        fun setAdditionalMailFeedbackButtonClickListener(additionalMailFeedbackButtonClickListener: RateDialogClickListener) = apply {
+            dialogOptions.additionalMailFeedbackButtonClickListener = additionalMailFeedbackButtonClickListener
+        }
 
-        // rating dialog custom feedback
+        /**
+         * rating dialog custom feedback
+         */
+
         fun setUseCustomFeedback(useCustomFeedback: Boolean) = apply {
             dialogOptions.useCustomFeedback = useCustomFeedback
-            RatingLogger.debug("Use custom feedback instead of mail feedback: $useCustomFeedback.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_use_custom_feedback, useCustomFeedback))
         }
 
         fun setCustomFeedbackMessageTextId(@StringRes feedbackCustomMessageTextId: Int) = apply {
@@ -196,21 +191,22 @@ object AppRating {
             dialogOptions.customFeedbackButton.textId = customFeedbackButtonTextId
         }
 
-        fun setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) =
-            apply {
-                dialogOptions.customFeedbackButton.customFeedbackButtonClickListener =
-                    customFeedbackButtonClickListener
-            }
+        fun setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener: CustomFeedbackButtonClickListener) = apply {
+            dialogOptions.customFeedbackButton.customFeedbackButtonClickListener = customFeedbackButtonClickListener
+        }
 
-        // other settings
+        /**
+         * other settings
+         */
+
         fun setRatingThreshold(ratingThreshold: RatingThreshold) = apply {
             dialogOptions.ratingThreshold = ratingThreshold
-            RatingLogger.debug("Set rating threshold to ${ratingThreshold.ordinal / 2}.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_rating_threshold, ratingThreshold.toFloat()))
         }
 
         fun setCancelable(cancelable: Boolean) = apply {
             dialogOptions.cancelable = cancelable
-            RatingLogger.debug("Set cancelable to $cancelable.")
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_cancelable, cancelable))
         }
 
         fun setDialogCancelListener(dialogCancelListener: () -> Unit) = apply {
@@ -222,10 +218,7 @@ object AppRating {
         }
 
         fun setMinimumLaunchTimesToShowAgain(launchTimesToShowAgain: Int) = apply {
-            PreferenceUtil.setMinimumLaunchTimesToShowAgain(
-                componentActivity,
-                launchTimesToShowAgain,
-            )
+            PreferenceUtil.setMinimumLaunchTimesToShowAgain(componentActivity, launchTimesToShowAgain)
         }
 
         fun setMinimumDays(minimumDays: Int) = apply {
@@ -238,26 +231,17 @@ object AppRating {
 
         fun setCustomCondition(customCondition: () -> Boolean) = apply {
             dialogOptions.customCondition = customCondition
-            RatingLogger.debug(
-                "Custom condition set. This condition will be removed next" +
-                    " time you call the Builder constructor.",
-            )
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_custom_condition))
         }
 
         fun setCustomConditionToShowAgain(customConditionToShowAgain: () -> Boolean) = apply {
             dialogOptions.customConditionToShowAgain = customConditionToShowAgain
-            RatingLogger.debug(
-                "Custom condition to show again set. This condition will" +
-                    "be removed next time you call the Builder constructor.",
-            )
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_set_custom_condition_to_show_again))
         }
 
         fun dontCountThisAsAppLaunch() = apply {
             dialogOptions.countAppLaunch = false
-            RatingLogger.debug(
-                "countAppLaunch is now set to false. This setting will be " +
-                    "reset next time you call the Builder constructor.",
-            )
+            RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_dont_count_app_launch))
         }
 
         fun setLoggingEnabled(isLoggingEnabled: Boolean) = apply {
@@ -266,10 +250,13 @@ object AppRating {
 
         fun setDebug(isDebug: Boolean) = apply {
             this.isDebug = isDebug
-            RatingLogger.warn("Set debug to $isDebug. Don't use this for production.")
+            RatingLogger.warn(componentActivity.getString(R.string.rating_dialog_log_set_debug, isDebug))
         }
 
-        // Google in-app review
+        /**
+         * Google in-app review
+         */
+
         /**
          * If this method is called, the in-app review from Google will be used instead of
          * the library dialog.
@@ -277,7 +264,7 @@ object AppRating {
         fun useGoogleInAppReview() = apply {
             reviewManager = ReviewManagerFactory.create(componentActivity)
             dialogOptions.useGoogleInAppReview = true
-            RatingLogger.info("Use in-app review from Google instead of the library dialog.")
+            RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_use_in_app_review))
         }
 
         /**
@@ -285,101 +272,91 @@ object AppRating {
          * correctly (otherwise false).
          * Note: true doesn't mean that the in-app review from Google was displayed.
          */
-        fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) =
-            apply {
-                dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
-            }
+        fun setGoogleInAppReviewCompleteListener(googleInAppReviewCompleteListener: (Boolean) -> Unit) = apply {
+            dialogOptions.googleInAppReviewCompleteListener = googleInAppReviewCompleteListener
+        }
 
         /**
          * This method will return null if the in-app review from Google is used.
          */
-        fun create(): DialogFragment? {
-            return if (dialogOptions.useGoogleInAppReview) {
-                RatingLogger.warn("In-app review from Google will be used. Can't create the library dialog.")
+        fun create(): DialogFragment? = when {
+            dialogOptions.useGoogleInAppReview -> {
+                RatingLogger.warn(componentActivity.getString(R.string.rating_dialog_log_create_not_possible_with_in_app_review))
                 null
-            } else {
-                RateDialogFragment.newInstance(dialogOptions)
             }
+
+            else -> RateDialogFragment.newInstance(dialogOptions)
         }
 
-        fun showNow() {
-            if (dialogOptions.useGoogleInAppReview) {
-                RatingLogger.info("In-app review from Google will be displayed now.")
+        fun showNow() = when {
+            dialogOptions.useGoogleInAppReview -> {
+                RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_show_in_app_review))
                 showGoogleInAppReview()
-            } else {
-                RatingLogger.debug("In-app review from Google hasn't been activated. Showing library dialog now.")
-                val fragmentActivity = componentActivity as? FragmentActivity
-                fragmentActivity?.let {
-                    RateDialogFragment.newInstance(dialogOptions)
-                        .show(fragmentActivity.supportFragmentManager, TAG)
-                }
-                    ?: RatingLogger.error(
-                        "To use the libraries dialog your activity has to extend from " +
-                            "FragmentActivity (e.g. AppCompatActvity).",
-                    )
+            }
+
+            else -> {
+                RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_show_library_dialog))
+                (componentActivity as? FragmentActivity)?.let { RateDialogFragment.newInstance(dialogOptions).show(it.supportFragmentManager, TAG) }
+                    ?: RatingLogger.error(componentActivity.getString(R.string.rating_dialog_log_error_extend_from_fragment_activity))
             }
         }
 
         fun showIfMeetsConditions(): Boolean {
-            val fragmentActivity = componentActivity as? FragmentActivity
-            fragmentActivity?.let {
-                if (fragmentActivity.supportFragmentManager.findFragmentByTag(TAG) != null) {
-                    RatingLogger.info("Stop checking conditions, rating dialog is currently visible.")
+            (componentActivity as? FragmentActivity)?.let {
+                if (it.supportFragmentManager.findFragmentByTag(TAG) != null) {
+                    RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_stop_checking_conditions))
                     return false
                 }
             }
 
             if (dialogOptions.countAppLaunch) {
-                RatingLogger.debug("App launch will be counted: countAppLaunch is true.")
+                RatingLogger.debug(componentActivity.getString(R.string.rating_dialog_log_app_launch_counted))
                 PreferenceUtil.increaseLaunchTimes(componentActivity)
             } else {
-                RatingLogger.info("App launch not counted this time: countAppLaunch has been set to false.")
+                RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_app_launch_not_counted))
             }
 
             return if (isDebug || ConditionsChecker.shouldShowDialog(componentActivity, dialogOptions)) {
-                RatingLogger.info("Show rating dialog now: Conditions met.")
+                RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_show_rating_dialog_now))
                 showNow()
                 true
             } else {
-                RatingLogger.info("Don't show rating dialog: Conditions not met.")
+                RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_dont_show_rating_dialog_now))
                 false
             }
         }
 
         internal fun showGoogleInAppReview() {
             val requestTask = reviewManager?.requestReviewFlow() ?: run {
-                onGoogleInAppReviewFailure("reviewManager is null. Did you call useGoogleInAppReview()?")
+                onGoogleInAppReviewFailure(componentActivity.getString(R.string.rating_dialog_log_in_app_review_review_manager_is_null))
                 return
             }
             requestTask.addOnCompleteListener { request ->
                 if (request.isSuccessful) {
                     val reviewInfo = request.result ?: run {
-                        onGoogleInAppReviewFailure("The result of the initial request is null.")
+                        onGoogleInAppReviewFailure(componentActivity.getString(R.string.rating_dialog_log_in_app_review_initial_request_is_null))
                         return@addOnCompleteListener
                     }
                     val flow = reviewManager?.launchReviewFlow(componentActivity, reviewInfo) ?: run {
-                        onGoogleInAppReviewFailure(
-                            "reviewManager is null. Did you call " +
-                                "useGoogleInAppReview()?",
-                        )
+                        onGoogleInAppReviewFailure(componentActivity.getString(R.string.rating_dialog_log_in_app_review_initial_request_is_null))
                         return@addOnCompleteListener
                     }
                     flow.addOnCompleteListener { task ->
-                        RatingLogger.info("Google in-app review request completed.")
+                        RatingLogger.info(componentActivity.getString(R.string.rating_dialog_log_in_app_review_completed))
                         PreferenceUtil.onGoogleInAppReviewFlowCompleted(componentActivity)
                         dialogOptions.googleInAppReviewCompleteListener?.invoke(task.isSuccessful)
-                            ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                            ?: RatingLogger.warn(componentActivity.getString(R.string.rating_dialog_log_in_app_review_no_complete_listener))
                     }
                 } else {
-                    onGoogleInAppReviewFailure("The initial request  wasn't successful.")
+                    onGoogleInAppReviewFailure(componentActivity.getString(R.string.rating_dialog_log_in_app_review_initial_request_not_successful))
                 }
             }
         }
 
         private fun onGoogleInAppReviewFailure(additionalInfo: String) {
-            RatingLogger.warn("Google in-app review request wasn't successful. $additionalInfo")
+            RatingLogger.warn(componentActivity.getString(R.string.rating_dialog_log_in_app_review_not_successful, additionalInfo))
             dialogOptions.googleInAppReviewCompleteListener?.invoke(false)
-                ?: RatingLogger.warn("There's no completeListener for Google's in-app review.")
+                ?: RatingLogger.warn(componentActivity.getString(R.string.rating_dialog_log_in_app_review_no_complete_listener))
         }
 
         companion object {

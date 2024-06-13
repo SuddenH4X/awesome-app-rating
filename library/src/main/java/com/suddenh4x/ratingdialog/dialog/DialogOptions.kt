@@ -25,7 +25,10 @@ internal class DialogOptions : Serializable {
     var countAppLaunch: Boolean = true
     var countOfLaterButtonClicksToShowNeverButton = 0
 
-    // rating dialog overview
+    /**
+     * rating dialog overview
+     */
+
     @StringRes
     var titleTextId = R.string.rating_dialog_overview_title
 
@@ -35,7 +38,10 @@ internal class DialogOptions : Serializable {
     var showOnlyFullStars = false
     var storeMode = AppStore.AUTO
 
-    // rating dialog store
+    /**
+     * rating dialog store
+     */
+
     @StringRes
     var storeRatingTitleTextId = R.string.rating_dialog_store_title
 
@@ -44,13 +50,19 @@ internal class DialogOptions : Serializable {
     var rateNowButton: RateButton = RateButton(R.string.rating_dialog_store_button_rate_now, null)
     var additionalRateNowButtonClickListener: RateDialogClickListener? = null
 
-    // rating dialog feedback
+    /**
+     * rating dialog feedback
+     */
+
     @StringRes
     var feedbackTitleTextId = R.string.rating_dialog_feedback_title
     var noFeedbackButton: RateButton =
         RateButton(R.string.rating_dialog_feedback_button_cancel, null)
 
-    // rating dialog mail feedback
+    /**
+     * rating dialog mail feedback
+     */
+
     @StringRes
     var mailFeedbackMessageTextId = R.string.rating_dialog_feedback_mail_message
     var mailFeedbackButton: RateButton =
@@ -58,7 +70,10 @@ internal class DialogOptions : Serializable {
     var mailSettings: MailSettings? = null
     var additionalMailFeedbackButtonClickListener: RateDialogClickListener? = null
 
-    // rating dialog custom feedback
+    /**
+     * rating dialog custom feedback
+     */
+
     var useCustomFeedback = false
 
     @StringRes
@@ -66,11 +81,17 @@ internal class DialogOptions : Serializable {
     var customFeedbackButton: CustomFeedbackButton =
         CustomFeedbackButton(R.string.rating_dialog_feedback_custom_button_submit, null)
 
-    // other settings
+    /**
+     * other settings
+     */
+
     var cancelable = false
     var dialogCancelListener: (() -> Unit)? = null
 
-    // Google in-app review
+    /**
+     * Google in-app review
+     */
+
     var useGoogleInAppReview = false
     var googleInAppReviewCompleteListener: ((Boolean) -> Unit)? = null
 }

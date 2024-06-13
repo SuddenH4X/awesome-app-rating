@@ -51,6 +51,8 @@ class AppRatingTest {
         RatingLogger.isLoggingEnabled = false
         dialogOptions = DialogOptions()
         unmockkAll()
+        every { activity.getString(any()) } returns ""
+        every { activity.getString(any(), any()) } returns ""
     }
 
     @Test

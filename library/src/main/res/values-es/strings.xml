@@ -2,26 +2,26 @@
     <string name="rating_dialog_button_rate_later">Luego</string>
     <string name="rating_dialog_button_rate_never">Nunca</string>
 
-    // rating dialog overview
+    <!-- rating dialog overview -->
     <string name="rating_dialog_overview_image_content_description">Icono de la app</string>
     <string name="rating_dialog_overview_title">Como fue tu experiencia con esta App?</string>
     <string name="rating_dialog_overview_button_confirm">confirmar</string>
 
-    // rating dialog store
+    <!-- rating dialog store -->
     <string name="rating_dialog_store_title">Calificación de la tienda</string>
     <string name="rating_dialog_store_message">Si te gusta usar esta aplicación, ¿Podrías tomarte un momento para calificarla? ¡Gracias por el apoyo!</string>
     <string name="rating_dialog_store_button_rate_now">Calificar</string>
 
-    // rating dialog feedback
+    <!-- rating dialog feedback -->
     <string name="rating_dialog_feedback_title">Dar tu opinión</string>
     <string name="rating_dialog_feedback_button_cancel">Cancelar</string>
 
-    // rating dialog mail feedback
+    <!-- rating dialog mail feedback -->
     <string name="rating_dialog_feedback_mail_message">Queremos mejorar nuestra aplicación con tu ayuda. ¿Quieres enviar un email con tu sugerencia?</string>
     <string name="rating_dialog_feedback_mail_button_send">Enviar</string>
     <string name="rating_dialog_feedback_mail_no_mail_error">¡Para enviar comentarios por email, necesita una aplicación de email!</string>
 
-    // rating dialog custom feedback
+    <!-- rating dialog custom feedback -->
     <string name="rating_dialog_feedback_custom_message">Cuéntanos qué salió mal y trabajaremos para arreglarlo.</string>
     <string name="rating_dialog_feedback_custom_button_submit">Enviar</string>
 </resources>
