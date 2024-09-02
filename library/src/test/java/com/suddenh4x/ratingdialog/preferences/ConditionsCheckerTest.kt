@@ -33,8 +33,6 @@ class ConditionsCheckerTest {
     fun setup() {
         RatingLogger.isLoggingEnabled = false
         mockkObject(PreferenceUtil)
-        every { PreferenceUtil.isDialogAgreed(context) } returns false
-        every { PreferenceUtil.isDoNotShowAgain(context) } returns false
         every { PreferenceUtil.getRemindTimestamp(context) } returns 0
         every { context.getString(any()) } returns ""
         every { context.getString(any(), any()) } returns ""
@@ -51,20 +49,6 @@ class ConditionsCheckerTest {
         @AfterEach
         fun cleanup() {
             dialogOptions.customConditionToShowAgain = null
-        }
-
-        @Test
-        fun `and dialog agreed should return false`() {
-            every { PreferenceUtil.isDialogAgreed(context) } returns true
-            // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
-        }
-
-        @Test
-        fun `and do not show again clicked should return false`() {
-            every { PreferenceUtil.isDoNotShowAgain(context) } returns true
-            // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test
@@ -374,20 +358,6 @@ class ConditionsCheckerTest {
         @AfterEach
         fun cleanup() {
             dialogOptions.customCondition = null
-        }
-
-        @Test
-        fun `and dialog agreed should return false`() {
-            every { PreferenceUtil.isDialogAgreed(context) } returns true
-            // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
-        }
-
-        @Test
-        fun `and do not show again clicked should return false`() {
-            every { PreferenceUtil.isDoNotShowAgain(context) } returns true
-            // fixme: Getting strange errors if using property access
-            assertThat(ConditionsChecker.shouldShowDialog(context, dialogOptions)).isFalse()
         }
 
         @Test

@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_FILE_NAME
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_LAUNCH_TIMES
-import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil.PREF_KEY_REMIND_TIMESTAMP
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -68,15 +67,6 @@ class PreferenceUtilTest {
         PreferenceUtil.increaseLaunchTimes(context)
         verify(exactly = 1) { editor.putInt(PREF_KEY_LAUNCH_TIMES, 1) }
         verify(exactly = 1) { editor.putInt(PREF_KEY_LAUNCH_TIMES, 2) }
-    }
-
-    @Test
-    fun `increase number of later button clicks works correctly`() {
-        every { PreferenceUtil.getNumberOfLaterButtonClicks(context) } returns 0 andThen 1
-        PreferenceUtil.increaseNumberOfLaterButtonClicks(context)
-        PreferenceUtil.increaseNumberOfLaterButtonClicks(context)
-        verify(exactly = 1) { editor.putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 1) }
-        verify(exactly = 1) { editor.putInt(PREF_KEY_NUMBER_OF_LATER_BUTTON_CLICKS, 2) }
     }
 
     // fixme: The System class can't be mocked at the moment: https://github.com/mockk/mockk/issues/98

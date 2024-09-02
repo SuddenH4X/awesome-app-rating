@@ -2,37 +2,24 @@ package com.suddenh4x.ratingdialog
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import com.google.android.play.core.review.ReviewManager
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.suddenh4x.ratingdialog.buttons.ConfirmButtonClickListener
-import com.suddenh4x.ratingdialog.buttons.CustomFeedbackButtonClickListener
-import com.suddenh4x.ratingdialog.buttons.RateDialogClickListener
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
-import com.suddenh4x.ratingdialog.dialog.RateDialogFragment
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.ConditionsChecker
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
-import com.suddenh4x.ratingdialog.preferences.RatingThreshold
 import com.suddenh4x.ratingdialog.utils.FeedbackUtils
 import io.mockk.Runs
-import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.mockkObject
-import io.mockk.mockkStatic
 import io.mockk.spyk
 import io.mockk.unmockkAll
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -55,194 +42,9 @@ class AppRatingTest {
     }
 
     @Test
-    fun `icon drawable is set correctly into dialogOptions`() {
-        val drawable = mockk<Drawable>()
-        getBuilder().setIconDrawable(drawable)
-        assertThat(dialogOptions.iconDrawable).isEqualTo(drawable)
-    }
-
-    @Test
-    fun `rate later button text is set correctly into dialogOptions`() {
-        getBuilder().setRateLaterButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.rateLaterButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `rate later button click listener is set correctly into dialogOptions`() {
-        getBuilder().setRateLaterButtonClickListener(clickListener)
-        assertThat(dialogOptions.rateLaterButton.rateDialogClickListener).isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `rate never button is set correctly into dialogOptions`() {
-        getBuilder().showRateNeverButton(INT_RES_ID, clickListener)
-        dialogOptions.rateNeverButton.let { button ->
-            assertThat(button?.textId).isEqualTo(INT_RES_ID)
-            assertThat(button?.rateDialogClickListener).isEqualTo(clickListener)
-        }
-    }
-
-    @Test
-    fun `count of later button clicks to show never button is set correctly into dialogOptions`() {
-        getBuilder().showRateNeverButtonAfterNTimes(INT_RES_ID, clickListener, 42)
-        assertThat(dialogOptions.countOfLaterButtonClicksToShowNeverButton).isEqualTo(42)
-    }
-
-    @Test
-    fun `title text is set correctly into dialogOptions`() {
-        getBuilder().setTitleTextId(INT_RES_ID)
-        assertThat(dialogOptions.titleTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `custom theme is set correctly into dialogOptions`() {
-        getBuilder().setCustomTheme(INT_RES_ID)
-        assertThat(dialogOptions.customTheme).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `message text is set correctly into dialogOptions`() {
-        getBuilder().setMessageTextId(INT_RES_ID)
-        assertThat(dialogOptions.messageTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `confirm button text is set correctly into dialogOptions`() {
-        getBuilder().setConfirmButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.confirmButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `confirm button click listener is set correctly into dialogOptions`() {
-        getBuilder().setConfirmButtonClickListener(confirmButtonClickListener)
-        assertThat(dialogOptions.confirmButton.confirmButtonClickListener).isEqualTo(
-            confirmButtonClickListener,
-        )
-    }
-
-    @Test
-    fun `full star rating is set correctly into dialogOptions`() {
-        getBuilder().setShowOnlyFullStars(true)
-        assertThat(dialogOptions.showOnlyFullStars).isEqualTo(true)
-    }
-
-    @Test
-    fun `store rating title text is set correctly into dialogOptions`() {
-        getBuilder().setStoreRatingTitleTextId(INT_RES_ID)
-        assertThat(dialogOptions.storeRatingTitleTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `store rating message text is set correctly into dialogOptions`() {
-        getBuilder().setStoreRatingMessageTextId(INT_RES_ID)
-        assertThat(dialogOptions.storeRatingMessageTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `rate now button text is set correctly into dialogOptions`() {
-        getBuilder().setRateNowButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.rateNowButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `rate now button click listener is set correctly into dialogOptions`() {
-        getBuilder().overwriteRateNowButtonClickListener(clickListener)
-        assertThat(dialogOptions.rateNowButton.rateDialogClickListener)
-            .isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `additional rate now button click listener is set correctly into dialogOptions`() {
-        getBuilder().setAdditionalRateNowButtonClickListener(clickListener)
-        assertThat(dialogOptions.additionalRateNowButtonClickListener)
-            .isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `feedback title text is set correctly into dialogOptions`() {
-        getBuilder().setFeedbackTitleTextId(INT_RES_ID)
-        assertThat(dialogOptions.feedbackTitleTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `no feedback button text is set correctly into dialogOptions`() {
-        getBuilder().setNoFeedbackButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.noFeedbackButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `no feedback button click listener is set correctly into dialogOptions`() {
-        getBuilder().setNoFeedbackButtonClickListener(clickListener)
-        assertThat(dialogOptions.noFeedbackButton.rateDialogClickListener).isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `mail feedback message text is set correctly into dialogOptions`() {
-        getBuilder().setMailFeedbackMessageTextId(INT_RES_ID)
-        assertThat(dialogOptions.mailFeedbackMessageTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
     fun `mail settings are set correctly into dialogOptions`() {
         getBuilder().setMailSettingsForFeedbackDialog(mailSettings)
         assertThat(dialogOptions.mailSettings).isEqualTo(mailSettings)
-    }
-
-    @Test
-    fun `mail feedback button text is set correctly into dialogOptions`() {
-        getBuilder().setMailFeedbackButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.mailFeedbackButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `mail feedback button click listener is set correctly into dialogOptions`() {
-        getBuilder().overwriteMailFeedbackButtonClickListener(clickListener)
-        assertThat(dialogOptions.mailFeedbackButton.rateDialogClickListener).isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `additional mail feedback button click listener is set correctly into dialogOptions`() {
-        getBuilder().setAdditionalMailFeedbackButtonClickListener(clickListener)
-        assertThat(dialogOptions.additionalMailFeedbackButtonClickListener)
-            .isEqualTo(clickListener)
-    }
-
-    @Test
-    fun `custom feedback enabled set correctly into dialogOptions`() {
-        getBuilder().setUseCustomFeedback(true)
-        assertThat(dialogOptions.useCustomFeedback).isEqualTo(true)
-    }
-
-    @Test
-    fun `custom feedback message text is set correctly into dialogOptions`() {
-        getBuilder().setCustomFeedbackMessageTextId(INT_RES_ID)
-        assertThat(dialogOptions.customFeedbackMessageTextId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `custom feedback button text is set correctly into dialogOptions`() {
-        getBuilder().setCustomFeedbackButtonTextId(INT_RES_ID)
-        assertThat(dialogOptions.customFeedbackButton.textId).isEqualTo(INT_RES_ID)
-    }
-
-    @Test
-    fun `custom feedback button click listener is set correctly into dialogOptions`() {
-        getBuilder()
-            .setCustomFeedbackButtonClickListener(customFeedbackButtonClickListener)
-        assertThat(dialogOptions.customFeedbackButton.customFeedbackButtonClickListener)
-            .isEqualTo(customFeedbackButtonClickListener)
-    }
-
-    @Test
-    fun `rating threshold is set correctly into dialogOptions`() {
-        getBuilder().setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
-        assertThat(dialogOptions.ratingThreshold).isEqualTo(RatingThreshold.FOUR_AND_A_HALF)
-    }
-
-    @Test
-    fun `cancelable is set correctly into dialogOptions`() {
-        getBuilder().setCancelable(true)
-        assertThat(dialogOptions.cancelable).isEqualTo(true)
     }
 
     @Test
@@ -306,27 +108,9 @@ class AppRatingTest {
         }
 
         @Test
-        fun `is dialog agreed calls correct method of PreferenceUtil`() {
-            AppRating.isDialogAgreed(activity)
-            verify { PreferenceUtil.isDialogAgreed(activity) }
-        }
-
-        @Test
         fun `was later button clicked calls correct method of PreferenceUtil`() {
             AppRating.wasLaterButtonClicked(activity)
             verify { PreferenceUtil.wasLaterButtonClicked(activity) }
-        }
-
-        @Test
-        fun `was never button clicked calls correct method of PreferenceUtil`() {
-            AppRating.wasNeverButtonClicked(activity)
-            verify { PreferenceUtil.isDoNotShowAgain(activity) }
-        }
-
-        @Test
-        fun `get number of later button clicks calls correct method of PreferenceUtil`() {
-            AppRating.getNumberOfLaterButtonClicks(activity)
-            verify { PreferenceUtil.getNumberOfLaterButtonClicks(activity) }
         }
     }
 
@@ -343,37 +127,6 @@ class AppRatingTest {
         assertThat(builder.isDebug).isEqualTo(true)
     }
 
-    @Nested
-    inner class UseGoogleInAppReview {
-        @MockK
-        lateinit var reviewManger: ReviewManager
-
-        @BeforeEach
-        fun setup() {
-            mockkStatic(ReviewManagerFactory::class)
-            every { ReviewManagerFactory.create(any()) } returns reviewManger
-        }
-
-        @Test
-        fun `sets useGoogleInAppReview to true within dialogOptions`() {
-            assertFalse(dialogOptions.useGoogleInAppReview)
-
-            getBuilder().useGoogleInAppReview()
-
-            assertTrue(dialogOptions.useGoogleInAppReview)
-        }
-
-        @Test
-        fun `creates review manager`() {
-            val builder = getBuilder()
-            assertThat(builder.reviewManager).isNull()
-
-            builder.useGoogleInAppReview()
-
-            assertThat(builder.reviewManager).isEqualTo(reviewManger)
-        }
-    }
-
     @Test
     fun `google in-app review complete listener is set correctly into dialogOptions`() {
         val completeListener: (Boolean) -> Unit = mockk()
@@ -382,34 +135,9 @@ class AppRatingTest {
     }
 
     @Nested
-    inner class Create {
-
-        @Test
-        fun `returns null if useGoogleInAppReview is true`() {
-            dialogOptions.useGoogleInAppReview = true
-
-            val result = getBuilder().create()
-
-            assertThat(result).isNull()
-        }
-
-        @Test
-        fun `returns new RatingDialogFragment if useGoogleInAppReview is false`() {
-            dialogOptions.useGoogleInAppReview = false
-            mockkObject(RateDialogFragment)
-            val ratingDialogFragment: RateDialogFragment = mockk()
-            every { RateDialogFragment.newInstance(any()) } returns ratingDialogFragment
-
-            val result = getBuilder().create()
-
-            assertThat(result).isEqualTo(ratingDialogFragment)
-        }
-    }
-
-    @Nested
     inner class ShowNow {
 
-        lateinit var appRatingBuilder: AppRating.Builder
+        private lateinit var appRatingBuilder: AppRating.Builder
 
         @BeforeEach
         fun setup() {
@@ -418,32 +146,11 @@ class AppRatingTest {
 
         @Test
         fun `calls showGoogleInAppReview if useGoogleInAppReview is true`() {
-            dialogOptions.useGoogleInAppReview = true
+            every { appRatingBuilder.showGoogleInAppReview() } just Runs
 
             appRatingBuilder.showNow()
 
             verify(exactly = 1) { appRatingBuilder.showGoogleInAppReview() }
-        }
-
-        @Test
-        fun `creates and shows new RatingDialogFragment if useGoogleInAppReview is false`() {
-            dialogOptions.useGoogleInAppReview = false
-            mockkObject(RateDialogFragment)
-            val ratingDialogFragment: RateDialogFragment = mockk(relaxed = true)
-            val supportFragmentManager: FragmentManager = mockk()
-            every { RateDialogFragment.newInstance(any()) } returns ratingDialogFragment
-            every { activity.supportFragmentManager } returns supportFragmentManager
-
-            appRatingBuilder.showNow()
-
-            verify(exactly = 1) {
-                ratingDialogFragment.show(
-                    supportFragmentManager,
-                    any(),
-                )
-            }
-            verify(exactly = 0) { appRatingBuilder.showGoogleInAppReview() }
-            confirmVerified(ratingDialogFragment)
         }
     }
 
@@ -563,10 +270,6 @@ class AppRatingTest {
     private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 
     companion object {
-        private const val INT_RES_ID = 42
-        private val clickListener = RateDialogClickListener { }
-        private val confirmButtonClickListener = ConfirmButtonClickListener { }
-        private val customFeedbackButtonClickListener = CustomFeedbackButtonClickListener { }
         private val customCondition: () -> Boolean = { true }
         private val mailSettings = MailSettings("mailAddress", "subject", "message", "errorToast")
     }

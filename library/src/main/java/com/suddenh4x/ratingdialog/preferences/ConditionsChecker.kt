@@ -11,15 +11,10 @@ internal object ConditionsChecker {
 
     fun shouldShowDialog(context: Context, dialogOptions: DialogOptions): Boolean {
         RatingLogger.info(context.getString(R.string.rating_dialog_log_conditions_checker_checking))
-        val isDialogAgreed = PreferenceUtil.isDialogAgreed(context)
-        val isDoNotShowAgain = PreferenceUtil.isDoNotShowAgain(context)
         val remindTimestamp = PreferenceUtil.getRemindTimestamp(context)
         val wasLaterButtonClicked = PreferenceUtil.wasLaterButtonClicked(context)
         val currentTimestamp = System.currentTimeMillis()
         val daysBetween = calculateDaysBetween(Date(remindTimestamp), Date(currentTimestamp))
-
-        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_dialog_agreed, isDialogAgreed))
-        RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_dont_show_again, isDoNotShowAgain))
 
         if (wasLaterButtonClicked) {
             RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_show_later_button_clicked))
@@ -27,8 +22,7 @@ internal object ConditionsChecker {
             if (!checkCustomConditionToShowAgain(context, dialogOptions)) return false
 
             return (
-                !isDialogAgreed && !isDoNotShowAgain &&
-                    daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
+                daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
                     PreferenceUtil.getLaunchTimes(context) >=
                     PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)
                 )
@@ -39,8 +33,7 @@ internal object ConditionsChecker {
         RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_days_between, daysBetween))
         RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_later_button_not_clicked))
         return (
-            !isDialogAgreed && !isDoNotShowAgain &&
-                daysBetween >= PreferenceUtil.getMinimumDays(context) &&
+            daysBetween >= PreferenceUtil.getMinimumDays(context) &&
                 PreferenceUtil.getLaunchTimes(context) >=
                 PreferenceUtil.getMinimumLaunchTimes(context)
             )
