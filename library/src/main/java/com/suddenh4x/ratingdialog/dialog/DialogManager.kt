@@ -29,7 +29,10 @@ internal object DialogManager {
     private val TAG = DialogManager::class.java.simpleName
     private var rating: Float = -1f
 
-    internal fun createRatingOverviewDialog(activity: FragmentActivity, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createRatingOverviewDialog(
+        activity: FragmentActivity,
+        dialogOptions: DialogOptions,
+    ): AlertDialog {
         RatingLogger.debug(activity.getString(R.string.rating_dialog_log_rating_overview_creating_dialog))
         val builder = getDialogBuilder(activity, dialogOptions.customTheme)
 
@@ -76,7 +79,10 @@ internal object DialogManager {
     }
 
     @SuppressLint("ResourceType")
-    private fun showOverviewMessage(dialogOptions: DialogOptions, messageTextView: TextView) {
+    private fun showOverviewMessage(
+        dialogOptions: DialogOptions,
+        messageTextView: TextView,
+    ) {
         dialogOptions.messageTextId?.let { messageTextId ->
             messageTextView.apply {
                 setText(messageTextId)
@@ -85,11 +91,19 @@ internal object DialogManager {
         }
     }
 
-    private fun showRatingDialog(dialogOptions: DialogOptions, dialogType: DialogType, activity: FragmentActivity) {
+    private fun showRatingDialog(
+        dialogOptions: DialogOptions,
+        dialogType: DialogType,
+        activity: FragmentActivity,
+    ) {
         RateDialogFragment.newInstance(dialogOptions, dialogType).show(activity.supportFragmentManager, TAG)
     }
 
-    private fun initRatingBar(ratingBar: RatingBar, showOnlyFullStars: Boolean, dialog: AlertDialog) {
+    private fun initRatingBar(
+        ratingBar: RatingBar,
+        showOnlyFullStars: Boolean,
+        dialog: AlertDialog,
+    ) {
         ratingBar.apply {
             if (showOnlyFullStars) {
                 stepSize = 1f
@@ -102,7 +116,10 @@ internal object DialogManager {
         disablePositiveButtonWhenDialogShows(dialog)
     }
 
-    internal fun createRatingStoreDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createRatingStoreDialog(
+        context: Context,
+        dialogOptions: DialogOptions,
+    ): AlertDialog {
         RatingLogger.debug(context.getString(R.string.rating_dialog_log_rating_store_creating_dialog))
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -135,7 +152,10 @@ internal object DialogManager {
         return builder.create()
     }
 
-    internal fun createMailFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createMailFeedbackDialog(
+        context: Context,
+        dialogOptions: DialogOptions,
+    ): AlertDialog {
         RatingLogger.debug(context.getString(R.string.rating_dialog_log_mail_feedback_creating_dialog))
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -160,7 +180,10 @@ internal object DialogManager {
         return builder.create()
     }
 
-    private fun openMailFeedback(context: Context, mailSettings: MailSettings?) {
+    private fun openMailFeedback(
+        context: Context,
+        mailSettings: MailSettings?,
+    ) {
         if (mailSettings != null) {
             FeedbackUtils.openMailFeedback(context, mailSettings)
         } else {
@@ -168,7 +191,10 @@ internal object DialogManager {
         }
     }
 
-    internal fun createCustomFeedbackDialog(context: Context, dialogOptions: DialogOptions): AlertDialog {
+    internal fun createCustomFeedbackDialog(
+        context: Context,
+        dialogOptions: DialogOptions,
+    ): AlertDialog {
         RatingLogger.debug(context.getString(R.string.rating_dialog_log_custom_feedback_creating_dialog))
         val builder = getDialogBuilder(context, dialogOptions.customTheme)
 
@@ -198,14 +224,27 @@ internal object DialogManager {
         }
     }
 
-    private fun initializeCustomFeedbackDialogButtonHandler(editText: EditText, dialog: AlertDialog) {
+    private fun initializeCustomFeedbackDialogButtonHandler(
+        editText: EditText,
+        dialog: AlertDialog,
+    ) {
         editText.addTextChangedListener(
             object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {}
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int,
+                ) {}
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int,
+                ) {
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = (count > 0)
                 }
             },
@@ -218,7 +257,11 @@ internal object DialogManager {
         }
     }
 
-    private fun initializeRatingDialogIcon(context: Context, imageView: ImageView, dialogOptions: DialogOptions) {
+    private fun initializeRatingDialogIcon(
+        context: Context,
+        imageView: ImageView,
+        dialogOptions: DialogOptions,
+    ) {
         if (dialogOptions.iconDrawable != null) {
             RatingLogger.info(context.getString(R.string.rating_dialog_log_use_custom_rating_dialog_icon))
             imageView.setImageDrawable(dialogOptions.iconDrawable)
@@ -281,7 +324,10 @@ internal object DialogManager {
         }
     }
 
-    private fun getDialogBuilder(context: Context, theme: Int): AlertDialog.Builder {
+    private fun getDialogBuilder(
+        context: Context,
+        theme: Int,
+    ): AlertDialog.Builder {
         return try {
             MaterialAlertDialogBuilder(context, theme)
         } catch (ex: IllegalArgumentException) {

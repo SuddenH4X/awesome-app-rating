@@ -1,196 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <TextView
+            style="@style/RatingMessageText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            android:orientation="vertical"
-            tools:context=".MainActivity">
-
-        <TextView
-                style="@style/RatingMessageText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_note_app_reset" />
+            android:text="@string/text_example_note_app_reset" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onResetButtonClicked"
-                android:text="@string/button_example_reset" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onResetButtonClicked"
+            android:text="@string/button_example_reset" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_google_in_app_review" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_google_in_app_review" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onGoogleInAppReviewExampleButtonClicked"
-                android:text="@string/button_example_google_in_app_review" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onGoogleInAppReviewExampleButtonClicked"
+            android:text="@string/button_example_google_in_app_review" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_default" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_default" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onDefaultExampleButtonClicked"
-                android:text="@string/button_example_default" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onDefaultExampleButtonClicked"
+            android:text="@string/button_example_default" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_custom_icon" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_custom_icon" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onCustomIconButtonClicked"
-                android:text="@string/button_example_custom_icon" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCustomIconButtonClicked"
+            android:text="@string/button_example_custom_icon" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_mail_feedback" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_mail_feedback" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onMailFeedbackButtonClicked"
-                android:text="@string/button_example_mail_feedback" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onMailFeedbackButtonClicked"
+            android:text="@string/button_example_mail_feedback" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_custom_feedback" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_custom_feedback" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onCustomFeedbackButtonClicked"
-                android:text="@string/button_example_custom_feedback" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCustomFeedbackButtonClicked"
+            android:text="@string/button_example_custom_feedback" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_show_never" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_show_never" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onShowNeverButtonClicked"
-                android:text="@string/button_example_show_never" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onShowNeverButtonClicked"
+            android:text="@string/button_example_show_never" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_show_never_after_three_times" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_show_never_after_three_times" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onShowNeverButtonAfterThreeTimesClicked"
-                android:text="@string/button_example_show_never_after_three_times" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onShowNeverButtonAfterThreeTimesClicked"
+            android:text="@string/button_example_show_never_after_three_times" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_show_on_third_click" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_show_on_third_click" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onShowOnThirdClickButtonClicked"
-                android:text="@string/button_example_show_on_third_click" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onShowOnThirdClickButtonClicked"
+            android:text="@string/button_example_show_on_third_click" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_rating_threshold_4_and_a_half" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_rating_threshold_4_and_a_half" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onRatingThresholdButtonClicked"
-                android:text="@string/button_example_rating_threshold_4_and_a_half" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRatingThresholdButtonClicked"
+            android:text="@string/button_example_rating_threshold_4_and_a_half" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_full_star_rating" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_full_star_rating" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onFullStarRatingButtonClicked"
-                android:text="@string/button_example_full_star_rating" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onFullStarRatingButtonClicked"
+            android:text="@string/button_example_full_star_rating" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_custom_texts" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_custom_texts" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onCustomTextsButtonClicked"
-                android:text="@string/button_example_custom_texts" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCustomTextsButtonClicked"
+            android:text="@string/button_example_custom_texts" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_cancelable" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_cancelable" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onCancelableButtonClicked"
-                android:text="@string/button_example_cancelable" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCancelableButtonClicked"
+            android:text="@string/button_example_cancelable" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_custom_theme" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_custom_theme" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onCustomThemeButtonClicked"
-                android:text="@string/button_example_custom_theme" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCustomThemeButtonClicked"
+            android:text="@string/button_example_custom_theme" />
 
         <TextView
-                style="@style/ExampleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/text_example_jetpack_compose_activity" />
+            style="@style/ExampleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_example_jetpack_compose_activity" />
 
         <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_big"
-                android:onClick="onJetpackComposeButtonClicked"
-                android:text="@string/button_example_jetpack_compose_activity" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:onClick="onJetpackComposeButtonClicked"
+            android:text="@string/button_example_jetpack_compose_activity" />
     </LinearLayout>
 </ScrollView>
