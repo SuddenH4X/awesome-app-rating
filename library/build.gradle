@@ -6,10 +6,10 @@ def version = "2.7.0"
 
 android {
     namespace 'com.suddenh4x.ratingdialog'
-    compileSdk 34
+    compileSdk 35
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 34
+        targetSdkVersion 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
