@@ -76,7 +76,10 @@ internal class RateDialogFragment : DialogFragment() {
             return rateDialogFragment
         }
 
-        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+        fun newInstance(
+            dialogOptions: DialogOptions,
+            dialogType: DialogType,
+        ): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
                 putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)

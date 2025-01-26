@@ -25,9 +25,6 @@ allprojects {
 
 subprojects {
     apply plugin: 'org.jlleitschuh.gradle.ktlint'
-    ktlint {
-        android = true
-    }
 }
 
 tasks.register('clean', Delete) {

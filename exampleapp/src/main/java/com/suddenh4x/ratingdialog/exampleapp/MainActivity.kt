@@ -30,12 +30,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onResetButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onResetButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.reset(this)
         Toast.makeText(this, R.string.toast_reset, Toast.LENGTH_SHORT).show()
     }
 
-    fun onGoogleInAppReviewExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onGoogleInAppReviewExampleButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .useGoogleInAppReview()
             .setGoogleInAppReviewCompleteListener { successful ->
@@ -45,13 +49,17 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onDefaultExampleButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onDefaultExampleButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .showIfMeetsConditions()
     }
 
-    fun onCustomIconButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onCustomIconButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         val iconDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_star_black, null)
 
         AppRating.Builder(this)
@@ -60,7 +68,9 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onMailFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onMailFeedbackButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setMailSettingsForFeedbackDialog(
@@ -73,7 +83,9 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCustomFeedbackButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onCustomFeedbackButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setUseCustomFeedback(true)
@@ -83,21 +95,27 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onShowNeverButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onShowNeverButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .showRateNeverButton()
             .showIfMeetsConditions()
     }
 
-    fun onShowNeverButtonAfterThreeTimesClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onShowNeverButtonAfterThreeTimesClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .showRateNeverButtonAfterNTimes(countOfLaterButtonClicks = 3)
             .showIfMeetsConditions()
     }
 
-    fun onShowOnThirdClickButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onShowOnThirdClickButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .showRateNeverButton()
             .setMinimumLaunchTimes(3)
@@ -107,21 +125,27 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onRatingThresholdButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onRatingThresholdButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setRatingThreshold(RatingThreshold.FOUR_AND_A_HALF)
             .showIfMeetsConditions()
     }
 
-    fun onFullStarRatingButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onFullStarRatingButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setShowOnlyFullStars(true)
             .showIfMeetsConditions()
     }
 
-    fun onCustomTextsButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onCustomTextsButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setRateNowButtonTextId(R.string.button_rate_now)
@@ -139,7 +163,9 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCancelableButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onCancelableButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setCancelable(true)
@@ -147,19 +173,24 @@ class MainActivity : AppCompatActivity() {
             .showIfMeetsConditions()
     }
 
-    fun onCustomThemeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onCustomThemeButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         AppRating.Builder(this)
             .setDebug(true)
             .setCustomTheme(R.style.AppTheme_CustomAlertDialog)
             .showIfMeetsConditions()
     }
 
-    fun onJetpackComposeButtonClicked(@Suppress("UNUSED_PARAMETER") view: View) {
+    fun onJetpackComposeButtonClicked(
+        @Suppress("UNUSED_PARAMETER") view: View,
+    ) {
         val jetpackComposeIntent = Intent(this, ComposeExampleActivity::class.java)
         startActivity(jetpackComposeIntent)
     }
 
     companion object {
+
         // The livedata is used so that no context is given into the click listeners. (NotSerializableException)
         private val toastLiveData: MutableLiveData<String> = MutableLiveData()
     }
