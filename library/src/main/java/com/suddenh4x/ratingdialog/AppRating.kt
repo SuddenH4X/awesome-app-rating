@@ -2,8 +2,8 @@ package com.suddenh4x.ratingdialog
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
-import androidx.core.app.ComponentActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.play.core.review.ReviewManager
