@@ -35,6 +35,11 @@ android {
     kotlin {
         jvmToolchain(libs.versions.jvmToolchain.get().toInt())
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
 }
 
 dependencies {

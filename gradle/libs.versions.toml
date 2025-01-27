@@ -1,7 +1,7 @@
 [versions]
 androidGradlePlugin = "8.8.0"
 compileSdk = "35"
-jvmToolchain = "17"
+jvmToolchain = "21"
 kotlin = "2.0.20"
 minSdk = "14"
 targetSdk = "35"
