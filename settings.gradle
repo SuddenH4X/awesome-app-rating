@@ -1,2 +1,0 @@
-include ':library', ':exampleapp'
-rootProject.name = 'Awesome App Rating'
