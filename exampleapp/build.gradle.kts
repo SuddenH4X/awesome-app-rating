@@ -1,7 +1,8 @@
 plugins {
     id(libs.plugins.android.application.get().pluginId)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose.compiler)
 }
 
 android {
