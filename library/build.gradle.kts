@@ -70,7 +70,8 @@ ext {
     set("PUBLISH_ARTIFACT_ID", "awesome-app-rating")
     set(
         "PUBLISH_DESCRIPTION",
-        "A highly customizable Android library providing a dialog, which asks the user to rate the app or give feedback. You can also use the library to show the Google in-app review easily under certain conditions.",
+        "A highly customizable Android library providing a dialog, which asks the user to rate the app or give feedback. You can also use the" +
+            "library to show the Google in-app review easily under certain conditions.",
     )
     set("PUBLISH_URL", "https://github.com/SuddenH4X/awesome-app-rating")
     set("PUBLISH_LICENSE_NAME", "Apache License")
