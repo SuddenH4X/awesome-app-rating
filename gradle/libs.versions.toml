@@ -1,8 +1,8 @@
 [versions]
 androidGradlePlugin = "8.8.0"
 compileSdk = "35"
-jvmToolchain = "17"
-kotlin = "1.9.10"
+jvmToolchain = "21"
+kotlin = "2.0.20"
 minSdk = "14"
 targetSdk = "35"
 
@@ -49,4 +49,5 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradleNexusPublish" }
 jlleitschuh-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 mannodermaus-android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "mannodermausJunit5" }
