@@ -1,17 +1,17 @@
 plugins {
-    id("com.android.library")
-    id("kotlin-android")
-    id("de.mannodermaus.android-junit5")
+    id(libs.plugins.android.library.get().pluginId)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.mannodermaus.android.junit5)
+    alias(libs.plugins.jlleitschuh.gradle.ktlint)
 }
 
 val version = "2.7.0"
 
 android {
     namespace = "com.suddenh4x.ratingdialog"
-    compileSdk = 35
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 14
-        targetSdk = 35
+        minSdk = libs.versions.minSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,7 +27,7 @@ android {
     }
 
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
     }
 
     // Workaround for https://github.com/gradle-nexus/publish-plugin/issues/208
@@ -36,23 +36,21 @@ android {
     }
 }
 
-val junitVersion = "5.11.4"
-
 dependencies {
-    implementation("androidx.annotation:annotation:1.9.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
-    implementation("androidx.core:core-ktx:1.15.0")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.androidx.annotation)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.google.material)
 
-    implementation("com.google.android.play:review:2.0.2")
-    implementation("com.google.android.play:review-ktx:2.0.2")
+    implementation(libs.google.play.review)
+    implementation(libs.google.play.review.ktx)
 
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
-    testImplementation("org.assertj:assertj-core:3.26.3")
-    testImplementation("io.mockk:mockk:1.13.14")
+    testRuntimeOnly(libs.testing.junit.jupiter.engine)
+    testImplementation(libs.testing.junit.jupiter.api)
+    testImplementation(libs.testing.junit.jupiter.params)
+    testImplementation(libs.testing.assertj.core)
+    testImplementation(libs.testing.mockk)
 }
 
 afterEvaluate {
@@ -65,7 +63,10 @@ ext {
     set("PUBLISH_GROUP_ID", "com.suddenh4x.ratingdialog")
     set("PUBLISH_VERSION", version)
     set("PUBLISH_ARTIFACT_ID", "awesome-app-rating")
-    set("PUBLISH_DESCRIPTION", "A highly customizable Android library providing a dialog, which asks the user to rate the app or give feedback. You can also use the library to show the Google in-app review easily under certain conditions.")
+    set(
+        "PUBLISH_DESCRIPTION",
+        "A highly customizable Android library providing a dialog, which asks the user to rate the app or give feedback. You can also use the library to show the Google in-app review easily under certain conditions.",
+    )
     set("PUBLISH_URL", "https://github.com/SuddenH4X/awesome-app-rating")
     set("PUBLISH_LICENSE_NAME", "Apache License")
     set("PUBLISH_LICENSE_URL", "https://github.com/SuddenH4X/awesome-app-rating/blob/master/LICENSE")
