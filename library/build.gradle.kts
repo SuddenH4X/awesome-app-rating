@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
 }
 
-val version = "2.7.0"
+val version = "2.8.0"
 
 android {
     namespace = "com.suddenh4x.ratingdialog"
