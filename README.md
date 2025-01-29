@@ -1,6 +1,6 @@
 # Awesome App Rating
 
-[![Build Status](https://app.bitrise.io/app/3156ba39c3e19393/status.svg?token=xXPr-IjWuLLKVliX5QPZKg&branch=master)](https://app.bitrise.io/app/3156ba39c3e19393)
+[![Build Status](https://app.bitrise.io/app/3156ba39c3e19393/status.svg?token=xXPr-IjWuLLKVliX5QPZKg&branch=develop)](https://app.bitrise.io/app/3156ba39c3e19393)
 
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
