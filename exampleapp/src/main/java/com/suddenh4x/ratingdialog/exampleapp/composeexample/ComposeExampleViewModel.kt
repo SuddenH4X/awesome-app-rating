@@ -15,9 +15,10 @@ class ComposeExampleViewModel : ViewModel() {
     val uiState = viewModelState.map(ComposeExampleViewModelState::toUiState)
         .stateIn(viewModelScope, SharingStarted.Eagerly, viewModelState.value.toUiState())
 
-    fun showSnackbar(successful: Boolean) = viewModelState.update {
-        it.copy(snackbarText = "Google in-app review completed (successful: $successful)")
-    }
+    fun showSnackbar(successful: Boolean) =
+        viewModelState.update {
+            it.copy(snackbarText = "Google in-app review completed (successful: $successful)")
+        }
 
     fun dismissSnackbar() = viewModelState.update { it.copy(snackbarText = null) }
 }

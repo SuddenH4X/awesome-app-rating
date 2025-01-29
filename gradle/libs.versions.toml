@@ -1,0 +1,53 @@
+[versions]
+androidGradlePlugin = "8.8.0"
+compileSdk = "35"
+jvmToolchain = "21"
+kotlin = "2.0.20"
+minSdk = "14"
+targetSdk = "35"
+
+androidxActivityCompose = "1.10.0"
+androidxAnnotation = "1.9.1"
+androidxAppcompat = "1.7.0"
+androidxComposeMaterial3 = "1.3.1"
+androidxComposeUiTooling = "1.7.6"
+androidxConstraintlayout = "2.2.0"
+androidxCore = "1.15.0"
+googleMaterial = "1.12.0"
+googlePlayReview = "2.0.2"
+gradleNexusPublish = "1.3.0"
+ktlint = "12.1.2"
+
+# Dependencies for testing
+mannodermausJunit5 = "1.11.2.0"
+testingAssertJ = "3.26.3"
+testingJupiterJunit = "5.11.4"
+testingMockk = "1.13.14"
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidxAnnotation" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxComposeUiTooling" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+google-material = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
+google-play-review = { module = "com.google.android.play:review", version.ref = "googlePlayReview" }
+google-play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "googlePlayReview" }
+
+# Dependencies for testing
+testing-assertj-core = { module = "org.assertj:assertj-core", version.ref = "testingAssertJ" }
+testing-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "testingJupiterJunit" }
+testing-junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "testingJupiterJunit" }
+testing-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "testingJupiterJunit" }
+testing-mockk = { module = "io.mockk:mockk", version.ref = "testingMockk" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradleNexusPublish" }
+jlleitschuh-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+mannodermaus-android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "mannodermausJunit5" }
