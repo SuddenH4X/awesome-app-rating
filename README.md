@@ -31,7 +31,7 @@ This library:
 - uses AndroidX
 - uses no third party dependencies
 - is easy debuggable
-- is Android 14 (API 34) ready
+- is Android 15 (API 35) ready
 - is easy to use
 
 ## How to use
