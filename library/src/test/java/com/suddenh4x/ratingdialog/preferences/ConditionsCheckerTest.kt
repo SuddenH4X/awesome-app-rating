@@ -1,8 +1,6 @@
 package com.suddenh4x.ratingdialog.preferences
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import com.suddenh4x.ratingdialog.AppRating
 import com.suddenh4x.ratingdialog.dialog.DialogOptions
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import io.mockk.every
@@ -22,11 +20,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class ConditionsCheckerTest {
+
     @MockK
     lateinit var context: Context
 
-    @MockK
-    lateinit var activity: AppCompatActivity
     internal lateinit var dialogOptions: DialogOptions
 
     @BeforeEach
@@ -43,6 +40,7 @@ class ConditionsCheckerTest {
 
     @Nested
     inner class WithLaterButtonClicked {
+
         @BeforeEach
         fun setup() {
             every { PreferenceUtil.wasLaterButtonClicked(context) } returns true
@@ -77,6 +75,7 @@ class ConditionsCheckerTest {
 
         @Nested
         inner class AndWithRemindTimestampIsSetToNow {
+
             @BeforeEach
             fun setup() {
                 every { PreferenceUtil.getRemindTimestamp(context) } returns System.currentTimeMillis()
@@ -84,6 +83,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysToShowAgainIsSetTo0 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDaysToShowAgain(context) } returns 0
@@ -91,6 +91,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 0
@@ -137,6 +138,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 2
@@ -182,6 +184,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysToShowAgainIsSetTo3 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDaysToShowAgain(context) } returns 3
@@ -198,6 +201,7 @@ class ConditionsCheckerTest {
 
         @Nested
         inner class AndWithRemindTimestampIsSetToThreeDaysAgo {
+
             @BeforeEach
             fun setup() {
                 every { PreferenceUtil.getRemindTimestamp(context) } returns getDateThreeDaysAgo().time
@@ -205,6 +209,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysToShowAgainIsSetTo0 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDaysToShowAgain(context) } returns 0
@@ -212,6 +217,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 0
@@ -232,6 +238,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 2
@@ -277,6 +284,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysToShowAgainIsSetTo3 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDaysToShowAgain(context) } returns 3
@@ -284,6 +292,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 0
@@ -304,6 +313,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesToShowAgainIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimesToShowAgain(context) } returns 2
@@ -349,6 +359,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysToShowAgainIsSetTo7 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDaysToShowAgain(context) } returns 7
@@ -366,6 +377,7 @@ class ConditionsCheckerTest {
 
     @Nested
     inner class WithLaterButtonNotClicked {
+
         @BeforeEach
         fun setup() {
             every { PreferenceUtil.wasLaterButtonClicked(context) } returns false
@@ -400,6 +412,7 @@ class ConditionsCheckerTest {
 
         @Nested
         inner class AndWithRemindTimestampIsSetToNow {
+
             @BeforeEach
             fun setup() {
                 every { PreferenceUtil.getRemindTimestamp(context) } returns System.currentTimeMillis()
@@ -407,6 +420,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysIsSetTo0 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDays(context) } returns 0
@@ -414,6 +428,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 0
@@ -434,6 +449,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 2
@@ -479,6 +495,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysIsSetTo3 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDays(context) } returns 3
@@ -495,6 +512,7 @@ class ConditionsCheckerTest {
 
         @Nested
         inner class AndWithRemindTimestampIsSetToThreeDaysAgo {
+
             @BeforeEach
             fun setup() {
                 every { PreferenceUtil.getRemindTimestamp(context) } returns getDateThreeDaysAgo().time
@@ -502,6 +520,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysIsSetTo0 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDays(context) } returns 0
@@ -509,6 +528,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 0
@@ -555,6 +575,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 2
@@ -600,6 +621,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysIsSetTo3 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDays(context) } returns 3
@@ -607,6 +629,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo0 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 0
@@ -627,6 +650,7 @@ class ConditionsCheckerTest {
 
                 @Nested
                 inner class AndWithMinimumLaunchTimesIsSetTo2 {
+
                     @BeforeEach
                     fun setup() {
                         every { PreferenceUtil.getMinimumLaunchTimes(context) } returns 2
@@ -672,6 +696,7 @@ class ConditionsCheckerTest {
 
             @Nested
             inner class AndWithMinimumDaysIsSetTo7 {
+
                 @BeforeEach
                 fun setup() {
                     every { PreferenceUtil.getMinimumDays(context) } returns 7
@@ -700,6 +725,4 @@ class ConditionsCheckerTest {
         calendar.add(Calendar.DAY_OF_MONTH, -3)
         return calendar.time
     }
-
-    private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 }

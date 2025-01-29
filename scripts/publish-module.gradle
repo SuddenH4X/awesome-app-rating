@@ -1,7 +1,7 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-task androidSourcesJar(type: Jar) {
+tasks.register('androidSourcesJar', Jar) {
     archiveClassifier.set('sources')
     if (project.plugins.findPlugin("com.android.library")) {
         from android.sourceSets.main.java.srcDirs
@@ -31,7 +31,7 @@ afterEvaluate {
                 if (project.plugins.findPlugin("com.android.library")) {
                     from components.release
                 } else {
-                    artifact("$buildDir/libs/${project.getName()}-${version}.jar")
+                    artifact("${layout.buildDirectory}/libs/${project.getName()}-${version}.jar")
                 }
 
                 artifact androidSourcesJar

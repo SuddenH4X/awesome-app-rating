@@ -104,6 +104,7 @@ class PreferenceUtilTest {
     }
 
     companion object {
+
         private const val CURRENT_TIME_IN_MILLIS = 123456789L
     }
 }
