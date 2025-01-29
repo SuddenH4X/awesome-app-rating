@@ -2,26 +2,124 @@
     <string name="rating_dialog_button_rate_later">Later</string>
     <string name="rating_dialog_button_rate_never">Never</string>
 
-    // rating dialog overview
+    <!-- rating dialog overview -->
     <string name="rating_dialog_overview_image_content_description">App Icon</string>
     <string name="rating_dialog_overview_title">How was your experience with this app?</string>
     <string name="rating_dialog_overview_button_confirm">Confirm</string>
 
-    // rating dialog store
+    <!-- rating dialog store -->
     <string name="rating_dialog_store_title">Store Rating</string>
     <string name="rating_dialog_store_message">If you enjoy using this app, would you mind taking a moment to rate it? Thanks for your support!</string>
     <string name="rating_dialog_store_button_rate_now">Rate</string>
 
-    // rating dialog feedback
+    <!-- rating dialog feedback -->
     <string name="rating_dialog_feedback_title">Give Feedback</string>
     <string name="rating_dialog_feedback_button_cancel">Cancel</string>
 
-    // rating dialog mail feedback
+    <!-- rating dialog mail feedback -->
     <string name="rating_dialog_feedback_mail_message">We want to improve the App with your help. Do you want to send an email with your suggestions?</string>
     <string name="rating_dialog_feedback_mail_button_send">Send</string>
     <string name="rating_dialog_feedback_mail_no_mail_error">For sending feedback via mail, you need a mail app!</string>
 
-    // rating dialog custom feedback
+    <!-- rating dialog custom feedback -->
     <string name="rating_dialog_feedback_custom_message">Suggest us what went wrong and we\'ll work on it.</string>
     <string name="rating_dialog_feedback_custom_button_submit">Submit</string>
+
+    <!-- logs app rating -->
+    <string name="rating_dialog_log_settings_reset" translatable="false">Settings were reset.</string>
+    <string name="rating_dialog_log_use_custom_icon" translatable="false">Use custom icon drawable.</string>
+    <string name="rating_dialog_log_use_custom_theme" translatable="false">Use custom theme.</string>
+    <string name="rating_dialog_log_show_rate_never_button" translatable="false">Show rate never button.</string>
+    <string name="rating_dialog_log_show_rate_never_button_later" translatable="false">Show rate never button after %d later button clicks.</string>
+    <string name="rating_dialog_log_use_custom_feedback" translatable="false">Use custom feedback instead of mail feedback: %b.</string>
+    <string name="rating_dialog_log_set_rating_threshold" translatable="false">Set rating threshold to %f.</string>
+    <string name="rating_dialog_log_set_cancelable" translatable="false">Set cancelable to %b.</string>
+    <string name="rating_dialog_log_set_custom_condition" translatable="false">Custom condition set. This condition will be removed next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_set_custom_condition_to_show_again" translatable="false">Custom condition to show again set. This condition will be removed next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_dont_count_app_launch" translatable="false">countAppLaunch is now set to false. This setting will be reset next time you call the Builder constructor.</string>
+    <string name="rating_dialog_log_set_debug" translatable="false">Set debug to %b. Don\'t use this for production.</string>
+    <string name="rating_dialog_log_use_in_app_review" translatable="false">Use in-app review from Google instead of the library dialog.</string>
+    <string name="rating_dialog_log_create_not_possible_with_in_app_review" translatable="false">In-app review from Google will be used. Can\'t create the library dialog.</string>
+    <string name="rating_dialog_log_show_in_app_review" translatable="false">In-app review from Google will be displayed now.</string>
+    <string name="rating_dialog_log_show_library_dialog" translatable="false">In-app review from Google hasn\'t been activated. Showing library dialog now.</string>
+    <string name="rating_dialog_log_error_extend_from_fragment_activity" translatable="false">To use the libraries dialog your activity has to extend from FragmentActivity (e.g. AppCompatActivity).</string>
+    <string name="rating_dialog_log_stop_checking_conditions" translatable="false">Stop checking conditions, rating dialog is currently visible.</string>
+    <string name="rating_dialog_log_app_launch_counted" translatable="false">App launch will be counted: countAppLaunch is true.</string>
+    <string name="rating_dialog_log_app_launch_not_counted" translatable="false">App launch not counted this time: countAppLaunch has been set to false.</string>
+    <string name="rating_dialog_log_show_rating_dialog_now" translatable="false">Show rating dialog now: Conditions met.</string>
+    <string name="rating_dialog_log_dont_show_rating_dialog_now" translatable="false">Don\'t show rating dialog: Conditions not met.</string>
+    <string name="rating_dialog_log_in_app_review_review_manager_is_null" translatable="false">reviewManager is null. Did you call useGoogleInAppReview()?</string>
+    <string name="rating_dialog_log_in_app_review_initial_request_is_null" translatable="false">The result of the initial request is null.</string>
+    <string name="rating_dialog_log_in_app_review_completed" translatable="false">Google in-app review request completed.</string>
+    <string name="rating_dialog_log_in_app_review_no_complete_listener" translatable="false">There\'s no completeListener for Google\'s in-app review.</string>
+    <string name="rating_dialog_log_in_app_review_initial_request_not_successful" translatable="false">The initial request wasn\'t successful.</string>
+    <string name="rating_dialog_log_in_app_review_not_successful" translatable="false">Google in-app review request wasn\'t successful. %1$s</string>
+
+    <!-- logs dialog manager -->
+    <string name="rating_dialog_log_rating_overview_creating_dialog" translatable="false">Creating rating overview dialog.</string>
+    <string name="rating_dialog_log_rating_overview_confirm_button_clicked" translatable="false">Confirm button clicked.</string>
+    <string name="rating_dialog_log_rating_overview_confirm_button_no_click_listener" translatable="false">Confirm button has no click listener.</string>
+    <string name="rating_dialog_log_rating_overview_above_threshold" translatable="false">Above threshold. Showing rating store dialog.</string>
+    <string name="rating_dialog_log_rating_overview_below_threshold_with_custom_feedback" translatable="false">Below threshold and custom feedback is enabled. Showing custom feedback dialog.</string>
+    <string name="rating_dialog_log_rating_overview_below_threshold_without_custom_feedback" translatable="false">Below threshold and custom feedback is disabled. Showing mail feedback dialog.</string>
+    <string name="rating_dialog_log_rating_store_creating_dialog" translatable="false">Creating store rating dialog.</string>
+    <string name="rating_dialog_log_rating_store_rate_button_clicked" translatable="false">Rate button clicked.</string>
+    <string name="rating_dialog_log_rating_store_default_click_listener" translatable="false">Default rate now button click listener called.</string>
+    <string name="rating_dialog_log_rating_store_additional_click_listener_not_set" translatable="false">Additional rate now button click listener not set.</string>
+    <string name="rating_dialog_log_mail_feedback_creating_dialog" translatable="false">Creating mail feedback dialog.</string>
+    <string name="rating_dialog_log_mail_feedback_button_clicked" translatable="false">Mail feedback button clicked.</string>
+    <string name="rating_dialog_log_mail_feedback_additional_click_listener_not_set" translatable="false">Additional mail feedback button click listener not set.</string>
+    <string name="rating_dialog_log_mail_feedback_no_mail_settings" translatable="false">Mail feedback button has no click listener and mail settings hasn\'t been set. Nothing happens.</string>
+    <string name="rating_dialog_log_custom_feedback_creating_dialog" translatable="false">Creating custom feedback dialog.</string>
+    <string name="rating_dialog_log_custom_feedback_button_clicked" translatable="false">Custom feedback button clicked.</string>
+    <string name="rating_dialog_log_custom_feedback_no_click_listener" translatable="false">Custom feedback button has no click listener. Nothing happens.</string>
+    <string name="rating_dialog_log_use_custom_rating_dialog_icon" translatable="false">Use custom rating dialog icon.</string>
+    <string name="rating_dialog_log_use_app_icon" translatable="false">Use app icon for rating dialog.</string>
+    <string name="rating_dialog_log_rate_later_button_clicked" translatable="false">Rate later button clicked.</string>
+    <string name="rating_dialog_log_rate_later_button_no_click_listener" translatable="false">Rate later button has no click listener.</string>
+    <string name="rating_dialog_log_rate_later_button_was_clicked" translatable="false">Rate later button was clicked %d times.</string>
+    <string name="rating_dialog_log_rate_later_button_dont_show_never" translatable="false">Less than %d later button clicks. Rate never button won\'t be displayed.</string>
+    <string name="rating_dialog_log_rate_never_button_clicked" translatable="false">Rate never button clicked.</string>
+    <string name="rating_dialog_log_rate_never_button_no_click_listener" translatable="false">Rate never button has no click listener.</string>
+    <string name="rating_dialog_log_no_feedback_button_clicked" translatable="false">No feedback button clicked.</string>
+    <string name="rating_dialog_log_no_feedback_button_no_click_listener" translatable="false">No feedback button has no click listener.</string>
+    <string name="rating_dialog_log_no_material_components_theme_used" translatable="false">This app doesn\'t use a MaterialComponents theme. Using normal AlertDialog instead.</string>
+
+    <!-- logs rate dialog fragment -->
+    <string name="rating_dialog_log_rate_dialog_was_canceled" translatable="false">Dialog was canceled.</string>
+    <string name="rating_dialog_log_rate_dialog_cancel_listener_not_set" translatable="false">Dialog cancel listener isn\'t set.</string>
+
+    <!-- conditions checker -->
+    <string name="rating_dialog_log_conditions_checker_checking" translatable="false">Checking conditions.</string>
+    <string name="rating_dialog_log_conditions_checker_dialog_agreed" translatable="false">Is dialog agreed: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_dont_show_again" translatable="false">Do not show again: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_show_later_button_clicked" translatable="false">Show later button has already been clicked.</string>
+    <string name="rating_dialog_log_conditions_checker_later_button_days_between" translatable="false">Days between later button click and now: %d.</string>
+    <string name="rating_dialog_log_conditions_checker_days_between" translatable="false">Days between first app start and now: %d.</string>
+    <string name="rating_dialog_log_conditions_checker_later_button_not_clicked" translatable="false">Show later button hasn\'t been clicked until now.</string>
+    <string name="rating_dialog_log_conditions_checker_custom_condition" translatable="false">Custom condition found. Condition result is: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_no_custom_condition" translatable="false">No custom condition was set.</string>
+    <string name="rating_dialog_log_conditions_checker_custom_condition_to_show_again" translatable="false">Custom condition to show again found. Condition result is: %b.</string>
+    <string name="rating_dialog_log_conditions_checker_no_custom_condition_to_show_again" translatable="false">No custom condition to show again was set.</string>
+
+    <!-- preference utils -->
+    <string name="rating_dialog_log_preference_launch_times_increased" translatable="false">Increased launch times by 1. It\'s now %d.</string>
+    <string name="rating_dialog_log_preference_minimum_launch_times_set" translatable="false">Set minimum launch times to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_launch_times_to_show_again_set" translatable="false">Set minimum launch times to show the dialog again to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_days_set" translatable="false">Set minimum days to %d.</string>
+    <string name="rating_dialog_log_preference_minimum_days_to_show_again_set" translatable="false">Set minimum days to show the dialog again to %d.</string>
+    <string name="rating_dialog_log_preference_later_button_clicked" translatable="false">Later button was clicked or dialog was canceled. Update remind timestamp and set launch times to 0.</string>
+    <string name="rating_dialog_log_preference_in_app_review_completed" translatable="false">Google in-app review flow has been completed. Update remind timestamp and set launch times to 0.</string>
+    <string name="rating_dialog_log_preference_initial_timestamp_set" translatable="false">First app start. Set initial remind timestamp.</string>
+    <string name="rating_dialog_log_preference_dialog_agreed" translatable="false">Set dialog agreed.</string>
+    <string name="rating_dialog_log_preference_increase_later_button_clicks" translatable="false">Increased number of later button clicks by 1. It\'s now %d.</string>
+    <string name="rating_dialog_log_preference_dont_show_again" translatable="false">Set do not show again.</string>
+    <string name="rating_dialog_log_preference_reset" translatable="false">Clearing all settings.</string>
+
+    <!-- feedback utils -->
+    <string name="rating_dialog_log_feedback_utils_open_rating_url" translatable="false">Open rating url (in app): %s.</string>
+    <string name="rating_dialog_log_feedback_utils_play_store_not_found" translatable="false">Google Play Store was not found on this device. Calling web url now.</string>
+    <string name="rating_dialog_log_feedback_utils_open_rating_url_web" translatable="false">Open rating url (web): %s.</string>
+    <string name="rating_dialog_log_feedback_utils_open_mail_app" translatable="false">Open mail app.</string>
+    <string name="rating_dialog_log_feedback_utils_mail_app_not_found" translatable="false">No mail app is installed. Showing error toast now.</string>
 </resources>

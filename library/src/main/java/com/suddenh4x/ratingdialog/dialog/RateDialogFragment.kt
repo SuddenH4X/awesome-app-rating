@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.PreferenceUtil
 
@@ -30,14 +31,17 @@ internal class RateDialogFragment : DialogFragment() {
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.RATING_STORE -> DialogManager.createRatingStoreDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_MAIL -> DialogManager.createMailFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
             )
+
             DialogType.FEEDBACK_CUSTOM -> DialogManager.createCustomFeedbackDialog(
                 requireActivity(),
                 dialogOptions,
@@ -54,10 +58,10 @@ internal class RateDialogFragment : DialogFragment() {
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        RatingLogger.info("Dialog was canceled.")
+        RatingLogger.info(getString(R.string.rating_dialog_log_rate_dialog_was_canceled))
         PreferenceUtil.onLaterButtonClicked(requireContext())
         dialogOptions.dialogCancelListener?.invoke()
-            ?: RatingLogger.info("Dialog cancel listener isn't set.")
+            ?: RatingLogger.info(getString(R.string.rating_dialog_log_rate_dialog_cancel_listener_not_set))
     }
 
     companion object {
@@ -72,7 +76,10 @@ internal class RateDialogFragment : DialogFragment() {
             return rateDialogFragment
         }
 
-        fun newInstance(dialogOptions: DialogOptions, dialogType: DialogType): RateDialogFragment {
+        fun newInstance(
+            dialogOptions: DialogOptions,
+            dialogType: DialogType,
+        ): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
             rateDialogFragment.arguments = Bundle().apply {
                 putSerializable(ARG_DIALOG_OPTIONS, dialogOptions)

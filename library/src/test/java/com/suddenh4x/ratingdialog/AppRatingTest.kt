@@ -50,6 +50,8 @@ class AppRatingTest {
         RatingLogger.isLoggingEnabled = false
         dialogOptions = DialogOptions()
         unmockkAll()
+        every { activity.getString(any()) } returns ""
+        every { activity.getString(any(), any()) } returns ""
     }
 
     @Test
@@ -264,6 +266,7 @@ class AppRatingTest {
 
     @Nested
     inner class PreferenceUtilCalls {
+
         @MockK(relaxed = true)
         lateinit var sharedPreferences: SharedPreferences
 
@@ -343,6 +346,7 @@ class AppRatingTest {
 
     @Nested
     inner class UseGoogleInAppReview {
+
         @MockK
         lateinit var reviewManger: ReviewManager
 
@@ -407,7 +411,7 @@ class AppRatingTest {
     @Nested
     inner class ShowNow {
 
-        lateinit var appRatingBuilder: AppRating.Builder
+        private lateinit var appRatingBuilder: AppRating.Builder
 
         @BeforeEach
         fun setup() {
@@ -447,6 +451,7 @@ class AppRatingTest {
 
     @Nested
     inner class ShowIfMeetsConditions {
+
         private val TAG = "AwesomeAppRatingDialog"
 
         @BeforeEach
@@ -561,6 +566,7 @@ class AppRatingTest {
     private fun getBuilder() = AppRating.Builder(activity, dialogOptions)
 
     companion object {
+
         private const val INT_RES_ID = 42
         private val clickListener = RateDialogClickListener { }
         private val confirmButtonClickListener = ConfirmButtonClickListener { }

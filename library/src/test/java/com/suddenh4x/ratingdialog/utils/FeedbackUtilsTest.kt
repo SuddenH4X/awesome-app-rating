@@ -23,6 +23,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class FeedbackUtilsTest {
+
     @MockK
     lateinit var context: Context
 
@@ -34,6 +35,8 @@ class FeedbackUtilsTest {
         RatingLogger.isLoggingEnabled = false
         mockkStatic(Uri::class)
         every { Uri.parse(any()) } returns uri
+        every { context.getString(any()) } returns ""
+        every { context.getString(any(), any()) } returns ""
     }
 
     @Nested
@@ -69,6 +72,7 @@ class FeedbackUtilsTest {
 
     @Nested
     inner class OpenMailFeedback {
+
         @MockK
         lateinit var intent: Intent
 
@@ -109,7 +113,7 @@ class FeedbackUtilsTest {
             mockkStatic(Toast::class)
             every { anyConstructed<Intent>().resolveActivity(any()) } returns null
             every { Toast.makeText(context, any<String>(), Toast.LENGTH_LONG) } returns mockk(
-                relaxed = true
+                relaxed = true,
             )
             FeedbackUtils.openMailFeedback(context, mailSettings)
 
@@ -118,13 +122,14 @@ class FeedbackUtilsTest {
                 Toast.makeText(
                     context,
                     mailSettings.errorToastMessage,
-                    Toast.LENGTH_LONG
+                    Toast.LENGTH_LONG,
                 )
             }
         }
     }
 
     companion object {
+
         private const val PACKAGE_NAME = "com.suddenh4x.unittest"
         private val mailSettings = MailSettings("address", "subject", "message", "errorToast")
     }
