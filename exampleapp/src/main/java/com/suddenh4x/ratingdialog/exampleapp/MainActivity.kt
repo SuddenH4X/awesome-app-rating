@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 MailSettings(
                     "info@your-app.de",
                     "Feedback Mail",
-                    "This is an example text.\n\nYou could set some device infos here.",
+                    "This is an example text.\n\nYou could set some device info here.",
                 ),
             )
             .showIfMeetsConditions()
