@@ -411,7 +411,7 @@ class AppRatingTest {
     @Nested
     inner class ShowNow {
 
-        lateinit var appRatingBuilder: AppRating.Builder
+        private lateinit var appRatingBuilder: AppRating.Builder
 
         @BeforeEach
         fun setup() {

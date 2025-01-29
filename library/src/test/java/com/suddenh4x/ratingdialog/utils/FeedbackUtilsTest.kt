@@ -23,6 +23,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class FeedbackUtilsTest {
+
     @MockK
     lateinit var context: Context
 
@@ -71,6 +72,7 @@ class FeedbackUtilsTest {
 
     @Nested
     inner class OpenMailFeedback {
+
         @MockK
         lateinit var intent: Intent
 
@@ -127,6 +129,7 @@ class FeedbackUtilsTest {
     }
 
     companion object {
+
         private const val PACKAGE_NAME = "com.suddenh4x.unittest"
         private val mailSettings = MailSettings("address", "subject", "message", "errorToast")
     }

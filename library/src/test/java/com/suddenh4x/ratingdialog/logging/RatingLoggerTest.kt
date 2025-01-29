@@ -76,6 +76,7 @@ class RatingLoggerTest {
     }
 
     companion object {
+
         private const val TAG = "awesome_app_rating"
     }
 }
