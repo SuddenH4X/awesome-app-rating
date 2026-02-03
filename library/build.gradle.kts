@@ -1,6 +1,5 @@
 plugins {
     id(libs.plugins.android.library.get().pluginId)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.mannodermaus.android.junit5)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
 }
@@ -26,10 +25,6 @@ android {
         viewBinding = true
     }
 
-    kotlin {
-        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
@@ -39,6 +34,10 @@ android {
     publishing {
         singleVariant("release")
     }
+}
+
+kotlin {
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
 }
 
 dependencies {
