@@ -1,7 +1,6 @@
 plugins {
     id(libs.plugins.android.application.get().pluginId)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose.compiler)
 }
 
@@ -10,7 +9,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.suddenh4x.ratingdialog.exampleapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
@@ -28,24 +27,21 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-
-    kotlin {
-        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
+kotlin {
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+}
+
 dependencies {
     implementation(project(":library"))
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.appcompat)
