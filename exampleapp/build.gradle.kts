@@ -40,6 +40,7 @@ kotlin {
 dependencies {
     implementation(project(":library"))
 
+    implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material3)
