@@ -9,9 +9,7 @@ targetSdk = "35"
 androidxActivityCompose = "1.13.0"
 androidxAnnotation = "1.10.0"
 androidxAppcompat = "1.7.1"
-androidxComposeMaterial3 = "1.4.0"
-androidxComposeMaterialIcons = "1.7.8"
-androidxComposeUiTooling = "1.11.2"
+androidxComposeBom = "2026.05.01"
 androidxConstraintlayout = "2.2.1"
 androidxCore = "1.16.0" # Don't upgrade to 1.17.0 or higher because of compileSdk 36 requirement
 googleMaterial = "1.14.0"
@@ -29,9 +27,10 @@ testingMockk = "1.14.11"
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3" }
-androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "androidxComposeMaterialIcons" }
-androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxComposeUiTooling" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
 google-material = { module = "com.google.android.material:material", version.ref = "googleMaterial" }

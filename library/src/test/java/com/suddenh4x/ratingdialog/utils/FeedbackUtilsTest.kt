@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.suddenh4x.ratingdialog.logging.RatingLogger
 import com.suddenh4x.ratingdialog.preferences.MailSettings
 import io.mockk.Runs
+import io.mockk.andThenJust
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -60,7 +61,7 @@ class FeedbackUtilsTest {
 
         @Test
         fun `opens correct web url if Play Store hasn't been found`() {
-            every { context.startActivity(any()) } throws ActivityNotFoundException() andThen {}
+            every { context.startActivity(any()) } throws ActivityNotFoundException() andThenJust Runs
 
             FeedbackUtils.openPlayStoreListing(context)
             verify(exactly = 2) { Uri.parse(any()) }
