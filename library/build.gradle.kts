@@ -2,12 +2,18 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id(libs.plugins.android.library.get().pluginId)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.mannodermaus.android.junit5)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
 }
 
 val version = "2.8.0"
+
+kotlin {
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
 
 android {
     namespace = "com.suddenh4x.ratingdialog"
@@ -26,13 +32,6 @@ android {
 
     buildFeatures {
         viewBinding = true
-    }
-
-    kotlin {
-        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
     }
 
     compileOptions {

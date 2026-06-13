@@ -3,8 +3,14 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id(libs.plugins.android.application.get().pluginId)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose.compiler)
+}
+
+kotlin {
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
 }
 
 android {
@@ -28,13 +34,6 @@ android {
     buildFeatures {
         viewBinding = true
         compose = true
-    }
-
-    kotlin {
-        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
-        }
     }
 
     compileOptions {
