@@ -4,7 +4,7 @@ compileSdk = "36"
 jvmToolchain = "21"
 kotlin = "2.3.21"
 minSdk = "23"
-targetSdk = "35"
+targetSdk = "36"
 
 androidxActivityCompose = "1.13.0"
 androidxAnnotation = "1.10.0"
