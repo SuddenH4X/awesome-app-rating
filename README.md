@@ -1,6 +1,6 @@
 # Awesome App Rating
 
-[![Build Status](https://app.bitrise.io/app/3156ba39c3e19393/status.svg?token=xXPr-IjWuLLKVliX5QPZKg&branch=master)](https://app.bitrise.io/app/3156ba39c3e19393)
+[![CI](https://github.com/SuddenH4X/awesome-app-rating/actions/workflows/ci.yml/badge.svg?branch=develop)](https://github.com/SuddenH4X/awesome-app-rating/actions/workflows/ci.yml)
 
 A highly customizable Android library providing a dialog, which asks the user to rate the app. If the user rates below the defined threshold, the dialog will show a feedback form or ask the user to mail his feedback. Otherwise it will ask the user to rate the app in the Google Play Store.
 
@@ -37,12 +37,12 @@ This library:
 ## How to use
 ### Gradle
 
-The library supports API level 14 and higher. You can simply include it in your app via Gradle:
+The library supports API level 23 and higher. You can simply include it in your app via Gradle:
 
 ```groovy
 dependencies {
     ...
-    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.8.0'
+    implementation 'com.suddenh4x.ratingdialog:awesome-app-rating:2.9.0'
 }
 ```
 

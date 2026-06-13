@@ -30,7 +30,8 @@ internal object ConditionsChecker {
             if (!checkCustomConditionToShowAgain(context, dialogOptions)) return false
 
             return (
-                !isDialogAgreed && !isDoNotShowAgain &&
+                !isDialogAgreed &&
+                    !isDoNotShowAgain &&
                     daysBetween >= PreferenceUtil.getMinimumDaysToShowAgain(context) &&
                     PreferenceUtil.getLaunchTimes(context) >=
                     PreferenceUtil.getMinimumLaunchTimesToShowAgain(context)
@@ -42,7 +43,8 @@ internal object ConditionsChecker {
         RatingLogger.verbose(context.getString(R.string.rating_dialog_log_conditions_checker_days_between, daysBetween))
         RatingLogger.debug(context.getString(R.string.rating_dialog_log_conditions_checker_later_button_not_clicked))
         return (
-            !isDialogAgreed && !isDoNotShowAgain &&
+            !isDialogAgreed &&
+                !isDoNotShowAgain &&
                 daysBetween >= PreferenceUtil.getMinimumDays(context) &&
                 PreferenceUtil.getLaunchTimes(context) >=
                 PreferenceUtil.getMinimumLaunchTimes(context)
@@ -52,9 +54,7 @@ internal object ConditionsChecker {
     internal fun calculateDaysBetween(
         d1: Date,
         d2: Date,
-    ): Long {
-        return TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
-    }
+    ): Long = TimeUnit.MILLISECONDS.toDays(d2.time - d1.time)
 
     private fun checkCustomCondition(
         context: Context,

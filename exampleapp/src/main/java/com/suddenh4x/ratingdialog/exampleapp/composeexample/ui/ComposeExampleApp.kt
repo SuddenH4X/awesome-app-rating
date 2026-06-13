@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -69,7 +69,7 @@ private fun ComposeExampleTopAppBar(finishActivity: () -> Unit) {
     TopAppBar(
         title = { Text("Jetpack Compose Example") },
         navigationIcon = { NavigateBackIcon(finishActivity) },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primary,
             titleContentColor = MaterialTheme.colorScheme.onPrimary,
         ),
@@ -80,7 +80,7 @@ private fun ComposeExampleTopAppBar(finishActivity: () -> Unit) {
 private fun NavigateBackIcon(finishActivity: () -> Unit) {
     IconButton(onClick = { finishActivity() }) {
         Icon(
-            imageVector = Icons.Filled.ArrowBack,
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = "Navigate back",
             tint = MaterialTheme.colorScheme.onPrimary,
         )

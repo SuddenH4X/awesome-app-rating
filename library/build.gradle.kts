@@ -1,11 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id(libs.plugins.android.library.get().pluginId)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.mannodermaus.android.junit5)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
+    alias(libs.plugins.vanniktech.maven.publish)
 }
 
-val version = "2.8.0"
+val version = "2.9.0"
+
+kotlin {
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
 
 android {
     namespace = "com.suddenh4x.ratingdialog"
@@ -26,18 +35,9 @@ android {
         viewBinding = true
     }
 
-    kotlin {
-        jvmToolchain(libs.versions.jvmToolchain.get().toInt())
-    }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    // Workaround for https://github.com/gradle-nexus/publish-plugin/issues/208
-    publishing {
-        singleVariant("release")
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
@@ -64,24 +64,36 @@ afterEvaluate {
     }
 }
 
-ext {
-    set("PUBLISH_GROUP_ID", "com.suddenh4x.ratingdialog")
-    set("PUBLISH_VERSION", version)
-    set("PUBLISH_ARTIFACT_ID", "awesome-app-rating")
-    set(
-        "PUBLISH_DESCRIPTION",
-        "A highly customizable Android library providing a dialog, which asks the user to rate the app or give feedback. You can also use the" +
-            "library to show the Google in-app review easily under certain conditions.",
-    )
-    set("PUBLISH_URL", "https://github.com/SuddenH4X/awesome-app-rating")
-    set("PUBLISH_LICENSE_NAME", "Apache License")
-    set("PUBLISH_LICENSE_URL", "https://github.com/SuddenH4X/awesome-app-rating/blob/master/LICENSE")
-    set("PUBLISH_DEVELOPER_ID", "SuddenH4X")
-    set("PUBLISH_DEVELOPER_NAME", "Sascha Kühne")
-    set("PUBLISH_DEVELOPER_EMAIL", "SuddenH4X@users.noreply.github.com")
-    set("PUBLISH_SCM_CONNECTION", "scm:git:github.com/SuddenH4X/awesome-app-rating.git")
-    set("PUBLISH_SCM_DEVELOPER_CONNECTION", "scm:git:ssh://github.com:SuddenH4X/awesome-app-rating.git")
-    set("PUBLISH_SCM_URL", "https://github.com/SuddenH4X/awesome-app-rating/tree/master")
-}
+mavenPublishing {
+    publishToMavenCentral(automaticRelease = true)
+    signAllPublications()
 
-apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
+    coordinates("com.suddenh4x.ratingdialog", "awesome-app-rating", version)
+
+    pom {
+        name.set("awesome-app-rating")
+        description.set(
+            "A highly customizable Android library providing a dialog, which asks the user to rate the app or give " +
+                "feedback. You can also use the library to show the Google in-app review easily under certain conditions.",
+        )
+        url.set("https://github.com/SuddenH4X/awesome-app-rating")
+        licenses {
+            license {
+                name.set("Apache License")
+                url.set("https://github.com/SuddenH4X/awesome-app-rating/blob/main/LICENSE")
+            }
+        }
+        developers {
+            developer {
+                id.set("SuddenH4X")
+                name.set("Sascha Kühne")
+                email.set("SuddenH4X@users.noreply.github.com")
+            }
+        }
+        scm {
+            url.set("https://github.com/SuddenH4X/awesome-app-rating/tree/main")
+            connection.set("scm:git:github.com/SuddenH4X/awesome-app-rating.git")
+            developerConnection.set("scm:git:ssh://github.com:SuddenH4X/awesome-app-rating.git")
+        }
+    }
+}

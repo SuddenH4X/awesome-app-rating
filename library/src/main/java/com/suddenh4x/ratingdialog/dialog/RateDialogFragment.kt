@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.BundleCompat
 import androidx.fragment.app.DialogFragment
 import com.suddenh4x.ratingdialog.R
 import com.suddenh4x.ratingdialog.logging.RatingLogger
@@ -22,8 +23,12 @@ internal class RateDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
-        dialogOptions = arguments?.getSerializable(ARG_DIALOG_OPTIONS) as DialogOptions
-        dialogType = arguments?.getSerializable(ARG_DIALOG_TYPE) as DialogType? ?: DialogType.RATING_OVERVIEW
+        val args = requireArguments()
+        dialogOptions = requireNotNull(
+            BundleCompat.getSerializable(args, ARG_DIALOG_OPTIONS, DialogOptions::class.java),
+        ) { "$ARG_DIALOG_OPTIONS argument is missing" }
+        dialogType = BundleCompat.getSerializable(args, ARG_DIALOG_TYPE, DialogType::class.java)
+            ?: DialogType.RATING_OVERVIEW
         isCancelable = dialogOptions.cancelable
 
         return when (dialogType) {

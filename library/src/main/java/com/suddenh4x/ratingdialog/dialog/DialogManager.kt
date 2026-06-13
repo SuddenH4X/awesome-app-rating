@@ -327,12 +327,11 @@ internal object DialogManager {
     private fun getDialogBuilder(
         context: Context,
         theme: Int,
-    ): AlertDialog.Builder {
-        return try {
+    ): AlertDialog.Builder =
+        try {
             MaterialAlertDialogBuilder(context, theme)
         } catch (ex: IllegalArgumentException) {
             RatingLogger.debug(context.getString(R.string.rating_dialog_log_no_material_components_theme_used))
             AlertDialog.Builder(context, theme)
         }
-    }
 }
