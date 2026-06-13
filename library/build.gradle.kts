@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id(libs.plugins.android.library.get().pluginId)
     alias(libs.plugins.kotlin.android)
@@ -28,11 +30,14 @@ android {
 
     kotlin {
         jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     // Workaround for https://github.com/gradle-nexus/publish-plugin/issues/208

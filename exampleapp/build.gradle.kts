@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id(libs.plugins.android.application.get().pluginId)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
@@ -34,11 +36,14 @@ android {
 
     kotlin {
         jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
+        }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
