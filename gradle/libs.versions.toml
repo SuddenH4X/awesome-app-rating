@@ -1,34 +1,36 @@
 [versions]
-androidGradlePlugin = "8.8.0"
-compileSdk = "35"
+androidGradlePlugin = "8.13.2"
+compileSdk = "36"
 jvmToolchain = "21"
-kotlin = "2.0.20"
 minSdk = "14"
+kotlin = "2.3.21"
 targetSdk = "35"
 
-androidxActivityCompose = "1.10.0"
-androidxAnnotation = "1.9.1"
-androidxAppcompat = "1.7.0"
-androidxComposeMaterial3 = "1.3.1"
-androidxComposeUiTooling = "1.7.6"
-androidxConstraintlayout = "2.2.0"
-androidxCore = "1.15.0"
-googleMaterial = "1.12.0"
+androidxActivityCompose = "1.13.0"
+androidxAnnotation = "1.10.0"
+androidxAppcompat = "1.7.1"
+androidxComposeMaterial3 = "1.4.0"
+androidxComposeMaterialIcons = "1.7.8"
+androidxComposeUiTooling = "1.11.2"
+androidxConstraintlayout = "2.2.1"
+androidxCore = "1.16.0"
+googleMaterial = "1.14.0"
 googlePlayReview = "2.0.2"
 gradleNexusPublish = "2.0.0"
-ktlint = "12.1.2"
+ktlint = "14.2.0"
 
 # Dependencies for testing
-mannodermausJunit5 = "1.11.2.0"
-testingAssertJ = "3.26.3"
-testingJupiterJunit = "5.11.4"
-testingMockk = "1.13.14"
+mannodermausJunit5 = "2.0.1"
+testingAssertJ = "3.27.7"
+testingJupiterJunit = "6.1.0"
+testingMockk = "1.14.11"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidxAnnotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "androidxComposeMaterialIcons" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidxComposeUiTooling" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidxConstraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
