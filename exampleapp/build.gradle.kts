@@ -30,10 +30,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.3"
-    }
-
     kotlin {
         jvmToolchain(libs.versions.jvmToolchain.get().toInt())
         compilerOptions {
