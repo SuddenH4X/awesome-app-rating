@@ -37,7 +37,7 @@ This library:
 ## How to use
 ### Gradle
 
-The library supports API level 14 and higher. You can simply include it in your app via Gradle:
+The library supports API level 23 and higher. You can simply include it in your app via Gradle:
 
 ```groovy
 dependencies {
