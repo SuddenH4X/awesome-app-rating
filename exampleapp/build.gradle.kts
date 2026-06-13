@@ -10,7 +10,7 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.suddenh4x.ratingdialog.exampleapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0.0"
