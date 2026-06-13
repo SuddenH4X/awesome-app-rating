@@ -14,8 +14,8 @@ androidxConstraintlayout = "2.2.1"
 androidxCore = "1.16.0" # Don't upgrade to 1.17.0 or higher because of compileSdk 36 requirement
 googleMaterial = "1.14.0"
 googlePlayReview = "2.0.2"
-gradleNexusPublish = "2.0.0"
 ktlint = "14.2.0"
+vanniktechMavenPublish = "0.36.0"
 
 # Dependencies for testing
 mannodermausJunit5 = "2.0.1"
@@ -47,7 +47,7 @@ testing-mockk = { module = "io.mockk:mockk", version.ref = "testingMockk" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-gradle-nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "gradleNexusPublish" }
 jlleitschuh-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 mannodermaus-android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "mannodermausJunit5" }
+vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechMavenPublish" }
