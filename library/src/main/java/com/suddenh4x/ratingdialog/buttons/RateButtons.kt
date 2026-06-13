@@ -4,16 +4,16 @@ import androidx.annotation.StringRes
 import java.io.Serializable
 
 internal class RateButton(
-    @param:StringRes var textId: Int,
+    @param:StringRes @get:StringRes var textId: Int,
     @Transient var rateDialogClickListener: RateDialogClickListener?,
 ) : Serializable
 
 internal class ConfirmButton(
-    @param:StringRes var textId: Int,
+    @param:StringRes @get:StringRes var textId: Int,
     @Transient var confirmButtonClickListener: ConfirmButtonClickListener?,
 ) : Serializable
 
 internal class CustomFeedbackButton(
-    @param:StringRes var textId: Int,
+    @param:StringRes @get:StringRes var textId: Int,
     @Transient var customFeedbackButtonClickListener: CustomFeedbackButtonClickListener?,
 ) : Serializable
