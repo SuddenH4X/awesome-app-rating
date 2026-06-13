@@ -80,7 +80,7 @@ mavenPublishing {
         licenses {
             license {
                 name.set("Apache License")
-                url.set("https://github.com/SuddenH4X/awesome-app-rating/blob/master/LICENSE")
+                url.set("https://github.com/SuddenH4X/awesome-app-rating/blob/main/LICENSE")
             }
         }
         developers {
@@ -91,7 +91,7 @@ mavenPublishing {
             }
         }
         scm {
-            url.set("https://github.com/SuddenH4X/awesome-app-rating/tree/master")
+            url.set("https://github.com/SuddenH4X/awesome-app-rating/tree/main")
             connection.set("scm:git:github.com/SuddenH4X/awesome-app-rating.git")
             developerConnection.set("scm:git:ssh://github.com:SuddenH4X/awesome-app-rating.git")
         }
